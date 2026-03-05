@@ -11,11 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Concreate\" />
-    <Folder Include="EntityFramework\" />
-    <Folder Include="Context\" />
     <Folder Include="UnitOfWorkDesignPattern\" />
-    <Folder Include="RepositoryDesignPattern\" />
   </ItemGroup>
 
 </Project>
