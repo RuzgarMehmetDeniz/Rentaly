@@ -33,6 +33,7 @@ namespace Rentaly.Businesslayer.Concreate
             return await _brandDal.GetListAsync();
         }
 
+
         public async Task TInsertAsync(Brand entity)
         {
             if (string.IsNullOrWhiteSpace(entity.BrandName))
