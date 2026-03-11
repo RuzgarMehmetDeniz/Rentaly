@@ -5,6 +5,7 @@ namespace Rentaly.Businesslayer.ValidationRules
 {
     public class BrandValidator : AbstractValidator<Brand>
     {
+
         public BrandValidator()
         {
             // Marka adı boş olamaz
