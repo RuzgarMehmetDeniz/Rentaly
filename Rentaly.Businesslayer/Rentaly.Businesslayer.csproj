@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Container\" />
-    <Folder Include="ErrorMessages\" />
   </ItemGroup>
 
   <ItemGroup>
