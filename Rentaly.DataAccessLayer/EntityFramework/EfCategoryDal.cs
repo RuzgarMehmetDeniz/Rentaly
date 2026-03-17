@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Rentaly.DataAccessLayer.EntityFramework
 {
-    public class EfCategoryDal : GenericRepository<Car>, ICarDal
+    public class EfCategoryDal : GenericRepository<Category>, ICategoryDal
     {
         public EfCategoryDal(RentalyContext context) : base(context)
         {

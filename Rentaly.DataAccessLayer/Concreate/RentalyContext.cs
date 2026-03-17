@@ -5,9 +5,16 @@ namespace Rentaly.DataAccessLayer.Concreate
 {
     public class RentalyContext : DbContext
     {
+        public RentalyContext(DbContextOptions<RentalyContext> options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=NıTRO-AN515-57;Database=RentalyDb;Trusted_Connection=True;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=NıTRO-AN515-57;Database=RentalyDb;TrustServerCertificate=True;Integrated Security=True");
+            }
         }
 
         public DbSet<Branch> Branches { get; set; }
