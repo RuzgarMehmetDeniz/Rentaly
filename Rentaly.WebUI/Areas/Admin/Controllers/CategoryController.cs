@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace Rentaly.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
+
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
