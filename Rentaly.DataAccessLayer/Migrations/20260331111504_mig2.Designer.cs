@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rentaly.DataAccessLayer.Concreate;
 
@@ -11,9 +12,11 @@ using Rentaly.DataAccessLayer.Concreate;
 namespace Rentaly.DataAccessLayer.Migrations
 {
     [DbContext(typeof(RentalyContext))]
-    partial class RentalyContextModelSnapshot : ModelSnapshot
+    [Migration("20260331111504_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,8 +132,6 @@ namespace Rentaly.DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("CarId");
-
-                    b.HasIndex("BranchId");
 
                     b.HasIndex("CategoryId");
 
@@ -254,26 +255,13 @@ namespace Rentaly.DataAccessLayer.Migrations
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Car", b =>
                 {
-                    b.HasOne("Rentaly.EntityLayer.Entities.Branch", "Branch")
-                        .WithMany("Cars")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Rentaly.EntityLayer.Entities.Category", "Category")
                         .WithMany("Cars")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Branch");
-
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("Rentaly.EntityLayer.Entities.Branch", b =>
-                {
-                    b.Navigation("Cars");
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Category", b =>

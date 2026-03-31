@@ -14,7 +14,9 @@ namespace Rentaly.EntityLayer.Entities
         public int BrandId { get; set; }
         public int ModelId { get; set; }
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
         public int BranchId { get; set; }
+        public Branch Branch { get; set; }
         public int Year { get; set; }
         public int Kilometer { get; set; }
         public decimal DailyPrice { get; set; }
@@ -26,6 +28,7 @@ namespace Rentaly.EntityLayer.Entities
         public int SeatCount { get; set; }
         public int LuggageCount { get; set; }
         public string FuelType { get; set; }
+
 
     }
 }

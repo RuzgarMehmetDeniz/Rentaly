@@ -23,6 +23,11 @@ namespace Rentaly.Businesslayer.Concreate
             await _carDal.DeleteAsync(id);
         }
 
+        public async Task<List<Car>> TGetAllCarWithCategoryAsync()
+        {
+           return await _carDal.GetAllCarWithCategoryAsync();
+        }
+
         public async Task<Car> TGetByIdAsync(int id)
         {
             return await _carDal.GetByIdAsync(id);

@@ -9,5 +9,6 @@ namespace Rentaly.Businesslayer.Abstract
 {
     public interface ICarService:IGenericService<Car>
     {
+        Task<List<Car>> TGetAllCarWithCategoryAsync();
     }
 }

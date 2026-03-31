@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Rentaly.DataAccessLayer.Abstract
 {
-    public interface ICarDal:IGenericDal<Car>
+    public interface ICarDal : IGenericDal<Car>
     {
+        Task<List<Car>> GetAllCarWithCategoryAsync();
     }
 }
