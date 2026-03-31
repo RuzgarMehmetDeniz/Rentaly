@@ -1,4 +1,5 @@
 ﻿using Rentaly.Businesslayer.Abstract;
+using Rentaly.DataAccessLayer.Abstract;
 using Rentaly.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,29 +11,36 @@ namespace Rentaly.Businesslayer.Concreate
 {
     public class RentalManager : IRentalService
     {
-        public Task TDeleteAsync(int id)
+        private readonly IRentalDal _rentalDal;
+
+        public RentalManager(IRentalDal rentalDal)
         {
-            throw new NotImplementedException();
+            _rentalDal = rentalDal;
         }
 
-        public Task<Rental> TGetByIdAsync(int id)
+        public async Task TDeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            await _rentalDal.DeleteAsync(id);
         }
 
-        public Task<List<Rental>> TGetListAsync()
+        public async Task<Rental> TGetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+         return await _rentalDal.GetByIdAsync(id);
         }
 
-        public Task TInsertAsync(Rental entity)
+        public async Task<List<Rental>> TGetListAsync()
         {
-            throw new NotImplementedException();
+            return await _rentalDal.GetListAsync();
         }
 
-        public Task TUpdateAsync(Rental entity)
+        public async Task TInsertAsync(Rental entity)
         {
-            throw new NotImplementedException();
+            await _rentalDal.InsertAsync(entity);
+        }
+
+        public async Task TUpdateAsync(Rental entity)
+        {
+            await _rentalDal.UpdateAsync(entity);
         }
     }
 }

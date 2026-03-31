@@ -1,14 +1,10 @@
+using Rentaly.Businesslayer.Abstract;
+using Rentaly.Businesslayer.Concreate;
 using Rentaly.DataAccessLayer.Abstract;
 using Rentaly.DataAccessLayer.Concreate;
 using Rentaly.DataAccessLayer.EntityFramework;
-using Rentaly.Businesslayer.Abstract;
-using Rentaly.Businesslayer.Concreate;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddDbContext<RentalyContext>(options =>
-    options.UseSqlServer("Server=NýTRO-AN515-57;Database=RentalyDb;TrustServerCertificate=True;Integrated Security=True"));
 
 // DAL
 builder.Services.AddScoped<ICategoryDal, EfCategoryDal>();
@@ -27,6 +23,8 @@ builder.Services.AddScoped<IBrandService, BrandManager>();
 builder.Services.AddScoped<ICarModelService, CarModelManager>();
 builder.Services.AddScoped<ICustomerService, CustomerManager>();
 builder.Services.AddScoped<IRentalService, RentalManager>();
+
+builder.Services.AddDbContext<RentalyContext>();
 
 builder.Services.AddControllersWithViews();
 

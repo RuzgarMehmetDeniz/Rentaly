@@ -727,18 +727,25 @@
     const allRows = () => [...document.querySelectorAll('#catTableBody tr[data-id]')];
 
     // ── Arama ──
-    function filterCategories() {
+       function filterCategories() {
         const q = document.getElementById('catSearch').value.toLowerCase().trim();
         let visible = 0;
+
         allRows().forEach(row => {
             const name = row.dataset.name || '';
             const id   = row.dataset.id   || '';
-            const show = !q || name.includes(q) || id.includes(q);
-            row.style.display = show ? '' : 'none';
-            if (show) visible++;
+
+            const match = !q || name.includes(q) || id.includes(q);
+
+            row.dataset.filtered = match ? 'true' : 'false';
+
+            if (match) visible++;
         });
+
         document.getElementById('statFiltered').textContent = visible;
         document.getElementById('emptyState').style.display = visible === 0 ? 'block' : 'none';
+
+        currentPage = 1;
         buildPaging();
     }
 
@@ -781,43 +788,52 @@
     }
 
     // ── Sıfırla ──
-    function resetCatFilters() {
+       function resetCatFilters() {
         document.getElementById('catSearch').value = '';
         document.getElementById('sortSelect').value = 'id-asc';
-        allRows().forEach(r => r.style.display = '');
+
+        allRows().forEach(r => r.dataset.filtered = 'true');
+
         document.getElementById('statFiltered').textContent = allRows().length;
         document.getElementById('emptyState').style.display = 'none';
+
+        currentPage = 1;
         sortBy('id', 'asc');
-        showToast('Filtreler sıfırlandı.', 'info');
     }
 
     // ── Basit Pagination ──
     const PAGE_SIZE = 10;
     let currentPage = 1;
 
-    function buildPaging() {
-        const visible = allRows().filter(r => r.style.display !== 'none');
-        const total   = visible.length;
-        const pages   = Math.max(1, Math.ceil(total / PAGE_SIZE));
+       function buildPaging() {
+        const rows = allRows();
+        const visible = rows.filter(r => r.dataset.filtered !== 'false');
+
+        const total = visible.length;
+        const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+
         if (currentPage > pages) currentPage = pages;
 
-        visible.forEach((r, i) => {
-            r.style.display = (i >= (currentPage - 1) * PAGE_SIZE && i < currentPage * PAGE_SIZE) ? '' : 'none';
-        });
+        rows.forEach(r => r.style.display = 'none');
 
-        // Gizlenenleri gizle (filtered out)
-        allRows().filter(r => r.getAttribute('data-hidden') === 'true').forEach(r => r.style.display = 'none');
+        visible.forEach((r, i) => {
+            if (i >= (currentPage - 1) * PAGE_SIZE && i < currentPage * PAGE_SIZE) {
+                r.style.display = '';
+            }
+        });
 
         const info = document.getElementById('pagingInfo');
         const from = total === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
         const to   = Math.min(currentPage * PAGE_SIZE, total);
-        info.textContent = total > 0 ? `${from}–${to} / toplam ${total} kategori` : '0 kategori';
+
+        info.textContent = total > 0
+            ? `${from}–${to} / toplam ${total} kategori`
+            : '0 kategori';
 
         const btns = document.getElementById('pagingBtns');
         btns.innerHTML = '';
 
-        // Prev
-        const prev = makePageBtn('<i class="fa-solid fa-chevron-left" style="font-size:11px;"></i>', () => goPage(currentPage - 1));
+        const prev = makePageBtn('‹', () => goPage(currentPage - 1));
         if (currentPage === 1) prev.disabled = true;
         btns.appendChild(prev);
 
@@ -827,12 +843,12 @@
             btns.appendChild(btn);
         }
 
-        // Next
-        const next = makePageBtn('<i class="fa-solid fa-chevron-right" style="font-size:11px;"></i>', () => goPage(currentPage + 1));
+        const next = makePageBtn('›', () => goPage(currentPage + 1));
         if (currentPage === pages) next.disabled = true;
         btns.appendChild(next);
 
-        document.getElementById('pagingWrap').style.display = total <= PAGE_SIZE && pages === 1 ? 'none' : 'flex';
+        document.getElementById('pagingWrap').style.display =
+            total <= PAGE_SIZE ? 'none' : 'flex';
     }
 
     function makePageBtn(html, fn) {
@@ -875,15 +891,18 @@
         document.getElementById('modalCatName').classList.remove('is-invalid');
         document.getElementById('modalNameError').style.display = 'none';
         document.getElementById('modalCharCount').textContent   = name.length;
-        document.getElementById('catModalForm').action = '/Category/Edit';
+        document.getElementById('catModalForm').action = '/Admin/Category/UpdateCategory/';
         new bootstrap.Modal(document.getElementById('catModal')).show();
     }
 
     // ── Modal: Sil ──
-    function openDeleteModal(id, name) {
+       function openDeleteModal(id, name) {
         document.getElementById('deleteCatName').textContent = `"${name}"`;
-        document.getElementById('deleteCatId').value         = id;
-        document.getElementById('deleteForm').action         = `/Category/Delete/${id}`;
+        document.getElementById('deleteCatId').value = id;
+
+        // 🔥 SADECE action (id YOK)
+        document.getElementById('deleteForm').action = `/Admin/Category/DeleteCategory`;
+
         new bootstrap.Modal(document.getElementById('deleteModal')).show();
     }
 
