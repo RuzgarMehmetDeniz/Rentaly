@@ -1,0 +1,243 @@
+﻿@model List<Brand>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+
+<style>
+    /* ───── BRAND PAGE ───── */
+
+    .brand-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 18px;
+    }
+
+    .brand-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+    }
+
+        .brand-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+        }
+
+    .brand-img {
+        width: 100%;
+        height: 140px;
+        object-fit: contain;
+        background: #f8fafc;
+        padding: 10px;
+    }
+
+    .brand-body {
+        padding: 14px;
+        text-align: center;
+    }
+
+    .brand-name {
+        font-family: 'Plus Jakarta Sans';
+        font-weight: 800;
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .brand-id {
+        font-size: 11px;
+        background: #f1f5f9;
+        padding: 3px 8px;
+        border-radius: 6px;
+        color: var(--text-muted);
+        display: inline-block;
+    }
+
+    .brand-footer {
+        padding: 10px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        gap: 6px;
+    }
+
+    .brand-btn {
+        flex: 1;
+        border: none;
+        padding: 7px;
+        font-size: 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: var(--transition);
+    }
+
+    .btn-detail {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    .btn-edit {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .btn-delete {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+
+    .btn-detail:hover {
+        background: #0284c7;
+        color: #fff;
+    }
+
+    .btn-edit:hover {
+        background: #f59e0b;
+        color: #fff;
+    }
+
+    .btn-delete:hover {
+        background: #dc2626;
+        color: #fff;
+    }
+
+    /* LIST VIEW */
+
+    .brand-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .brand-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: #fff;
+        padding: 12px;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+    }
+
+        .brand-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            background: #f8fafc;
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+    .brand-info {
+        flex: 1;
+    }
+
+    .brand-actions {
+        display: flex;
+        gap: 6px;
+    }
+
+</style>
+
+<!-- HEADER -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Marka Listesi</h1>
+        <p class="page-subtitle">Tüm markaları yönetin</p>
+    </div>
+
+    <a href="/Brand/Create" class="btn-primary-custom">
+        <i class="fa fa-plus"></i> Yeni Marka
+    </a>
+</div>
+
+<!-- STATS -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="mini-stat">
+            <div class="mini-stat-val">@Model.Count()</div>
+            <div class="mini-stat-label">Toplam Marka</div>
+        </div>
+    </div>
+</div>
+
+<!-- SEARCH -->
+<div class="branch-toolbar">
+    <input type="text" id="searchBrand" placeholder="Marka ara..." oninput="filterBrand()" />
+</div>
+
+<!-- GRID -->
+<div class="brand-grid" id="brandGrid">
+    @foreach (var item in Model)
+    {
+        <div class="brand-card"
+             data-name="@item.BrandName.ToLower()"
+             data-id="@item.BrandId">
+
+            <img src="@item.ImageUrl" class="brand-img" />
+
+            <div class="brand-body">
+                <div class="brand-name">@item.BrandName</div>
+                <div class="brand-id">#@item.BrandId</div>
+            </div>
+
+            <div class="brand-footer">
+                <a href="/Brand/Detail/@item.BrandId" class="brand-btn btn-detail">Detay</a>
+                <a href="/Brand/Edit/@item.BrandId" class="brand-btn btn-edit">Düzenle</a>
+                <button class="brand-btn btn-delete" onclick="deleteBrand(@item.BrandId)">Sil</button>
+            </div>
+
+        </div>
+    }
+</div>
+
+<!-- LIST -->
+<div class="brand-list" id="brandList" style="display:none;">
+    @foreach (var item in Model)
+    {
+        <div class="brand-item"
+             data-name="@item.BrandName.ToLower()">
+
+            <img src="@item.ImageUrl" />
+
+            <div class="brand-info">
+                <strong>@item.BrandName</strong><br />
+                <small>ID: @item.BrandId</small>
+            </div>
+
+            <div class="brand-actions">
+                <a href="/Brand/Edit/@item.BrandId" class="brand-btn btn-edit">Edit</a>
+                <button class="brand-btn btn-delete">Sil</button>
+            </div>
+
+        </div>
+    }
+</div>
+
+<script>
+    function filterBrand(){
+        let q = document.getElementById("searchBrand").value.toLowerCase();
+
+        document.querySelectorAll(".brand-card").forEach(c=>{
+            let name = c.dataset.name;
+            c.style.display = name.includes(q) ? "" : "none";
+        });
+
+        document.querySelectorAll(".brand-item").forEach(c=>{
+            let name = c.dataset.name;
+            c.style.display = name.includes(q) ? "" : "none";
+        });
+    }
+
+    function deleteBrand(id){
+        if(confirm("Silmek istiyor musun?")){
+            window.location = "/Brand/Delete/" + id;
+        }
+    }
+</script>
