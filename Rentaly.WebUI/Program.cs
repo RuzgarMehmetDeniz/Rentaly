@@ -26,6 +26,7 @@ builder.Services.AddScoped<ICustomerService, CustomerManager>();
 builder.Services.AddScoped<IRentalService, RentalManager>();
 
 
+
 builder.Services.AddDbContext<RentalyContext>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
