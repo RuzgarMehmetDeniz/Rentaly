@@ -3,6 +3,7 @@ using Rentaly.Businesslayer.Concreate;
 using Rentaly.DataAccessLayer.Abstract;
 using Rentaly.DataAccessLayer.Concreate;
 using Rentaly.DataAccessLayer.EntityFramework;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ builder.Services.AddScoped<ICustomerService, CustomerManager>();
 builder.Services.AddScoped<IRentalService, RentalManager>();
 
 builder.Services.AddDbContext<RentalyContext>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddControllersWithViews();
 

@@ -1,5 +1,7 @@
-﻿using Rentaly.Businesslayer.Abstract;
+﻿using AutoMapper;
+using Rentaly.Businesslayer.Abstract;
 using Rentaly.DataAccessLayer.Abstract;
+using Rentaly.DtoLayer.CustomerDtos;
 using Rentaly.EntityLayer.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,10 +14,12 @@ namespace Rentaly.Businesslayer.Concreate
     public class CustomerManager : ICustomerService
     {
         private readonly ICustomerDal _customerDal;
+        private readonly IMapper _mapper;
 
-        public CustomerManager(ICustomerDal customerDal)
+        public CustomerManager(ICustomerDal customerDal, IMapper mapper)
         {
             _customerDal = customerDal;
+            _mapper = mapper;
         }
 
         public async Task TDeleteAsync(int id)
@@ -23,24 +27,28 @@ namespace Rentaly.Businesslayer.Concreate
             await _customerDal.DeleteAsync(id);
         }
 
-        public async Task<Customer> TGetByIdAsync(int id)
+        public async Task<GetCustomerByIdDto> TGetByIdAsync(int id)
         {
-            return await _customerDal.GetByIdAsync(id);
+            var value= await _customerDal.GetByIdAsync(id);
+            return _mapper.Map<GetCustomerByIdDto>(value);
         }
 
-        public async Task<List<Customer>> TGetListAsync()
+        public async Task<List<ResultCustomerDto>> TGetListAsync()
         {
-            return await _customerDal.GetListAsync();
+            var values = await _customerDal.GetListAsync();
+            return _mapper.Map<List<ResultCustomerDto>>(values);
         }
 
-        public async Task TInsertAsync(Customer entity)
+        public async Task TInsertAsync(CreateCustomerDto dto)
         {
-           await _customerDal.InsertAsync(entity);
+           var value = _mapper.Map<Customer>(dto);
+            await _customerDal.InsertAsync(value);
         }
 
-        public async Task TUpdateAsync(Customer entity)
+        public async Task TUpdateAsync(UpdateCustomerDto dto)
         {
-            await _customerDal.UpdateAsync(entity);
+          var value= _mapper.Map<Customer>(dto);
+            await _customerDal.UpdateAsync(value);
         }
     }
 }
