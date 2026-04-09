@@ -1,75 +1,180 @@
-﻿<header class="transparent scroll-light has-topbar">
-	<div id="topbar" class="topbar-dark text-light">
-		<div class="container">
-			<div class="topbar-left xs-hide">
-				<div class="topbar-widget">
-					<div class="topbar-widget"><a href="#"><i class="fa fa-phone"></i>+208 333 9296</a></div>
-					<div class="topbar-widget"><a href="#"><i class="fa fa-envelope"></i>contact@rentaly.com</a></div>
-					<div class="topbar-widget"><a href="#"><i class="fa fa-clock-o"></i>Mon - Fri 08.00 - 18.00</a></div>
-				</div>
-			</div>
+﻿<style>
+    /* 1. ÜSTTEKİ BEYAZLIĞI VE BOŞLUKLARI SIFIRLA */
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
 
-			<div class="topbar-right">
-				<div class="social-icons">
-					<a href="#"><i class="fa fa-facebook fa-lg"></i></a>
-					<a href="#"><i class="fa fa-twitter fa-lg"></i></a>
-					<a href="#"><i class="fa fa-youtube fa-lg"></i></a>
-					<a href="#"><i class="fa fa-pinterest fa-lg"></i></a>
-					<a href="#"><i class="fa fa-instagram fa-lg"></i></a>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="de-flex sm-pt10">
-					<div class="de-flex-col">
-						<div class="de-flex-col">
-							<!-- logo begin -->
-							<div id="logo">
-								<a href="index.html">
-									<img class="logo-1" src="/rentaly/images/logo-light.png" alt="">
-									<img class="logo-2" src="/rentaly/images/logo.png" alt="">
-								</a>
-							</div>
-							<!-- logo close -->
-						</div>
-					</div>
-					<div class="de-flex-col header-col-mid">
-						<ul id="mainmenu">
-							<li>
-								<a class="menu-item" href="index.html">Home</a>
-							</li>
-							<li>
-								<a class="menu-item" href="cars.html">Cars</a>
-							</li>
-							<li>
-								<a class="menu-item" href="quick-booking.html">Booking</a>
-							</li>
-							<li>
-								<a class="menu-item" href="account-dashboard.html">My Account</a>
-							</li>
-							<li>
-								<a class="menu-item" href="#">Pages</a>
-							</li>
-							<li>
-								<a class="menu-item" href="#">News</a>
-							</li>
-							<li>
-								<a class="menu-item" href="#">Elements</a>
-							</li>
-						</ul>
-					</div>
-					<div class="de-flex-col">
-						<div class="menu_side_area">
-							<a href="login.html" class="btn-main">Sign In</a>
-							<span id="menu-btn"></span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    /* 2. ANA HEADER: Resmin tam üzerine biner */
+    header.has-topbar {
+        position: absolute !important;
+        width: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: 9999 !important;
+        background: transparent !important;
+        border: none !important;
+    }
+
+    /* 3. ÜST İLETİŞİM BANDI (SİYAH) */
+    #topbar {
+        background: #111111 !important;
+        padding: 10px 0;
+        border: none !important;
+        margin: 0 !important;
+    }
+
+    .topbar-widget a, .social-icons i {
+        color: #ffffff !important;
+        font-size: 13px;
+        text-decoration: none;
+    }
+
+    /* 4. NAVBAR DÜZENİ (LOGO SOL - MENÜ ORTA - BUTON SAĞ) */
+    .de-flex {
+        display: flex;
+        justify-content: space-between; /* Üç ana grubu birbirinden ayırır */
+        align-items: center;
+        padding: 20px 0;
+        background: transparent !important;
+    }
+
+    /* Logo Grubu */
+    .logo-col {
+        flex: 1; /* Sol tarafı kaplar */
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    /* Menü Grubu (TAM ORTA) */
+    .menu-col {
+        flex: 2; /* Orta alanı daha geniş tutar */
+        display: flex;
+        justify-content: center; /* Menüleri merkeze toplar */
+    }
+
+    /* Buton Grubu */
+    .btn-col {
+        flex: 1; /* Sağ tarafı kaplar */
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    /* Menü Listesi Stili */
+    #mainmenu {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: 25px; /* Menü elemanları arasındaki boşluk */
+    }
+
+        #mainmenu li a {
+            color: #ffffff !important;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-decoration: none;
+        }
+
+    /* Sign In Butonu */
+    .btn-main {
+        background-color: #2ecc71;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    /* 5. SCROLL (KAYDIRMA) DURUMLARI */
+    header.sticky-down {
+        position: fixed !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+        transition: 0.3s;
+    }
+
+    header.sticky-up {
+        position: fixed !important;
+        transform: translateY(-100%);
+        transition: 0.3s;
+    }
+</style>
+
+<header id="mainHeader" class="has-topbar">
+    <div id="topbar">
+        <div class="container">
+            <div class="topbar-left">
+                <div class="topbar-widget"><a href="#"><i class="fa fa-phone"></i> +208 333 9296</a></div>
+                <div class="topbar-widget"><a href="#"><i class="fa fa-envelope"></i> contact@rentaly.com</a></div>
+            </div>
+            <div class="topbar-right">
+                <div class="social-icons">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="de-flex">
+
+                    <div class="logo-col">
+                        <div id="logo">
+                            <a href="/">
+                                <img src="/rentaly/images/logo-light.png" alt="Logo" style="height:40px;">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="menu-col">
+                        <ul id="mainmenu">
+                            <li><a href="/">AnaSayfa</a></li>
+                            <li><a href="/Cars">Arabalar</a></li>
+                            <li><a href="/Booking">Rezervasyon</a></li>
+                            <li><a href="/Account">Bloglar</a></li>
+                            <li><a href="#">İletişim</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-col">
+                        <div class="menu_side_area">
+                            <a href="/Login" class="btn-main">Giriş Yap</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
+
+<script>
+    let lastScroll = 0;
+    const header = document.getElementById("mainHeader");
+
+    window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll <= 100) {
+            header.classList.remove("sticky-up", "sticky-down");
+            header.style.position = "absolute";
+            return;
+        }
+
+        if (currentScroll > lastScroll && !header.classList.contains("sticky-up")) {
+            header.classList.remove("sticky-down");
+            header.classList.add("sticky-up");
+        } else if (currentScroll < lastScroll && header.classList.contains("sticky-up")) {
+            header.classList.remove("sticky-up");
+            header.classList.add("sticky-down");
+        }
+        lastScroll = currentScroll;
+    });
+</script>

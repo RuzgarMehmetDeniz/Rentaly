@@ -2,7 +2,7 @@
 
 namespace Rentaly.WebUI.ViewComponents.DefaultViewComponentPartial
 {
-    public class _DefaultServiceComponentPartial:ViewComponent
+    public class _DefaultAwardsComponentPartial:ViewComponent
     {
         public IViewComponentResult Invoke()
         {

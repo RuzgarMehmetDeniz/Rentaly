@@ -1,0 +1,89 @@
+﻿<style>
+    /* İkon Kutusu Tasarımı */
+    .service-box-custom {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Yazıları sola yaslar */
+        padding: 20px;
+        transition: 0.3s;
+    }
+
+    /* Kare Yeşil İkon Alanı */
+    .icon-wrapper-square {
+        width: 80px; /* Kutunun genişliği */
+        height: 80px; /* Kutunun yüksekliği (Kare olması için eşit) */
+        background-color: #26d120 !important; /* Senin parlak yeşilin */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px; /* Köşeleri hafif yuvarlak */
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(38, 209, 32, 0.3);
+        transition: 0.3s;
+    }
+
+        /* İkonun Kendisi */
+        .icon-wrapper-square i {
+            font-size: 35px !important; /* İkonu büyüttük */
+            color: white !important;
+            margin: 0 !important;
+        }
+
+    /* Hover efekti (Üstüne gelince kutu parlar) */
+    .service-box-custom:hover .icon-wrapper-square {
+        transform: translateY(-5px);
+        background-color: #1a9e16 !important; /* Hafif koyu yeşil */
+    }
+
+    .service-box-custom h4 {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .service-box-custom p {
+        font-size: 14px;
+        opacity: 0.8;
+    }
+</style>
+
+<section class="text-light jarallax" aria-label="section">
+    <img src="/rentaly/images/background/3.jpg" alt="" class="jarallax-img">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-3">
+                <h1 style="font-weight: 800; line-height: 1.2;">Let's Your Adventure Begin</h1>
+                <div class="spacer-20"></div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="service-box-custom">
+                    <div class="icon-wrapper-square">
+                        <i class="fa fa-trophy"></i>
+                    </div>
+                    <h4>First Class Services</h4>
+                    <p>Where luxury meets exceptional care, creating unforgettable moments and exceeding expectations.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="service-box-custom">
+                    <div class="icon-wrapper-square">
+                        <i class="fa fa-road"></i>
+                    </div>
+                    <h4>24/7 Road Assistance</h4>
+                    <p>Reliable support when you need it most, keeping you on the move with confidence.</p>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="service-box-custom">
+                    <div class="icon-wrapper-square">
+                        <i class="fa fa-map-pin"></i>
+                    </div>
+                    <h4>Free Pick-Up & Drop-Off</h4>
+                    <p>Enjoy free pickup and drop-off services, adding an extra layer of ease to your rental.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

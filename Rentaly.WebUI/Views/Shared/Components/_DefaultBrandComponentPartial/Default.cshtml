@@ -52,58 +52,62 @@
 				</span>
 			</div>
 		</div>
-
-		<div class="de-marquee-list">
-			<div class="d-item">
-				<span class="d-item-txt">SUV</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Hatchback</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Crossover</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Convertible</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Sedan</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Sports Car</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Coupe</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Minivan</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Station Wagon</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Truck</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Minivans</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-				<span class="d-item-txt">Exotic Cars</span>
-				<span class="d-item-display">
-					<i class="d-item-dot"></i>
-				</span>
-			</div>
-		</div>
 	</div>
 </section>
+<style>
+	/* Taşıyıcı alanın genişliğini sabitle ve taşmaları gizle */
+	.wow.fadeInRight.d-flex {
+		overflow: hidden !important;
+		display: flex !important;
+		white-space: nowrap !important;
+		background-color: #111111; /* Siyah arka plan */
+		width: 100%;
+		padding: 15px 0;
+	}
+
+	/* Listeleri yan yana getir */
+	.de-marquee-list {
+		display: flex;
+		flex-shrink: 0;
+		/* Hız Ayarı: 1s-2s çok hızlı olacağı için 10s idealdir,
+			   ama tam istediğin gibi 5s yaparak çok hızlı başlattım. */
+		animation: marquee-fast 10s linear infinite;
+	}
+
+	/* Kesintisiz döngü animasyonu */
+	@@keyframes marquee-fast {
+		0%
+
+	{
+		transform: translateX(0);
+	}
+
+	100% {
+		transform: translateX(-100%);
+	}
+
+	}
+
+	/* İtemlerin yapısı */
+	.d-item {
+		display: flex;
+		align-items: center;
+	}
+
+	.d-item-txt {
+		font-family: 'Arial', sans-serif;
+		font-size: 22px;
+		font-weight: 900;
+		color: #26d120;
+		text-transform: uppercase;
+		margin: 0 40px; /* Kelimeler arası mesafe */
+	}
+
+	.d-item-dot {
+		width: 10px;
+		height: 10px;
+		background-color: #26d120; /* Parlak yeşil */
+		border-radius: 50%;
+		display: inline-block;
+	}
+</style>

@@ -1,73 +1,171 @@
-﻿<footer class="text-light">
-	<div class="container">
-		<div class="row g-custom-x">
-			<div class="col-lg-3">
-				<div class="widget">
-					<h5>About Rentaly</h5>
-					<p>Where quality meets affordability. We understand the importance of a smooth and enjoyable journey without the burden of excessive costs. That's why we have meticulously crafted our offerings to provide you with top-notch vehicles at minimum expense.</p>
-				</div>
-			</div>
+﻿<style>
+    /* 1. ANA FOOTER (ÜST KISIM) */
+    footer {
+        padding: 60px 0 0 0 !important;
+        background-color: #111111 !important;
+        color: #eeeeee !important;
+    }
 
-			<div class="col-lg-3">
-				<div class="widget">
-					<h5>Contact Info</h5>
-					<address class="s1">
-						<span><i class="id-color fa fa-map-marker fa-lg"></i>08 W 36th St, New York, NY 10001</span>
-						<span><i class="id-color fa fa-phone fa-lg"></i>+1 333 9296</span>
-						<span><i class="id-color fa fa-envelope-o fa-lg"></i><a href="mailto:contact@example.com">contact@example.com</a></span>
-						<span><i class="id-color fa fa-file-pdf-o fa-lg"></i><a href="#">Download Brochure</a></span>
-					</address>
-				</div>
-			</div>
+        footer h5 {
+            color: #ffffff !important;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
 
-			<div class="col-lg-3">
-				<h5>Quick Links</h5>
-				<div class="row">
-					<div class="col-lg-6">
-						<div class="widget">
-							<ul>
-								<li><a href="#">About</a></li>
-								<li><a href="#">Blog</a></li>
-								<li><a href="#">Careers</a></li>
-								<li><a href="#">News</a></li>
-								<li><a href="#">Partners</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
+        /* Widget Liste Düzenleme */
+        footer ul {
+            list-style: none;
+            padding: 0;
+        }
 
-			<div class="col-lg-3">
-				<div class="widget">
-					<h5>Social Network</h5>
-					<div class="social-icons">
-						<a href="#"><i class="fa fa-facebook fa-lg"></i></a>
-						<a href="#"><i class="fa fa-twitter fa-lg"></i></a>
-						<a href="#"><i class="fa fa-linkedin fa-lg"></i></a>
-						<a href="#"><i class="fa fa-pinterest fa-lg"></i></a>
-						<a href="#"><i class="fa fa-rss fa-lg"></i></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="subfooter">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="de-flex">
-						<div class="de-flex-col">
-							<a href="index.html">
-								Copyright 2025 - Rentaly by Designesia
-							</a>
-						</div>
-						<ul class="menu-simple">
-							<li><a href="#">Terms &amp; Conditions</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            footer ul li {
+                margin-bottom: 10px;
+            }
+
+                footer ul li a {
+                    color: rgba(255,255,255,0.6) !important;
+                    text-decoration: none;
+                    transition: 0.3s;
+                }
+
+                    footer ul li a:hover {
+                        color: #26d120 !important; /* Senin parlak yeşilin */
+                    }
+
+    /* İletişim Bilgileri */
+    address.s1 span {
+        display: block;
+        margin-bottom: 15px;
+        color: rgba(255,255,255,0.6);
+    }
+
+    address.s1 i {
+        margin-right: 12px;
+        color: #26d120 !important; /* İkonlar yeşil */
+    }
+
+    /* 2. SUBFOOTER (İSTEDİĞİN İNCE ALAN) */
+    .subfooter {
+        padding: 15px 0 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+        background-color: #111111 !important;
+        margin-top: 50px;
+    }
+
+    .footer-flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .footer-copyright {
+        font-size: 13px;
+        color: #ffffff;
+        opacity: 0.8;
+    }
+
+        .footer-copyright a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+    /* Menü Linkleri (Terms & Conditions) */
+    .footer-simple-menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 30px;
+    }
+
+        .footer-simple-menu li a {
+            color: #ffffff !important;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+    /* Yukarı Çık Butonu */
+    .scroll-to-top-btn {
+        background-color: #26d120 !important;
+        color: white !important;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+</style>
+
+<footer class="text-light">
+    <div class="container">
+        <div class="row g-custom-x">
+            <div class="col-lg-3">
+                <div class="widget">
+                    <h5>About Rentaly</h5>
+                    <p>Where quality meets affordability. We understand the importance of a smooth and enjoyable journey without the burden of excessive costs.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="widget">
+                    <h5>Contact Info</h5>
+                    <address class="s1">
+                        <span><i class="fa fa-map-marker"></i>08 W 36th St, New York, NY 10001</span>
+                        <span><i class="fa fa-phone"></i>+1 333 9296</span>
+                        <span><i class="fa fa-envelope-o"></i><a href="mailto:contact@example.com" style="color:rgba(255,255,255,0.6);">contact@example.com</a></span>
+                    </address>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="widget">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">News</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="widget">
+                    <h5>Social Network</h5>
+                    <div class="social-icons" style="display: flex; gap: 15px;">
+                        <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
+                        <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
+                        <a href="#"><i class="fa fa-linkedin fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="subfooter">
+        <div class="container">
+            <div class="footer-flex-container">
+
+                <div class="footer-copyright">
+                    Copyright 2025 - Rentaly by Designesia
+                </div>
+
+                <div class="d-flex align-items-center" style="gap: 40px;">
+                    <ul class="footer-simple-menu">
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+
+                    <a href="#" class="scroll-to-top-btn">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </footer>
