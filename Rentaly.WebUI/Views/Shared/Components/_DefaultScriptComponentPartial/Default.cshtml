@@ -1,0 +1,178 @@
+﻿<script src="/rentaly/js/plugins.js"></script>
+<script src="/rentaly/js/designesia.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=insert_your_api_key_here&amp;libraries=places&amp;callback=initPlaces" async="" defer=""></script>
+
+
+<style>
+	/* Kart Temelleri */
+	.de-item {
+		background: #fff;
+		border: 1px solid #ececec;
+		border-radius: 10px;
+		padding: 25px;
+		box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+		transition: .3s ease;
+		font-family: 'Jost', sans-serif;
+		margin-bottom: 30px;
+	}
+
+		.de-item:hover {
+			box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+			transform: translateY(-5px);
+		}
+
+		.de-item .d-img img {
+			border-radius: 6px;
+			margin-bottom: 20px;
+			width: 100%;
+		}
+
+	/* Üst Satır: Başlık & Kalp */
+	.card-header-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 15px;
+	}
+
+		.card-header-row h4 {
+			margin: 0;
+			font-size: 20px;
+			font-weight: 700;
+			color: #1c2c52;
+		}
+
+	.d-item_like {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 14px;
+		color: #777;
+	}
+
+		.d-item_like i {
+			color: #adb5bd;
+			font-size: 16px;
+		}
+
+	/* Orta Kısım: Özellik İkonları */
+	.d-atr-group {
+		display: flex;
+		gap: 15px;
+		border-bottom: 1px solid #f2f2f2;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+	}
+
+	.d-atr {
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+		font-weight: 600;
+		color: #333;
+	}
+
+		.d-atr img {
+			width: 18px !important;
+			height: 18px !important;
+			margin-right: 8px;
+		}
+
+	/* Alt Kısım: Fiyat & Buton */
+	.d-price {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.price-text {
+		font-size: 14px;
+		color: #777;
+		line-height: 1.2;
+	}
+
+		.price-text span {
+			display: block;
+			font-size: 26px;
+			font-weight: 800;
+			color: #1c2c52;
+		}
+
+	.btn-main {
+		background: #2cc71f !important;
+		color: #fff !important;
+		padding: 10px 24px !important;
+		border-radius: 8px !important;
+		font-size: 14px;
+		font-weight: 700;
+		transition: .3s;
+	}
+
+		.btn-main:hover {
+			background: #25a81a !important;
+			box-shadow: 0 5px 15px rgba(44, 199, 31, 0.3);
+		}
+
+	/* Slider Okları (Navigasyon) */
+	#items-carousel {
+		position: relative;
+	}
+
+	.owl-nav {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+
+	.owl-prev, .owl-next {
+		position: absolute;
+		pointer-events: auto;
+		background: #fff !important;
+		color: #1c2c52 !important;
+		width: 45px;
+		height: 45px;
+		border-radius: 50% !important;
+		display: flex !important;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		transition: .3s;
+		border: 1px solid #ececec !important;
+	}
+
+	.owl-prev {
+		left: -20px;
+	}
+
+	.owl-next {
+		right: -20px;
+	}
+
+		.owl-prev:hover, .owl-next:hover {
+			background: #2cc71f !important;
+			color: #fff !important;
+			border-color: #2cc71f !important;
+		}
+</style>
+<script>
+	$(document).ready(function() {
+		const $carousel = $("#items-carousel");
+		if ($carousel.length) {
+			$carousel.owlCarousel({
+				items: 3,
+				loop: true,
+				margin: 25,
+				nav: true,
+				dots: false,
+				navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
+				responsive: {
+					0: { items: 1, nav: false },
+					600: { items: 2 },
+					1000: { items: 3 }
+				}
+			});
+		}
+	});
+</script>
