@@ -51,7 +51,48 @@
 
 </html>
 <style>
+	/* 1. Ana Footer'ın alt boşluğunu daralt */
+	footer {
+		padding-top: 40px !important; /* Üstten biraz boşluk kalsın */
+		padding-bottom: 0px !important; /* Alttaki büyük boşluğu sıfırla */
+	}
 
+		/* 2. "Copyright" yazan en alt bandı daralt */
+		footer .subfooter {
+			padding: 10px 0 !important; /* Standart 30-40px olan boşluğu 10px'e çeker */
+			margin: 0 !important;
+		}
+
+		/* 3. Footer içindeki son elemanın (genelde row veya container)
+	   fazladan bıraktığı margin'i temizle */
+		footer .container {
+			margin-bottom: 0 !important;
+			padding-bottom: 0 !important;
+		}
+
+	/* 4. Sayfanın en altındaki siyah boşluğu tamamen yok etmek için */
+	#wrapper {
+		overflow: hidden;
+	}
+	footer {
+		padding-top: 40px !important; /* Üst boşluğu biraz daralttık */
+		padding-bottom: 20px !important; /* Alt boşluğu ciddi oranda azalttık */
+	}
+
+		/* Telif hakkı (Copyright) kısmının altındaki ekstra boşluğu siler */
+		footer .subfooter {
+			padding: 20px 0 !important;
+			margin: 0 !important;
+		}
+	/* Ana içerik kapsayıcısının altındaki 90px'lik zorunlu boşluğu kaldırır */
+	#content.no-bottom.no-top {
+		padding-bottom: 0 !important;
+	}
+
+	/* Footer'ın üstünde oluşabilecek otomatik margin'i sıfırlar */
+	footer {
+		margin-top: 0 !important;
+	}
 	/* Tüm sectionlar arası boşluğu zorla kapatır */
 	section, header, footer {
 		margin: 0 !important;
