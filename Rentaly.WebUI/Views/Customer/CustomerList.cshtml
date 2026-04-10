@@ -1075,7 +1075,8 @@
         btns.appendChild(prev);
         for (let p = 1; p <= pages; p++) {
             const btn = makePageBtn(p, () => goPage(p));
-            if (p === currentPage) btn.classList.add('active');
+            if (p === currentPage) btn.classList.ad
+            d('active');
             btns.appendChild(btn);
         }
         const next = makePageBtn('<i class="fa-solid fa-chevron-right" style="font-size:11px;"></i>', () => goPage(currentPage+1));
