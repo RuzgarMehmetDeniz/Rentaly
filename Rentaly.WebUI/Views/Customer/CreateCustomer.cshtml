@@ -1,0 +1,146 @@
+﻿@model CreateCustomerDto
+
+@{
+    ViewData["Title"] = "Yeni Müşteri";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<style>
+    .form-container {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        padding: 30px;
+        max-width: 800px;
+        margin: 20px auto;
+    }
+
+    .form-section-title {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        color: var(--text-main);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .form-section-title i {
+            color: #7c3aed;
+        }
+
+    .custom-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .custom-input {
+        width: 100%;
+        padding: 11px 15px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        transition: var(--transition);
+        background: #fcfcfd;
+    }
+
+        .custom-input:focus {
+            border-color: #7c3aed;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+            outline: none;
+        }
+
+    .btn-save {
+        background: #7c3aed;
+        color: #fff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: var(--radius-sm);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+        .btn-save:hover {
+            background: #6d28d9;
+            transform: translateY(-1px);
+        }
+</style>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Yeni Müşteri Kaydı</h1>
+        <p class="page-subtitle">Sisteme yeni bir müşteri eklemek için formu doldurun.</p>
+    </div>
+    <a href="/Customer/CustomerList" class="btn-action btn-detail" style="flex:none; padding:10px 20px;">
+        <i class="fa-solid fa-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="form-container">
+    <form asp-action="CreateCustomer" method="post">
+        <div class="form-section-title">
+            <i class="fa-solid fa-user-plus"></i> Kişisel Bilgiler
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="custom-label">Ad</label>
+                <input type="text" asp-for="Name" class="custom-input" placeholder="Müşterinin adı" required />
+            </div>
+            <div class="col-md-6">
+                <label class="custom-label">Soyad</label>
+                <input type="text" asp-for="Surname" class="custom-input" placeholder="Müşterinin soyadı" required />
+            </div>
+
+            <div class="col-md-6">
+                <label class="custom-label">E-Posta</label>
+                <input type="email" asp-for="Email" class="custom-input" placeholder="ornek@mail.com" />
+            </div>
+            <div class="col-md-6">
+                <label class="custom-label">Telefon</label>
+                <input type="tel" asp-for="Phone" class="custom-input" placeholder="05xx xxx xx xx" />
+            </div>
+
+            <div class="col-md-12">
+                <label class="custom-label">TC Kimlik Numarası</label>
+                <input type="text" asp-for="IdentityNumber" class="custom-input" placeholder="11 haneli TC No" maxlength="11" />
+            </div>
+        </div>
+
+        <div class="form-section-title mt-5">
+            <i class="fa-solid fa-id-card"></i> Ehliyet Bilgileri
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="custom-label">Ehliyet Seri No</label>
+                <input type="text" asp-for="DrivingLicenseNumber" class="custom-input" placeholder="Ehliyet üzerindeki numara" />
+            </div>
+            <div class="col-md-6">
+                <label class="custom-label">Ehliyet Veriliş Tarihi</label>
+                <input type="date" asp-for="DrivingLicenseDate" class="custom-input" />
+            </div>
+        </div>
+
+        <hr style="margin: 30px 0; border-color: var(--border);" />
+
+        <div class="d-flex justify-content-end gap-2">
+            <button type="reset" class="btn-cancel-form" style="padding: 12px 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: #f9fafb;">
+                Temizle
+            </button>
+            <button type="submit" class="btn-save">
+                <i class="fa-solid fa-check"></i> Müşteriyi Kaydet
+            </button>
+        </div>
+    </form>
+</div>

@@ -417,18 +417,16 @@
     }
 </style>
 
-<!-- ═══ Page Header ═══ -->
 <div class="page-header">
     <div>
         <h1 class="page-title">Kategori Listesi</h1>
         <p class="page-subtitle">Araç kategorilerini görüntüleyin ve yönetin.</p>
     </div>
-    <a href="/Admin/Category/CreateCategory" class="btn-primary-custom" style="text-decoration:none;">
+    <button type="button" onclick="openAddModal()" class="btn-primary-custom" style="border:none; text-decoration:none;">
         <i class="fa-solid fa-plus"></i> Yeni Kategori
-    </a>
+    </button>
 </div>
 
-<!-- ═══ Mini İstatistikler ═══ -->
 <div class="row g-3 mb-4">
     <div class="col-6 col-md-4">
         <div class="mini-stat">
@@ -467,7 +465,6 @@
     </div>
 </div>
 
-<!-- ═══ Toolbar ═══ -->
 <div class="cat-toolbar">
     <div class="cat-search-wrap">
         <i class="fa-solid fa-magnifying-glass"></i>
@@ -484,7 +481,6 @@
     </button>
 </div>
 
-<!-- ═══ Tablo ═══ -->
 <div class="table-card">
     <table id="catTable">
         <thead>
@@ -495,9 +491,7 @@
                 <th onclick="sortBy('name')">
                     Kategori Adı <i class="fa-solid fa-sort sort-icon" id="sort-name"></i>
                 </th>
-                <th style="width:100px;text-align:center;">
-                    Araç Sayısı
-                </th>
+                <th style="width:100px;text-align:center;">Araç Sayısı</th>
                 <th style="width:160px;text-align:right;">İşlemler</th>
             </tr>
         </thead>
@@ -514,15 +508,12 @@
             @foreach (var cat in Model)
             {
                 var (bg, fg) = colorPairs[idx % colorPairs.Length];
-                var icons = new[] { "fa-car-side","fa-truck","fa-motorcycle","fa-van-shuttle",
-                        "fa-car-rear","fa-bus","fa-taxi","fa-jeep","fa-car","fa-rocket" };
+                var icons = new[] { "fa-car-side", "fa-truck", "fa-motorcycle", "fa-van-shuttle", "fa-car-rear", "fa-bus", "fa-taxi", "fa-jeep", "fa-car", "fa-rocket" };
                 var icon = icons[idx % icons.Length];
                 idx++;
 
                 <tr data-id="@cat.CategoryId" data-name="@cat.CategoryName.ToLower()">
-                    <td>
-                        <span class="id-badge">@cat.CategoryId</span>
-                    </td>
+                    <td><span class="id-badge">@cat.CategoryId</span></td>
                     <td>
                         <div class="cat-name-cell">
                             <div class="cat-icon-box" style="background:@bg;color:@fg;">
@@ -535,26 +526,17 @@
                         </div>
                     </td>
                     <td style="text-align:center;">
-                        <span style="
-                                    background:var(--primary-light);
-                                    color:var(--primary);
-                                    font-family:'Plus Jakarta Sans',sans-serif;
-                                    font-size:13px;font-weight:700;
-                                    padding:3px 10px;border-radius:20px;">
+                        <span style="background:var(--primary-light); color:var(--primary); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:700; padding:3px 10px; border-radius:20px;">
                             —
                         </span>
                     </td>
                     <td>
                         <div style="display:flex;gap:6px;justify-content:flex-end;">
-                            <button class="tbl-btn tbl-btn-edit"
-                                    onclick="openEditModal(@cat.CategoryId, '@cat.CategoryName')">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                <span>Düzenle</span>
+                            <button class="tbl-btn tbl-btn-edit" onclick="openEditModal(@cat.CategoryId, '@cat.CategoryName')">
+                                <i class="fa-solid fa-pen-to-square"></i> <span>Düzenle</span>
                             </button>
-                            <button class="tbl-btn tbl-btn-delete"
-                                    onclick="openDeleteModal(@cat.CategoryId, '@cat.CategoryName')">
-                                <i class="fa-solid fa-trash-can"></i>
-                                <span>Sil</span>
+                            <button class="tbl-btn tbl-btn-delete" onclick="openDeleteModal(@cat.CategoryId, '@cat.CategoryName')">
+                                <i class="fa-solid fa-trash-can"></i> <span>Sil</span>
                             </button>
                         </div>
                     </td>
@@ -563,28 +545,19 @@
         </tbody>
     </table>
 
-    <!-- Boş durum -->
     <div class="empty-state" id="emptyState" style="display:none;">
         <div class="empty-icon"><i class="fa-solid fa-tags"></i></div>
         <h6 style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;margin-bottom:6px;">Kategori Bulunamadı</h6>
-        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:14px;">
-            Arama kriterinizle eşleşen kategori yok.
-        </p>
-        <button class="btn-primary-custom" onclick="resetCatFilters()">
-            <i class="fa-solid fa-rotate-left"></i> Filtreyi Temizle
-        </button>
+        <p style="font-size:13.5px;color:var(--text-muted);margin-bottom:14px;">Arama kriterinizle eşleşen kategori yok.</p>
+        <button class="btn-primary-custom" onclick="resetCatFilters()"><i class="fa-solid fa-rotate-left"></i> Filtreyi Temizle</button>
     </div>
 
-    <!-- Pagination -->
     <div class="paging-wrap" id="pagingWrap">
         <div class="paging-info" id="pagingInfo">—</div>
         <div class="paging-btns" id="pagingBtns"></div>
     </div>
 </div>
 
-<!-- ═══════════════════════════════
-     EKLE / DÜZENLE MODAL
-═══════════════════════════════ -->
 <div class="modal fade" id="catModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width:420px;">
         <div class="modal-content">
@@ -601,113 +574,49 @@
                 @Html.AntiForgeryToken()
                 <input type="hidden" id="modalCatId" name="CategoryId" value="0" />
                 <div class="modal-body">
-
                     <div style="margin-bottom:18px;">
-                        <label class="modal-form-label" for="modalCatName">
-                            Kategori Adı <span style="color:var(--danger);">*</span>
-                        </label>
-                        <input type="text"
-                               id="modalCatName"
-                               name="CategoryName"
-                               class="modal-form-control"
-                               placeholder="Örn: Sedan, SUV, Elektrikli…"
-                               maxlength="50"
-                               oninput="updateModalCharCount(this)" />
+                        <label class="modal-form-label" for="modalCatName">Kategori Adı <span style="color:var(--danger);">*</span></label>
+                        <input type="text" id="modalCatName" name="CategoryName" class="modal-form-control" placeholder="Örn: Sedan, SUV..." maxlength="50" oninput="updateModalCharCount(this)" />
                         <div style="display:flex;justify-content:space-between;margin-top:5px;">
-                            <span class="invalid-feedback" id="modalNameError" style="display:none;font-size:12px;color:var(--danger);">
-                                <i class="fa-solid fa-circle-exclamation"></i> Kategori adı zorunludur.
-                            </span>
-                            <span style="font-size:11.5px;color:var(--text-muted);margin-left:auto;">
-                                <span id="modalCharCount">0</span>/50
-                            </span>
+                            <span class="invalid-feedback" id="modalNameError" style="display:none;font-size:12px;color:var(--danger);"><i class="fa-solid fa-circle-exclamation"></i> Kategori adı zorunludur.</span>
+                            <span style="font-size:11.5px;color:var(--text-muted);margin-left:auto;"><span id="modalCharCount">0</span>/50</span>
                         </div>
                     </div>
-
-                    <!-- İkon Rengi Seçici (görsel; opsiyonel) -->
-                    <div>
-                        <label class="modal-form-label">Renk Etiketi</label>
-                        <div class="color-options">
-                            @{
-                                var dotColors = new[] {
-                                                        ("#1a56db","Mavi"), ("#f97316","Turuncu"), ("#10b981","Yeşil"),
-                                                        ("#ef4444","Kırmızı"), ("#9333ea","Mor"), ("#d97706","Sarı"),
-                                                        ("#0284c7","Açık Mavi"), ("#db2777","Pembe")
-                                                        };
-                            }
-                            @foreach (var (color, label) in dotColors)
-                            {
-                                <input type="radio" class="color-dot-radio"
-                                       name="ColorTag" id="color_@color.Replace("#", "")"
-                                       value="@color" />
-                                <label for="color_@color.Replace("#", "")"
-                                       style="background:@color;"
-                                       title="@label"></label>
-                            }
-                        </div>
-                        <p style="font-size:11.5px;color:var(--text-muted);margin-top:6px;">
-                            <i class="fa-solid fa-circle-info me-1" style="color:var(--primary);"></i>
-                            İsteğe bağlı — kategori için renk etiketi
-                        </p>
-                    </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn-cancel-form" data-bs-dismiss="modal"
-                            style="display:inline-flex;align-items:center;gap:6px;">
-                        <i class="fa-solid fa-xmark"></i> İptal
-                    </button>
-                    <button type="button" class="btn-submit-car" id="modalSaveBtn"
-                            onclick="submitCatModal()"
-                            style="display:inline-flex;align-items:center;gap:7px;padding:9px 22px;">
-                        <i class="fa-solid fa-check"></i>
-                        <span id="modalSaveBtnText">Kaydet</span>
-                    </button>
+                    <button type="button" class="btn-cancel-form" data-bs-dismiss="modal" style="display:inline-flex;align-items:center;gap:6px;"><i class="fa-solid fa-xmark"></i> İptal</button>
+                    <button type="button" class="btn-submit-car" id="modalSaveBtn" onclick="submitCatModal()" style="display:inline-flex;align-items:center;gap:7px;padding:9px 22px;"><i class="fa-solid fa-check"></i> <span id="modalSaveBtnText">Kaydet</span></button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- ═══════════════════════════════
-     SİL ONAY MODAL
-═══════════════════════════════ -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="max-width:400px;">
         <div class="modal-content">
             <div class="modal-header">
                 <div style="display:flex;align-items:center;gap:10px;">
-                    <div style="width:34px;height:34px;background:#fee2e2;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--danger);font-size:15px;">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </div>
+                    <div style="width:34px;height:34px;background:#fee2e2;border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--danger);font-size:15px;"><i class="fa-solid fa-trash-can"></i></div>
                     <h5 class="modal-title">Kategori Sil</h5>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
                 <div style="display:flex;gap:14px;align-items:flex-start;">
-                    <div style="width:46px;height:46px;background:#fee2e2;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--danger);font-size:20px;flex-shrink:0;">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    </div>
+                    <div style="width:46px;height:46px;background:#fee2e2;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--danger);font-size:20px;flex-shrink:0;"><i class="fa-solid fa-triangle-exclamation"></i></div>
                     <div>
-                        <p style="margin:0;font-size:14.5px;color:var(--text-main);line-height:1.5;">
-                            <strong id="deleteCatName">bu kategoriyi</strong> silmek istediğinizden emin misiniz?
-                        </p>
-                        <p style="margin:6px 0 0;font-size:13px;color:var(--text-muted);">
-                            Bu işlem geri alınamaz. İlgili araçlar kategorisiz kalabilir.
-                        </p>
+                        <p style="margin:0;font-size:14.5px;color:var(--text-main);line-height:1.5;"><strong id="deleteCatName">bu kategoriyi</strong> silmek istediğinizden emin misiniz?</p>
+                        <p style="margin:6px 0 0;font-size:13px;color:var(--text-muted);">Bu işlem geri alınamaz.</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-cancel-form" data-bs-dismiss="modal"
-                        style="display:inline-flex;align-items:center;gap:6px;">
-                    <i class="fa-solid fa-xmark"></i> Vazgeç
-                </button>
+                <button type="button" class="btn-cancel-form" data-bs-dismiss="modal" style="display:inline-flex;align-items:center;gap:6px;"><i class="fa-solid fa-xmark"></i> Vazgeç</button>
                 <form id="deleteForm" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" id="deleteCatId" name="id" />
-                    <button type="submit"
-                            style="display:inline-flex;align-items:center;gap:7px;background:var(--danger);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 22px;font-size:13.5px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);">
+                    <button type="submit" style="display:inline-flex;align-items:center;gap:7px;background:var(--danger);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 22px;font-size:13.5px;font-weight:700;cursor:pointer;">
                         <i class="fa-solid fa-trash-can"></i> Evet, Sil
                     </button>
                 </form>
@@ -716,119 +625,91 @@
     </div>
 </div>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
-
 <script>
-    /* ══════════════════════════════════════════
-       Category List Page Scripts
-    ══════════════════════════════════════════ */
+    // ── Global Değişkenler ──
+    const PAGE_SIZE = 10;
+    let currentPage = 1;
+    let lastSort = { field: 'id', dir: 'asc' };
 
-    // ── Tüm satırları al ──
+    // ── Helper: Tüm Satırlar ──
     const allRows = () => [...document.querySelectorAll('#catTableBody tr[data-id]')];
 
-    // ── Arama ──
-       function filterCategories() {
+    // ── Başlatıcı ──
+    document.addEventListener('DOMContentLoaded', () => {
+        filterCategories();
+        sortBy('id', 'asc');
+    });
+
+    // ── Arama Fonksiyonu ──
+    function filterCategories() {
         const q = document.getElementById('catSearch').value.toLowerCase().trim();
         let visible = 0;
 
         allRows().forEach(row => {
             const name = row.dataset.name || '';
-            const id   = row.dataset.id   || '';
-
+            const id = row.dataset.id || '';
             const match = !q || name.includes(q) || id.includes(q);
-
             row.dataset.filtered = match ? 'true' : 'false';
-
             if (match) visible++;
         });
 
         document.getElementById('statFiltered').textContent = visible;
         document.getElementById('emptyState').style.display = visible === 0 ? 'block' : 'none';
-
         currentPage = 1;
         buildPaging();
     }
 
-    // ── Sıralama (select) ──
+    // ── Sıralama Fonksiyonları ──
     function sortCategories() {
         const val = document.getElementById('sortSelect').value;
         const [field, dir] = val.split('-');
         sortBy(field, dir);
     }
 
-    // ── Sıralama (kolon başlığı tıklama) ──
-    let lastSort = { field: 'id', dir: 'asc' };
     function sortBy(field, dir) {
         if (!dir) {
             dir = (lastSort.field === field && lastSort.dir === 'asc') ? 'desc' : 'asc';
         }
         lastSort = { field, dir };
 
-        // İkon güncelle
         ['id','name'].forEach(f => {
             const el = document.getElementById('sort-' + f);
-            if (!el) return;
-            el.className = f === field
-                ? ('fa-solid fa-sort-' + (dir === 'asc' ? 'up' : 'down') + ' sort-icon')
-                : 'fa-solid fa-sort sort-icon';
-            el.closest('th').classList.toggle('sorted', f === field);
+            if (el) {
+                el.className = f === field ? ('fa-solid fa-sort-' + (dir === 'asc' ? 'up' : 'down') + ' sort-icon') : 'fa-solid fa-sort sort-icon';
+                el.closest('th').classList.toggle('sorted', f === field);
+            }
         });
 
         const tbody = document.getElementById('catTableBody');
-        const rows  = allRows();
+        const rows = allRows();
         rows.sort((a, b) => {
             let va = field === 'id' ? parseInt(a.dataset.id) : a.dataset.name;
             let vb = field === 'id' ? parseInt(b.dataset.id) : b.dataset.name;
-            if (va < vb) return dir === 'asc' ? -1 :  1;
-            if (va > vb) return dir === 'asc' ?  1 : -1;
+            if (va < vb) return dir === 'asc' ? -1 : 1;
+            if (va > vb) return dir === 'asc' ? 1 : -1;
             return 0;
         });
         rows.forEach(r => tbody.appendChild(r));
         buildPaging();
     }
 
-    // ── Sıfırla ──
-       function resetCatFilters() {
-        document.getElementById('catSearch').value = '';
-        document.getElementById('sortSelect').value = 'id-asc';
-
-        allRows().forEach(r => r.dataset.filtered = 'true');
-
-        document.getElementById('statFiltered').textContent = allRows().length;
-        document.getElementById('emptyState').style.display = 'none';
-
-        currentPage = 1;
-        sortBy('id', 'asc');
-    }
-
-    // ── Basit Pagination ──
-    const PAGE_SIZE = 10;
-    let currentPage = 1;
-
-       function buildPaging() {
+    // ── Sayfalama (Pagination) ──
+    function buildPaging() {
         const rows = allRows();
         const visible = rows.filter(r => r.dataset.filtered !== 'false');
-
         const total = visible.length;
         const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
         if (currentPage > pages) currentPage = pages;
-
         rows.forEach(r => r.style.display = 'none');
-
         visible.forEach((r, i) => {
-            if (i >= (currentPage - 1) * PAGE_SIZE && i < currentPage * PAGE_SIZE) {
-                r.style.display = '';
-            }
+            if (i >= (currentPage - 1) * PAGE_SIZE && i < currentPage * PAGE_SIZE) r.style.display = '';
         });
 
         const info = document.getElementById('pagingInfo');
         const from = total === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
-        const to   = Math.min(currentPage * PAGE_SIZE, total);
-
-        info.textContent = total > 0
-            ? `${from}–${to} / toplam ${total} kategori`
-            : '0 kategori';
+        const to = Math.min(currentPage * PAGE_SIZE, total);
+        info.textContent = total > 0 ? `${from}–${to} / toplam ${total} kategori` : '0 kategori';
 
         const btns = document.getElementById('pagingBtns');
         btns.innerHTML = '';
@@ -847,108 +728,71 @@
         if (currentPage === pages) next.disabled = true;
         btns.appendChild(next);
 
-        document.getElementById('pagingWrap').style.display =
-            total <= PAGE_SIZE ? 'none' : 'flex';
+        document.getElementById('pagingWrap').style.display = total <= PAGE_SIZE ? 'none' : 'flex';
     }
 
     function makePageBtn(html, fn) {
         const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'page-btn';
-        b.innerHTML = html;
+        b.type = 'button'; b.className = 'page-btn'; b.innerHTML = html;
         b.addEventListener('click', fn);
         return b;
     }
 
     function goPage(p) {
-        const visible = allRows().filter(r => r.getAttribute('data-filtered') !== 'false');
-        const pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE));
-        currentPage = Math.max(1, Math.min(pages, p));
+        currentPage = p;
         buildPaging();
     }
 
-    // ── Modal: Ekle ──
+    // ── Modal İşlemleri ──
     function openAddModal() {
-        document.getElementById('modalTitle').textContent   = 'Yeni Kategori Ekle';
-        document.getElementById('modalHeaderIcon').className = 'fa-solid fa-plus';
-        document.getElementById('modalSaveBtnText').textContent = 'Kaydet';
-        document.getElementById('modalCatId').value   = '0';
+        document.getElementById('modalTitle').textContent = 'Yeni Kategori Ekle';
+        document.getElementById('modalCatId').value = '0';
         document.getElementById('modalCatName').value = '';
         document.getElementById('modalCatName').classList.remove('is-invalid');
         document.getElementById('modalNameError').style.display = 'none';
-        document.getElementById('modalCharCount').textContent   = '0';
-        document.getElementById('catModalForm').action = '/Category/Create';
+        document.getElementById('catModalForm').action = '/Admin/Category/CreateCategory';
         new bootstrap.Modal(document.getElementById('catModal')).show();
     }
 
-    // ── Modal: Düzenle ──
     function openEditModal(id, name) {
-        document.getElementById('modalTitle').textContent   = 'Kategoriyi Düzenle';
-        document.getElementById('modalHeaderIcon').className = 'fa-solid fa-pen-to-square';
-        document.getElementById('modalSaveBtnText').textContent = 'Güncelle';
-        document.getElementById('modalCatId').value   = id;
+        document.getElementById('modalTitle').textContent = 'Kategoriyi Düzenle';
+        document.getElementById('modalCatId').value = id;
         document.getElementById('modalCatName').value = name;
         document.getElementById('modalCatName').classList.remove('is-invalid');
         document.getElementById('modalNameError').style.display = 'none';
-        document.getElementById('modalCharCount').textContent   = name.length;
-        document.getElementById('catModalForm').action = '/Admin/Category/UpdateCategory/';
+        document.getElementById('catModalForm').action = '/Admin/Category/UpdateCategory';
         new bootstrap.Modal(document.getElementById('catModal')).show();
     }
 
-    // ── Modal: Sil ──
-       function openDeleteModal(id, name) {
-        document.getElementById('deleteCatName').textContent = `"${name}"`;
-        document.getElementById('deleteCatId').value = id;
-
-        // 🔥 SADECE action (id YOK)
-        document.getElementById('deleteForm').action = `/Admin/Category/DeleteCategory`;
-
-        new bootstrap.Modal(document.getElementById('deleteModal')).show();
-    }
-
-    // ── Modal kaydet ──
     function submitCatModal() {
-        const input = document.getElementById('modalCatName');
-        const err   = document.getElementById('modalNameError');
-
-        if (!input.value.trim()) {
-            input.classList.add('is-invalid');
-            err.style.display = 'flex';
-            input.focus();
+        const nameInput = document.getElementById('modalCatName');
+        if (!nameInput.value.trim()) {
+            nameInput.classList.add('is-invalid');
+            document.getElementById('modalNameError').style.display = 'block';
             return;
         }
-        input.classList.remove('is-invalid');
-        err.style.display = 'none';
-
         document.getElementById('catModalForm').submit();
     }
 
-    // ── Karakter sayacı ──
-    function updateModalCharCount(el) {
-        document.getElementById('modalCharCount').textContent = el.value.length;
-        if (el.value.trim()) {
-            el.classList.remove('is-invalid');
+    function updateModalCharCount(input) {
+        document.getElementById('modalCharCount').textContent = input.value.length;
+        if(input.value.length > 0) {
+            input.classList.remove('is-invalid');
             document.getElementById('modalNameError').style.display = 'none';
         }
     }
 
-    // ── Enter ile modal gönder ──
-    document.getElementById('modalCatName')?.addEventListener('keydown', e => {
-        if (e.key === 'Enter') { e.preventDefault(); submitCatModal(); }
-    });
+    function openDeleteModal(id, name) {
+        document.getElementById('deleteCatName').textContent = `"${name}"`;
+        document.getElementById('deleteCatId').value = id;
+        document.getElementById('deleteForm').action = `/Admin/Category/DeleteCategory`;
+        new bootstrap.Modal(document.getElementById('deleteModal')).show();
+    }
 
-    // ── İlk yüklemede pagination kur ──
-    document.addEventListener('DOMContentLoaded', () => {
-        buildPaging();
-
-        // TempData toast mesajı (opsiyonel)
-        @if (TempData["Success"] != null)
-        {
-                    <text>showToast('@TempData["Success"]', 'success');</text>
-        }
-        @if (TempData["Error"] != null)
-        {
-                    <text>showToast('@TempData["Error"]', 'danger');</text>
-        }
-    });
+    function resetCatFilters() {
+        document.getElementById('catSearch').value = '';
+        document.getElementById('sortSelect').value = 'id-asc';
+        filterCategories();
+        sortBy('id', 'asc');
+    }
 </script>

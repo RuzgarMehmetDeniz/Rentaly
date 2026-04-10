@@ -34,7 +34,7 @@ namespace Rentaly.WebUI.Areas.Admin.Controllers
         }
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var value = await _categoryService.TGetByIdAsync(id);
+            await _categoryService.TDeleteAsync(id);
             return RedirectToAction("CategoryList");
         }
         [HttpGet]

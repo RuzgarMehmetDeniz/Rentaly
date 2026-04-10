@@ -17,6 +17,7 @@ namespace Rentaly.Businesslayer.Mapping
             CreateMap<Customer, ResultCustomerDto>().ReverseMap();
             CreateMap<Customer, GetCustomerByIdDto>().ReverseMap();
             CreateMap<Customer, UpdateCustomerDto>().ReverseMap();
+            CreateMap<GetCustomerByIdDto, UpdateCustomerDto>().ReverseMap();
         }
     }
 }

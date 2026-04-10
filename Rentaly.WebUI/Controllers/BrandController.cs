@@ -2,6 +2,7 @@
 using Rentaly.Businesslayer.Abstract;
 using Rentaly.Businesslayer.ValidationRules;
 using Rentaly.EntityLayer.Entities;
+using System.Threading.Tasks;
 
 namespace Rentaly.WebUI.Controllers
 {
@@ -13,9 +14,10 @@ namespace Rentaly.WebUI.Controllers
         {
             _brandService = brandService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var value= await _brandService.TGetListAsync();
+            return View(value);
         }
         [HttpGet]
         public IActionResult CreateBrand()

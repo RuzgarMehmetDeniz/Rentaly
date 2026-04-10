@@ -13,6 +13,7 @@
 	<div id="wrapper">
 
 		@await Component.InvokeAsync("_DefaultNavbarComponentPartial")
+		<br /><br />
 
 		<div class="no-bottom no-top" id="content">
 
@@ -49,3 +50,54 @@
 </body>
 
 </html>
+<style>
+
+	/* Tüm sectionlar arası boşluğu zorla kapatır */
+	section, header, footer {
+		margin: 0 !important;
+		padding-top: 60px !important; /* Standart padding */
+		padding-bottom: 60px !important;
+	}
+
+	/* Yeşil alanın (Call to Action) altındaki boşluğu öldürür */
+	.v-center, .v-align-children {
+		padding-bottom: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+	/* Eğer arada boş bir div varsa onu gizler */
+	.spacer-single, .spacer-double, .spacer-60 {
+		display: none !important;
+	}
+	/* 1. Sayfanın en tepesindeki hayalet boşluğu siler */
+	html, body {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* 2. Navbar'ın (Header) üzerindeki boşluğu sıfırlar */
+	header {
+		top: 0 !important;
+		margin-top: 0 !important;
+		padding-top: 0 !important;
+		position: absolute; /* Veya fixed, temanın yapısına göre */
+		width: 100%;
+		z-index: 1001;
+	}
+
+	/* 3. Navbar'ın hemen altındaki ilk bölümün (genelde slider veya subheader)
+	   Navbar'ın altında kalmaması için gereken ayar */
+	#content {
+		padding-top: 0 !important;
+		margin-top: 0 !important;
+	}
+
+	/* 4. Senin o yeşil alan ile siyah alan arasındaki boşluk için nokta atışı: */
+	section#call-to-action,
+	.section-dark,
+	footer {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+		border: none !important;
+	}
+</style>

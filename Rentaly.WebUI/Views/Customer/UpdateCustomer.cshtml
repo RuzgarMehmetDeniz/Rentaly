@@ -1,0 +1,153 @@
+﻿@model UpdateCustomerDto
+
+@{
+    ViewData["Title"] = "Müşteri Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<style>
+    /* Create sayfasındaki stillerin aynısını kullanıyoruz (Tutarlılık için) */
+    .form-container {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-sm);
+        padding: 30px;
+        max-width: 800px;
+        margin: 20px auto;
+    }
+
+    .form-section-title {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-weight: 800;
+        font-size: 18px;
+        color: var(--text-main);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .form-section-title i {
+            color: #3b82f6;
+        }
+    /* Güncelleme için mavi tonu */
+
+    .custom-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .custom-input {
+        width: 100%;
+        padding: 11px 15px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        transition: var(--transition);
+        background: #fcfcfd;
+    }
+
+        .custom-input:focus {
+            border-color: #3b82f6;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+    .btn-update {
+        background: #3b82f6;
+        color: #fff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: var(--radius-sm);
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+        cursor: pointer;
+    }
+
+        .btn-update:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+</style>
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Müşteri Bilgilerini Düzenle</h1>
+        <p class="page-subtitle">#@Model.CustomerId numaralı müşterinin bilgilerini güncelliyorsunuz.</p>
+    </div>
+    <a href="/Customer/CustomerList" class="btn-action btn-detail" style="flex:none; padding:10px 20px;">
+        <i class="fa-solid fa-arrow-left"></i> Listeye Dön
+    </a>
+</div>
+
+<div class="form-container">
+    <form asp-action="UpdateCustomer" method="post">
+        @* KRİTİK: ID bilgisini gizli olarak göndermeliyiz *@
+        <input type="hidden" asp-for="CustomerId" />
+
+        <div class="form-section-title">
+            <i class="fa-solid fa-user-pen"></i> Temel Bilgiler
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="custom-label">Ad</label>
+                <input type="text" asp-for="Name" class="custom-input" />
+            </div>
+            <div class="col-md-6">
+                <label class="custom-label">Soyad</label>
+                <input type="text" asp-for="Surname" class="custom-input" />
+            </div>
+
+            <div class="col-md-6">
+                <label class="custom-label">E-Posta</label>
+                <input type="email" asp-for="Email" class="custom-input" />
+            </div>
+            <div class="col-md-6">
+                <label class="custom-label">Telefon</label>
+                <input type="tel" asp-for="Phone" class="custom-input" />
+            </div>
+
+            <div class="col-md-12">
+                <label class="custom-label">TC Kimlik Numarası</label>
+                <input type="text" asp-for="IdentityNumber" class="custom-input" maxlength="11" />
+            </div>
+        </div>
+
+        <div class="form-section-title mt-5">
+            <i class="fa-solid fa-id-card"></i> Ehliyet Bilgileri
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="custom-label">Ehliyet Seri No</label>
+                <input type="text" asp-for="DrivingLicenseNumber" class="custom-input" />
+            </div>
+            <div class="col-md-6">
+                <label class="custom-label">Ehliyet Veriliş Tarihi</label>
+                <input type="date" asp-for="DrivingLicenseDate" class="custom-input"
+                       value="@Model.DrivingLicenseDate.ToString("yyyy-MM-dd")" />
+            </div>
+        </div>
+
+        <hr style="margin: 30px 0; border-color: var(--border);" />
+
+        <div class="d-flex justify-content-end gap-2">
+            <a href="/Customer/CustomerList" class="btn-cancel-form"
+               style="text-decoration:none; padding: 12px 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: #f9fafb; color: var(--text-muted);">
+                İptal Et
+            </a>
+            <button type="submit" class="btn-update">
+                <i class="fa-solid fa-floppy-disk"></i> Değişiklikleri Kaydet
+            </button>
+        </div>
+    </form>
+</div>
