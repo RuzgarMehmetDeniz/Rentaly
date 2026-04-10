@@ -1078,7 +1078,6 @@
             if (p === currentPage) btn.classList.add('active');
             btns.appendChild(btn);
         }
-
         const next = makePageBtn('<i class="fa-solid fa-chevron-right" style="font-size:11px;"></i>', () => goPage(currentPage+1));
         if (currentPage === pages) next.disabled = true;
         btns.appendChild(next);
