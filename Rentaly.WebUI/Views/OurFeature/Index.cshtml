@@ -1,0 +1,155 @@
+﻿@model List<OurFeature>
+
+@{
+    ViewData["Title"] = "Hizmet Alanı Yönetimi";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+<style>
+    .feature-card {
+        border: none;
+        border-radius: 12px;
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .main-title {
+        color: #1c2c52;
+        font-size: 1.25rem;
+        font-weight: 700;
+        line-height: 1.5;
+        border-bottom: 2px solid #f0f2f5;
+        padding-bottom: 15px;
+    }
+
+    .feature-box {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+        border-radius: 10px;
+        transition: 0.3s;
+        height: 100%;
+    }
+
+        .feature-box:hover {
+            background-color: #f8f9fa;
+        }
+
+    .icon-container {
+        min-width: 50px;
+        height: 50px;
+        background: #1ecb15;
+        color: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 10px rgba(30, 203, 21, 0.2);
+    }
+
+    .feature-content h6 {
+        font-weight: 700;
+        color: #1c2c52;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .feature-content p {
+        font-size: 0.85rem;
+        color: #6c757d;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .img-cover {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .action-buttons .btn {
+        border-radius: 20px;
+        font-size: 0.8rem;
+        padding: 5px 15px;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4 font-weight-bold mb-0 text-dark">Hizmet Alanı Yönetimi</h2>
+        <a href="/OurFeature/CreateOurFeature/" class="btn btn-success shadow-sm px-4 rounded-pill">
+            <i class="fas fa-plus-circle mr-2"></i>Yeni Set Oluştur
+        </a>
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <div class="card feature-card shadow-sm mb-5 p-4">
+            <div class="d-flex justify-content-between align-items-start mb-4">
+                <div class="main-title text-primary w-75">
+                    <i class="fas fa-quote-left mr-2 opacity-50"></i> @item.Title
+                </div>
+                <div class="action-buttons">
+                    <a href="/OurFeature/UpdateOurFeature/@item.OurFeatureId" class="btn btn-outline-primary shadow-sm">
+                        <i class="fas fa-edit"></i> Düzenle
+                    </a>
+                    <a href="/OurFeature/DeleteOurFeature/@item.OurFeatureId" class="btn btn-outline-danger shadow-sm ml-2" onclick="return confirm('Silmek istediğinize emin misiniz?')">
+                        <i class="fas fa-trash"></i> Sil
+                    </a>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <img src="@item.ImageUrl" class="img-cover shadow" alt="Kiralama Görseli" onerror="this.src='https://via.placeholder.com/500x300?text=Görsel+Bulunamadı'" />
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="feature-box">
+                                <div class="icon-container"><i class="@item.Icon1"></i></div>
+                                <div class="feature-content">
+                                    <h6>Özellik 1</h6>
+                                    <p>@item.Description1</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="feature-box">
+                                <div class="icon-container"><i class="@item.Icon3"></i></div>
+                                <div class="feature-content">
+                                    <h6>Özellik 2</h6>
+                                    <p>@item.Description3</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="feature-box">
+                                <div class="icon-container"><i class="@item.Icon2"></i></div>
+                                <div class="feature-content">
+                                    <h6>Özellik 3</h6>
+                                    <p>@item.Description2</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="feature-box">
+                                <div class="icon-container"><i class="@item.Icon4"></i></div>
+                                <div class="feature-content">
+                                    <h6>Özellik 4</h6>
+                                    <p>@item.Description4</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

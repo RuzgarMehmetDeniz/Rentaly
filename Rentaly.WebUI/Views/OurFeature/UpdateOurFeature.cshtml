@@ -1,0 +1,142 @@
+﻿@model Rentaly.EntityLayer.Entities.OurFeature
+
+@{
+    ViewData["Title"] = "Özellik Setini Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+<style>
+    .update-card {
+        border: none;
+        border-radius: 15px;
+        background: #fff;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #1c2c52;
+        margin-top: 10px;
+    }
+
+    .preview-box {
+        width: 50px;
+        height: 50px;
+        background: #1ecb15;
+        color: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-top: 32px;
+    }
+
+    .img-preview {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid #1ecb15;
+        background: #f8f9fa;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card update-card shadow-sm p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="text-primary font-weight-bold m-0">Özellik Setini Düzenle</h3>
+                    <span class="badge badge-info p-2">ID: #@Model.OurFeatureId</span>
+                </div>
+
+                <form method="post">
+                    @* ID bilgisini gizli olarak gönderiyoruz *@
+                    <input type="hidden" asp-for="OurFeatureId" />
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <label class="form-label">Ana Başlık</label>
+                            <input type="text" asp-for="Title" class="form-control" placeholder="Başlık giriniz..." required />
+
+                            <label class="form-label">Kapak Görseli URL</label>
+                            <input type="text" id="imageUrlInput" asp-for="ImageUrl" class="form-control" placeholder="Resim linkini yapıştırın..." required />
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <label class="form-label">Mevcut Görsel</label>
+                            <div id="imgPreview">
+                                <img src="@Model.ImageUrl" class="img-preview" onerror="this.src='https://via.placeholder.com/500x300?text=Resim+Yok'" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    @* 4'lü İkon ve Açıklama Alanları *@
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="form-label text-success">1. İkon Kodu</label>
+                            <input type="text" class="form-control icon-input" asp-for="Icon1" />
+                            <label class="form-label">1. Açıklama</label>
+                            <textarea asp-for="Description1" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-1"><div class="preview-box"><i class="@Model.Icon1"></i></div></div>
+
+                        <div class="col-md-5">
+                            <label class="form-label text-success">2. İkon Kodu</label>
+                            <input type="text" class="form-control icon-input" asp-for="Icon2" />
+                            <label class="form-label">2. Açıklama</label>
+                            <textarea asp-for="Description2" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-1"><div class="preview-box"><i class="@Model.Icon2"></i></div></div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-5">
+                            <label class="form-label text-success">3. İkon Kodu</label>
+                            <input type="text" class="form-control icon-input" asp-for="Icon3" />
+                            <label class="form-label">3. Açıklama</label>
+                            <textarea asp-for="Description3" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-1"><div class="preview-box"><i class="@Model.Icon3"></i></div></div>
+
+                        <div class="col-md-5">
+                            <label class="form-label text-success">4. İkon Kodu</label>
+                            <input type="text" class="form-control icon-input" asp-for="Icon4" />
+                            <label class="form-label">4. Açıklama</label>
+                            <textarea asp-for="Description4" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="col-md-1"><div class="preview-box"><i class="@Model.Icon4"></i></div></div>
+                    </div>
+
+                    <div class="mt-5 d-flex justify-content-end gap-2">
+                        <a href="/OurFeature/Index" class="btn btn-light px-4 border mr-2">İptal</a>
+                        <button type="submit" class="btn btn-primary px-5 shadow">Değişiklikleri Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // İkon Önizleme Scripti
+        document.querySelectorAll('.icon-input').forEach(input => {
+            input.addEventListener('input', function() {
+                const iconBox = this.parentElement.nextElementSibling.querySelector('i');
+                iconBox.className = this.value || 'fas fa-question';
+            });
+        });
+
+        // Görsel Önizleme Scripti
+        document.getElementById('imageUrlInput').addEventListener('input', function() {
+            const previewContainer = document.getElementById('imgPreview');
+            if(this.value) {
+                previewContainer.innerHTML = `<img src="${this.value}" class="img-preview">`;
+            }
+        });
+    </script>
+}

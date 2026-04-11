@@ -7,7 +7,7 @@ namespace Rentaly.DataAccessLayer.Concreate
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-                optionsBuilder.UseSqlServer("Server=NıTRO-AN515-57;Database=RentalyDb;TrustServerCertificate=True;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Server=NıTRO-AN515-57;Database=RentalyDb;TrustServerCertificate=True;Integrated Security=True");
         }
 
         public DbSet<Branch> Branches { get; set; }
@@ -17,5 +17,6 @@ namespace Rentaly.DataAccessLayer.Concreate
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Rental> Rentals { get; set; }
+        public DbSet<OurFeature> OurFeatures { get; set; }
     }
 }

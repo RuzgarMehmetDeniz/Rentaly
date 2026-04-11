@@ -19,6 +19,9 @@ namespace Rentaly.WebUI.Controllers
         [HttpGet]
         public async Task<IActionResult> CustomerList()
         {
+            ViewBag.Title1 = "Ana Sayfa";
+            ViewBag.Title2 = "Müşteri Yönetimi";
+            ViewBag.Title3 = "Müşteri Listesi";
             var values = await _customerService.TGetListAsync();
             return View(values);
         }

@@ -16,6 +16,9 @@ namespace Rentaly.WebUI.Controllers
 
         public async Task<IActionResult> CategoryList()
         {
+            ViewBag.Title1 = "Ana Sayfa";
+            ViewBag.Title2 = "Kategori Yönetimi";
+            ViewBag.Title3 = "Kategori Listesi";
             var values = await _categoryService.TGetListAsync();
             return View(values);
         }

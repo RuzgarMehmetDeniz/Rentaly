@@ -14,6 +14,9 @@ public class BrandController : Controller
 
     public async Task<IActionResult> Index()
     {
+        ViewBag.Title1 = "Ana Sayfa";
+        ViewBag.Title2 = "Marka Yönetimi";
+        ViewBag.Title3 = "Marka Listesi";
         var value = await _brandService.TGetListAsync();
         return View(value);
     }

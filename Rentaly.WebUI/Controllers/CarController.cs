@@ -25,6 +25,9 @@ namespace Rentaly.WebUI.Controllers
 
         public async Task<IActionResult> CarList()
         {
+            ViewBag.Title1 = "Ana Sayfa";
+            ViewBag.Title2 = "Araç Yönetimi";
+            ViewBag.Title3 = "Araç Listesi";
             var values = await _carService.TGetAllCarWithCategoryAsync();
             return View(values);
         }

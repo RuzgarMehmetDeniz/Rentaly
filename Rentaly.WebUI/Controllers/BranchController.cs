@@ -15,6 +15,9 @@ namespace Rentaly.WebUI.Controllers
 
         public async Task<IActionResult> BranchList()
         {
+            ViewBag.Title1 = "Ana Sayfa";
+            ViewBag.Title2 = "Şube Yönetimi";
+            ViewBag.Title3 = "Şube Listesi";
             var values = await _branchService.TGetListAsync();
             return View(values);
         }

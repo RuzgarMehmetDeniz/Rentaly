@@ -16,6 +16,7 @@ builder.Services.AddScoped<IBrandDal, EfBrandDal>();
 builder.Services.AddScoped<ICarModelDal, EfCarModelDal>();
 builder.Services.AddScoped<ICustomerDal, EfCustomerDal>();
 builder.Services.AddScoped<IRentalDal, EfRentalDal>();
+builder.Services.AddScoped<IOurFeatureDal, EfOurFeatureDal>();
 
 // Business
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
@@ -25,6 +26,7 @@ builder.Services.AddScoped<IBrandService, BrandManager>();
 builder.Services.AddScoped<ICarModelService, CarModelManager>();
 builder.Services.AddScoped<ICustomerService, CustomerManager>();
 builder.Services.AddScoped<IRentalService, RentalManager>();
+builder.Services.AddScoped<IOurFeatureService, EfOurFeatureManager>();
 
 builder.Services.AddDbContext<RentalyContext>();
 
