@@ -1,0 +1,428 @@
+﻿@model List<CarModel>
+
+@{
+    ViewData["Title"] = "Araç Modelleri";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Araç Modelleri</h1>
+        <p class="page-subtitle">Sistemdeki tüm araç modellerini görüntüleyin ve yönetin.</p>
+    </div>
+    <a href="/CarModel/CreateCarModel" class="btn-primary-custom">
+        <i class="fa-solid fa-plus"></i> Yeni Model Ekle
+    </a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-6">
+        <div class="mini-stat">
+            <div class="mini-stat-icon" style="background:#f5f3ff;color:#7c3aed;"><i class="fa-solid fa-car-rear"></i></div>
+            <div>
+                <div class="mini-stat-val" style="color:#7c3aed;">@Model.Count()</div>
+                <div class="mini-stat-label">Toplam Model</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-6">
+        <div class="mini-stat">
+            <div class="mini-stat-icon" style="background:#eff6ff;color:#3b82f6;"><i class="fa-solid fa-building-flag"></i></div>
+            <div>
+                <div class="mini-stat-val" style="color:#3b82f6;">@Model.Select(x => x.BrandId).Distinct().Count()</div>
+                <div class="mini-stat-label">Aktif Marka</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="customer-toolbar">
+    <div class="customer-search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="modelSearch" placeholder="Model adı veya ID ara..." oninput="filterModels()" />
+    </div>
+    <div class="view-toggle">
+        <button class="view-btn active" id="btnGridView" onclick="setView('grid')" title="Kart Görünümü">
+            <i class="fa-solid fa-grip"></i>
+        </button>
+        <button class="view-btn" id="btnListView" onclick="setView('list')" title="Liste Görünümü">
+            <i class="fa-solid fa-list"></i>
+        </button>
+    </div>
+    <button class="btn-action btn-detail" onclick="resetFilters()" style="flex:none;padding:9px 14px;font-size:13px;">
+        <i class="fa-solid fa-rotate-left"></i> Sıfırla
+    </button>
+</div>
+
+<div class="customers-grid" id="modelsGrid">
+    @foreach (var item in Model)
+    {
+        <div class="customer-card" data-id="@item.CarModelId" data-name="@item.ModelName.ToLower()">
+            <div class="customer-card-accent"></div>
+            <div class="customer-card-header">
+                <div class="customer-avatar">@(string.IsNullOrEmpty(item.ModelName) ? "?" : item.ModelName[0].ToString().ToUpper())</div>
+                <div class="customer-card-title-block">
+                    <div class="customer-card-name">@item.ModelName</div>
+                    <span class="customer-card-id">#@item.CarModelId</span>
+                </div>
+
+                <button class="card-menu-btn" onclick="toggleMenu(event, 'menu-@item.CarModelId')">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                </button>
+                <div class="card-dropdown" id="menu-@item.CarModelId">
+                    <a class="card-dropdown-item" href="/CarModel/UpdateCarModel/@item.CarModelId">
+                        <i class="fa-solid fa-pen-to-square"></i> Düzenle
+                    </a>
+                    <div class="card-dropdown-divider"></div>
+                    <a class="card-dropdown-item danger" href="/CarModel/DeleteCarModel/@item.CarModelId"
+                       onclick="return confirm('@item.ModelName silinecektir. Emin misiniz?')">
+                        <i class="fa-solid fa-trash-can"></i> Sil
+                    </a>
+                </div>
+            </div>
+
+            <div class="customer-card-body">
+                <div class="customer-info-row">
+                    <div class="customer-info-icon"><i class="fa-solid fa-copyright"></i></div>
+                    <div class="customer-info-text">
+                        <span class="customer-info-label">Marka Referansı</span>
+                        <span class="customer-info-value">Marka ID: @item.BrandId</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="customers-list" id="modelsList" style="display:none;">
+    @foreach (var item in Model)
+    {
+        <div class="customer-list-item" data-id="@item.CarModelId" data-name="@item.ModelName.ToLower()">
+            <div class="customer-list-avatar">@(string.IsNullOrEmpty(item.ModelName) ? "?" : item.ModelName[0].ToString().ToUpper())</div>
+            <div class="customer-list-info">
+                <div class="customer-list-name">
+                    @item.ModelName
+                    <span class="customer-list-id-badge">#@item.CarModelId</span>
+                </div>
+                <div class="customer-list-sub">
+                    <span class="customer-list-meta">Marka ID: @item.BrandId</span>
+                </div>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="/CarModel/UpdateCarModel/@item.CarModelId" class="btn-action btn-detail" title="Düzenle">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+                <a href="/CarModel/DeleteCarModel/@item.CarModelId" class="btn-action btn-detail danger" title="Sil"
+                   onclick="return confirm('Silmek istediğinize emin misiniz?')">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="empty-state" id="emptyState" style="display:none; text-align:center; padding:50px;">
+    <div class="empty-icon" style="font-size:48px; color:#ddd;"><i class="fa-solid fa-magnifying-glass"></i></div>
+    <h6 class="mt-3">Model Bulunamadı</h6>
+    <p class="text-muted">Arama kriterlerinize uygun araç modeli bulunmuyor.</p>
+</div>
+
+<style>
+    :root {
+        --primary: #7c3aed;
+        --border: #e2e8f0;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --radius-sm: 8px;
+        --radius-md: 12px;
+    }
+
+    /* Sayfa Başlığı ve Header */
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text-main);
+        margin: 0;
+    }
+
+    .page-subtitle {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin: 5px 0 0;
+    }
+
+    /* İstatistik Kartları */
+    .mini-stat {
+        background: #fff;
+        padding: 16px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .mini-stat-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+    }
+
+    .mini-stat-val {
+        font-size: 20px;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .mini-stat-label {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 4px;
+        font-weight: 600;
+    }
+
+    /* Toolbar & Search */
+    .customer-toolbar {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 20px;
+        background: #fff;
+        padding: 12px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+    }
+
+    .customer-search-wrap {
+        position: relative;
+        flex: 1;
+    }
+
+        .customer-search-wrap i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .customer-search-wrap input {
+            width: 100%;
+            padding: 10px 10px 10px 38px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+            .customer-search-wrap input:focus {
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+            }
+
+    /* Grid Kart Tasarımı */
+    .customers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .customer-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        position: relative;
+        overflow: hidden;
+        transition: 0.3s;
+        padding: 20px;
+    }
+
+        .customer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+    .customer-card-accent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--primary);
+        opacity: 0.6;
+    }
+
+    .customer-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    .customer-avatar {
+        width: 48px;
+        height: 48px;
+        background: #f5f3ff;
+        color: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 18px;
+    }
+
+    .customer-card-name {
+        font-weight: 700;
+        color: var(--text-main);
+        font-size: 16px;
+    }
+
+    .customer-card-id {
+        font-size: 11px;
+        color: var(--text-muted);
+        background: #f1f5f9;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    /* Dropdown Menü */
+    .card-menu-btn {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 5px;
+        margin-left: auto;
+    }
+
+    .card-dropdown {
+        position: absolute;
+        right: 0;
+        top: 40px;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        display: none;
+        z-index: 100;
+        min-width: 140px;
+    }
+
+        .card-dropdown.open {
+            display: block;
+        }
+
+    .card-dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        font-size: 13px;
+        color: var(--text-main);
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+        .card-dropdown-item:hover {
+            background: #f8fafc;
+            color: var(--primary);
+        }
+
+        .card-dropdown-item.danger:hover {
+            background: #fff1f2;
+            color: #e11d48;
+        }
+
+    /* Butonlar */
+    .btn-primary-custom {
+        background: var(--primary);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: var(--radius-sm);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .view-btn {
+        border: 1px solid var(--border);
+        background: #fff;
+        padding: 8px 12px;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        color: var(--text-muted);
+    }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+</style>
+<script>
+    // Görünüm Değiştirme
+    function setView(v) {
+        document.getElementById('modelsGrid').style.display = v === 'grid' ? 'grid' : 'none';
+        document.getElementById('modelsList').style.display = v === 'list' ? 'flex' : 'none';
+        document.getElementById('btnGridView').classList.toggle('active', v === 'grid');
+        document.getElementById('btnListView').classList.toggle('active', v === 'list');
+    }
+
+    // Arama ve Filtreleme
+    function filterModels() {
+        const q = document.getElementById('modelSearch').value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.customer-card');
+        const listItems = document.querySelectorAll('.customer-list-item');
+        let anyVisible = false;
+
+        cards.forEach(card => {
+            const isMatch = card.dataset.name.includes(q) || card.dataset.id.includes(q);
+            card.style.display = isMatch ? '' : 'none';
+            if(isMatch) anyVisible = true;
+        });
+
+        listItems.forEach(item => {
+            const isMatch = item.dataset.name.includes(q) || item.dataset.id.includes(q);
+            item.style.display = isMatch ? '' : 'none';
+        });
+
+        document.getElementById('emptyState').style.display = anyVisible ? 'none' : 'block';
+    }
+
+    // Dropdown Menü Yönetimi
+    function toggleMenu(e, id) {
+        e.stopPropagation();
+        document.querySelectorAll('.card-dropdown.open').forEach(d => {
+            if (d.id !== id) d.classList.remove('open');
+        });
+        document.getElementById(id).classList.toggle('open');
+    }
+
+    // Filtre Sıfırlama
+    function resetFilters() {
+        document.getElementById('modelSearch').value = '';
+        filterModels();
+    }
+
+    // Dışarı tıklayınca menüleri kapat
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.card-dropdown.open').forEach(d => d.classList.remove('open'));
+    });
+</script>

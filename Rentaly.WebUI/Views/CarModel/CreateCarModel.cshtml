@@ -1,0 +1,131 @@
+﻿@model CarModel
+
+@{
+    ViewData["Title"] = "Yeni Araç Modeli";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<style>
+    :root {
+        --primary: #7c3aed;
+        --border: #e2e8f0;
+        --text-main: #1e293b;
+        --radius-md: 12px;
+    }
+
+    .form-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-accent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--primary);
+    }
+
+    .input-group-custom {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .input-group-custom i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            z-index: 5;
+        }
+
+    .form-control-custom {
+        width: 100%;
+        height: 50px;
+        padding-left: 45px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        transition: all 0.3s;
+    }
+
+        .form-control-custom:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+            outline: none;
+        }
+
+    .btn-submit {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: 0.3s;
+    }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+        }
+</style>
+
+<div class="page-header mb-4">
+    <div>
+        <h1 class="page-title">Yeni Model Ekle</h1>
+        <p class="text-muted">Sisteme yeni bir araç modeli tanımlayın.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="form-card">
+            <div class="card-accent"></div>
+            <form id="createForm" method="post">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="form-label fw-bold">Model Adı</label>
+                        <div class="input-group-custom">
+                            <i class="fa-solid fa-car"></i>
+                            <input type="text" asp-for="ModelName" class="form-control-custom" placeholder="Örn: M5, A6, Corolla..." required>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-4">
+                        <label class="form-label fw-bold">Marka Seçimi</label>
+                        <select asp-for="BrandId" asp-items="ViewBag.Brands" class="form-control-custom" style="padding-left:15px;" required>
+                            <option value="" disabled selected>-- Marka Seçiniz --</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" id="btnSave" class="btn-submit">
+                            <i class="fa-solid fa-plus"></i> Modeli Sisteme Ekle
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('createForm').addEventListener('submit', function() {
+        const btn = document.getElementById('btnSave');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Kaydediliyor...';
+    });
+</script>

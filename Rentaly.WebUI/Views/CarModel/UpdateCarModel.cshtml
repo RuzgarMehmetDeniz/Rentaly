@@ -1,0 +1,122 @@
+﻿@model CarModel
+
+@{
+    ViewData["Title"] = "Modeli Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<style>
+    :root {
+        --update-color: #3b82f6;
+        --border: #e2e8f0;
+        --radius-md: 12px;
+    }
+
+    .form-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 30px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-accent-update {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--update-color);
+    }
+
+    .input-group-custom {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .input-group-custom i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--update-color);
+        }
+
+    .form-control-custom {
+        width: 100%;
+        height: 50px;
+        padding-left: 45px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+    }
+
+        .form-control-custom:focus {
+            border-color: var(--update-color);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+    .btn-update {
+        background: var(--update-color);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+</style>
+
+<div class="page-header mb-4">
+    <div>
+        <h1 class="page-title">Model Düzenle</h1>
+        <p class="text-muted">#@Model.CarModelId ID'li aracın bilgilerini güncelliyorsunuz.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="form-card">
+            <div class="card-accent-update"></div>
+            <form id="updateForm" method="post">
+                <input type="hidden" asp-for="CarModelId" />
+
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <label class="form-label fw-bold">Model Adı</label>
+                        <div class="input-group-custom">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <input type="text" asp-for="ModelName" class="form-control-custom" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-4">
+                        <label class="form-label fw-bold">Bağlı Olduğu Marka</label>
+                        <select asp-for="BrandId" asp-items="ViewBag.Brands" class="form-control-custom" style="padding-left:15px;" required>
+                        </select>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="submit" id="btnUpdate" class="btn-update">
+                            <i class="fa-solid fa-rotate"></i> Değişiklikleri Uygula
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('updateForm').addEventListener('submit', function() {
+        const btn = document.getElementById('btnUpdate');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Güncelleniyor...';
+    });
+</script>

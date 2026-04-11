@@ -750,7 +750,7 @@
         document.getElementById('modalCatName').value = '';
         document.getElementById('modalCatName').classList.remove('is-invalid');
         document.getElementById('modalNameError').style.display = 'none';
-        document.getElementById('catModalForm').action = '/Admin/Category/CreateCategory';
+        document.getElementById('catModalForm').action = '/Category/CreateCategory';
         new bootstrap.Modal(document.getElementById('catModal')).show();
     }
 
@@ -760,7 +760,7 @@
         document.getElementById('modalCatName').value = name;
         document.getElementById('modalCatName').classList.remove('is-invalid');
         document.getElementById('modalNameError').style.display = 'none';
-        document.getElementById('catModalForm').action = '/Admin/Category/UpdateCategory';
+        document.getElementById('catModalForm').action = '/Category/UpdateCategory';
         new bootstrap.Modal(document.getElementById('catModal')).show();
     }
 
@@ -785,7 +785,7 @@
     function openDeleteModal(id, name) {
         document.getElementById('deleteCatName').textContent = `"${name}"`;
         document.getElementById('deleteCatId').value = id;
-        document.getElementById('deleteForm').action = `/Admin/Category/DeleteCategory`;
+        document.getElementById('deleteForm').action = `/Category/DeleteCategory`;
         new bootstrap.Modal(document.getElementById('deleteModal')).show();
     }
 

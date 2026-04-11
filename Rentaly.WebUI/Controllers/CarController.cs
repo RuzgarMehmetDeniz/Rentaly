@@ -33,7 +33,7 @@ namespace Rentaly.WebUI.Controllers
         {
             ViewBag.Categories = new SelectList(await _categoryService.TGetListAsync(), "CategoryId", "CategoryName");
             ViewBag.Brands = new SelectList(await _brandService.TGetListAsync(), "BrandId", "BrandName");
-            ViewBag.Models = new SelectList(await _modelService.TGetListAsync(), "ModelId", "ModelName");
+            ViewBag.Models = new SelectList(await _modelService.TGetListAsync(), "CarModelId", "ModelName");
             ViewBag.Branches = new SelectList(await _branchService.TGetListAsync(), "BranchId", "BranchName");
             return View();
 
