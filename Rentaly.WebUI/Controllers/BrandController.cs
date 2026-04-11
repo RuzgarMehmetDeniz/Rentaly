@@ -2,44 +2,57 @@
 using Rentaly.Businesslayer.Abstract;
 using Rentaly.Businesslayer.ValidationRules;
 using Rentaly.EntityLayer.Entities;
-using System.Threading.Tasks;
 
-namespace Rentaly.WebUI.Controllers
+public class BrandController : Controller
 {
-    public class BrandController : Controller
+    private readonly IBrandService _brandService;
+
+    public BrandController(IBrandService brandService)
     {
-        private readonly IBrandService _brandService;
+        _brandService = brandService;
+    }
 
-        public BrandController(IBrandService brandService)
-        {
-            _brandService = brandService;
-        }
-        public async Task<IActionResult> Index()
-        {
-            var value= await _brandService.TGetListAsync();
-            return View(value);
-        }
-        [HttpGet]
-        public IActionResult CreateBrand()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> CreateBrand(Brand brand)
-        {
-            var validator = new BrandValidator();
-            var result = validator.Validate(brand);
+    public async Task<IActionResult> Index()
+    {
+        var value = await _brandService.TGetListAsync();
+        return View(value);
+    }
+    [HttpGet]
+    public IActionResult CreateBrand() => View();
 
-            if (!result.IsValid)
-            {
-                foreach (var error in result.Errors)
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-
-                return View(brand);
-            }
-
+    [HttpPost]
+    public async Task<IActionResult> CreateBrand(Brand brand)
+    {
+        if (ModelState.IsValid)
+        {
             await _brandService.TInsertAsync(brand);
             return RedirectToAction("Index");
         }
+        return View(brand);
+    }
+
+    public async Task<IActionResult> DeleteBrand(int id)
+    {
+        await _brandService.TDeleteAsync(id);
+        return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> UpdateBrand(int id)
+    {
+        var value = await _brandService.TGetByIdAsync(id);
+        return View(value);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateBrand(Brand brand)
+    {
+        if (ModelState.IsValid)
+        {
+            await _brandService.TUpdateAsync(brand);
+            return RedirectToAction("Index");
+        }
+
+        return View(brand);
     }
 }

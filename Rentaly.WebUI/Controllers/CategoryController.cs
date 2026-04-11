@@ -33,11 +33,10 @@ namespace Rentaly.WebUI.Controllers
             return RedirectToAction("CategoryList");
         }
 
-        [HttpPost]
         public async Task<IActionResult> DeleteCategory(int id) 
         {
             await _categoryService.TDeleteAsync(id);
-            return RedirectToAction("Index");
+            return RedirectToAction("CategoryList");
         }
 
         [HttpGet]

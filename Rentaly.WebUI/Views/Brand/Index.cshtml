@@ -210,7 +210,7 @@
         <h1 class="page-title">Marka Listesi</h1>
         <p class="page-subtitle">Sistemdeki tüm markaları buradan yönetebilirsiniz.</p>
     </div>
-    <a href="/Brand/Create" class="btn btn-primary px-4 py-2" style="border-radius: 8px; font-weight: 600;">
+    <a href="/Brand/CreateBrand" class="btn btn-primary px-4 py-2" style="border-radius: 8px; font-weight: 600;">
         <i class="fa fa-plus me-2"></i> Yeni Marka Ekle
     </a>
 </div>
@@ -242,20 +242,57 @@
             </div>
 
             <div class="brand-footer">
-                <a href="/Brand/Detail/@item.BrandId" class="btn-action btn-detay">Detay</a>
-                <a href="/Brand/Edit/@item.BrandId" class="btn-action btn-duzenle">Düzenle</a>
+                @* Detay artık bir modal açıyor *@
+                <button type="button"
+                        onclick="showBrandDetail('@item.BrandName', '@item.ImageUrl', '@item.BrandId')"
+                        class="btn-action btn-detay">
+                    Detay
+                </button>
+
+                <a href="/Brand/UpdateBrand/@item.BrandId" class="btn-action btn-duzenle">Düzenle</a>
+
                 <button onclick="deleteBrand(@item.BrandId)" class="btn-action btn-sil">Sil</button>
             </div>
         </div>
     }
 </div>
+<div class="modal fade" id="brandDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px; border: none; overflow: hidden;">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title">Marka Detay Bilgisi</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-5">
+                <div class="mb-4 p-3 border rounded-3 bg-light">
+                    <img id="modalBrandImg" src="" style="max-height: 120px; max-width: 100%; object-fit: contain;" />
+                </div>
+                <h3 id="modalBrandName" class="fw-bold mb-1"></h3>
+                <p id="modalBrandId" class="text-muted mb-4"></p>
 
+                <div class="d-grid">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="no-results">
     <i class="fa fa-search fa-3x mb-3"></i>
     <p>Aradığınız kriterlere uygun marka bulunamadı.</p>
 </div>
 
 <script>
+        function showBrandDetail(name, img, id) {
+        // Modal içindeki elementlere verileri basıyoruz
+        document.getElementById("modalBrandName").innerText = name;
+        document.getElementById("modalBrandImg").src = img;
+        document.getElementById("modalBrandId").innerText = "Sistem Kayıt ID: #" + id;
+
+        // Bootstrap Modal'ı tetikliyoruz
+        var detailModal = new bootstrap.Modal(document.getElementById('brandDetailModal'));
+        detailModal.show();
+    }
     function filterBrand() {
         let q = document.getElementById("searchBrand").value.toLowerCase();
         let cards = document.querySelectorAll(".brand-card");
@@ -277,7 +314,7 @@
 
     function deleteBrand(id) {
         if (confirm("Bu markayı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.")) {
-            window.location = "/Brand/Delete/" + id;
+            window.location = "/Brand/DeleteBrand/" + id;
         }
     }
 </script>

@@ -701,13 +701,12 @@
                 <a href="/Branch/Detail/@branch.BranchId" class="tbl-btn tbl-btn-detail">
                     <i class="fa-solid fa-eye"></i> Detay
                 </a>
-                <a href="/Branch/Edit/@branch.BranchId" class="tbl-btn tbl-btn-edit">
+                <a href="/Branch/UpdateBranch/@branch.BranchId" class="tbl-btn tbl-btn-edit">
                     <i class="fa-solid fa-pen-to-square"></i> Düzenle
                 </a>
-                <button class="tbl-btn tbl-btn-delete"
-                        onclick="openDeleteModal(@branch.BranchId, '@branch.BranchName')">
+                <a href="/Branch/DeleteBranch/@branch.BranchId" class="tbl-btn tbl-btn-delete">
                     <i class="fa-solid fa-trash-can"></i>
-                </button>
+                </a>
             </div>
         </div>
     }

@@ -49,13 +49,11 @@ namespace Rentaly.WebUI.Controllers
             TempData["Success"] = "Müşteri başarıyla güncellendi.";
             return RedirectToAction("CustomerList");
         }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        [HttpGet]
+        public async Task<IActionResult> DeleteCustomer(int id) // Buradaki isim 'id' olmalı
         {
             await _customerService.TDeleteAsync(id);
-            TempData["Success"] = "Müşteri başarıyla silindi.";
-            return RedirectToAction("CustomerList");
+            return RedirectToAction("CustomerList"); // Burası liste sayfanın adı olmalı
         }
     }
 }

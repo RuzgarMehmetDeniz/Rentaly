@@ -29,5 +29,10 @@ namespace Rentaly.WebUI.Controllers
             await _branchService.TInsertAsync(branch);
             return RedirectToAction("BranchList");
         }
+        public async Task<IActionResult> DeleteBranch(int id)
+        {
+            await _branchService.TDeleteAsync(id);
+            return RedirectToAction("BranchList");
+        }
     }
 }

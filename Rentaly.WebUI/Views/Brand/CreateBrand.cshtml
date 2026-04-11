@@ -1,89 +1,205 @@
-﻿@model Brand
-
+﻿@model Rentaly.EntityLayer.Entities.Brand
 @{
-    ViewData["Title"] = "CreateBrand";
+    ViewData["Title"] = "Yeni Marka Ekle";
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
-<div style="max-width:480px; margin:2rem auto;">
-    <div style="border:1px solid #e5e7eb; border-radius:12px; padding:1.5rem; background:#fff;">
+<style>
+    /* Modern Kart ve Tasarım */
+    .create-brand-container {
+        max-width: 800px;
+        margin: 2rem auto;
+    }
 
-        <h2 style="font-size:16px; font-weight:500; margin-bottom:1.5rem;
-                   padding-bottom:12px; border-bottom:1px solid #f3f4f6;">
-            Yeni Marka Ekle
-        </h2>
+    .card-modern {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
 
-        @* Validation özet kutusu - tüm hatalar buraya gelir *@
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div style="background:#fef2f2; border:1px solid #fecaca;
-                            border-radius:8px; padding:12px 14px; margin-bottom:1.25rem;">
-                <ul style="margin:0; padding-left:16px;">
-                    @foreach (var error in ViewData.ModelState.Values
-                                    .SelectMany(v => v.Errors))
-                    {
-                        <li style="font-size:13px; color:#dc2626; margin-bottom:4px;">
-                            @error.ErrorMessage
-                        </li>
-                    }
-                </ul>
-            </div>
+    .card-modern-header {
+        background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+        color: white;
+        padding: 1.5rem;
+        border: none;
+    }
+
+    .card-modern-title {
+        font-weight: 800;
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .card-modern-body {
+        padding: 2.5rem;
+    }
+
+    /* Form Elemanları */
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control-modern {
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ced4da;
+        transition: all 0.2s;
+    }
+
+        .form-control-modern:focus {
+            border-color: #4361ee;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
         }
 
-        @* Başarı mesajı - TempData ile controller'dan gelir *@
-        @if (TempData["Success"] != null)
-        {
-            <div style="background:#f0fdf4; border:1px solid #bbf7d0;
-                            border-radius:8px; padding:10px 14px; margin-bottom:1.25rem;
-                            font-size:13px; color:#16a34a;">
-                @TempData["Success"]
-            </div>
+    /* Resim Ön İzleme Bölümü */
+    .preview-container {
+        border: 2px dashed #dee2e6;
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8fafc;
+        transition: all 0.3s;
+    }
+
+        .preview-container.has-image {
+            border-style: solid;
+            border-color: #e2e8f0;
+            background-color: white;
         }
 
-        <form asp-action="CreateBrand" asp-controller="Brand" method="post">
-            @Html.AntiForgeryToken()
+    #imagePreview {
+        max-width: 100%;
+        max-height: 180px;
+        object-fit: contain;
+        display: none; /* Başlangıçta gizli */
+        border-radius: 8px;
+    }
 
-            @* Marka Adı *@
-            <div style="margin-bottom:1.25rem;">
-                <label asp-for="BrandName"
-                       style="display:block; font-size:13px;
-                              color:#6b7280; margin-bottom:6px;">
-                    Marka Adı
-                </label>
-                <input asp-for="BrandName"
-                       placeholder="örn. Toyota"
-                       style="width:100%; box-sizing:border-box; padding:8px 12px;
-                              border:1px solid @(ViewData.ModelState["BrandName"]?.Errors.Count > 0 ? "#fca5a5" : "#e5e7eb");
-                              border-radius:8px; font-size:14px;" />
-                <span asp-validation-for="BrandName"
-                      style="font-size:12px; color:#dc2626; display:block; margin-top:4px;">
-                </span>
-            </div>
+    #previewPlaceholder {
+        color: #adb5bd;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-            @* Görsel URL *@
-            <div style="margin-bottom:1.5rem;">
-                <label asp-for="ImageUrl"
-                       style="display:block; font-size:13px;
-                              color:#6b7280; margin-bottom:6px;">
-                    Görsel URL
-                </label>
-                <input asp-for="ImageUrl"
-                       placeholder="https://example.com/brand.png"
-                       style="width:100%; box-sizing:border-box; padding:8px 12px;
-                              border:1px solid @(ViewData.ModelState["ImageUrl"]?.Errors.Count > 0 ? "#fca5a5" : "#e5e7eb");
-                              border-radius:8px; font-size:14px;" />
-                <span asp-validation-for="ImageUrl"
-                      style="font-size:12px; color:#dc2626; display:block; margin-top:4px;">
-                </span>
-            </div>
+    /* Validation Hataları */
+    .text-danger {
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+    }
+</style>
 
-            <button type="submit"
-                    style="width:100%; padding:10px; background:#fff;
-                           border:1px solid #d1d5db; border-radius:8px;
-                           font-size:14px; font-weight:500; cursor:pointer;">
-                Ekle
-            </button>
-        </form>
+<div class="container create-brand-container">
+    <a href="/Brand/Index" class="btn btn-sm btn-outline-secondary mb-3">
+        <i class="fa fa-arrow-left me-1"></i> Listeye Dön
+    </a>
+
+    <div class="card card-modern">
+        <div class="card-modern-header">
+            <h1 class="card-modern-title">
+                <i class="fa fa-plus-circle me-2"></i>Yeni Marka Oluştur
+            </h1>
+            <p class="mb-0 text-white-50">Sisteme yeni bir araç markası tanımlayın.</p>
+        </div>
+
+        <div class="card-modern-body">
+            <form asp-action="CreateBrand" method="post" id="createBrandForm">
+                @* Sunucu tarafı hata özetini göster (isteğe bağlı) *@
+                @* <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div> *@
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class="mb-4">
+                            <label asp-for="BrandName" class="form-label"></label>
+                            <input asp-for="BrandName" class="form-control form-control-modern" placeholder="Örn: BMW, Mercedes, Toyota..." />
+                            <span asp-validation-for="BrandName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="ImageUrl" class="form-label"></label>
+                            <input asp-for="ImageUrl" id="imageUrlInput" class="form-control form-control-modern" placeholder="https://example.com/logo.png" />
+                            <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                            <small class="text-muted d-block mt-1">Lütfen marka logosunun doğrudan URL'sini yapıştırın.</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="mb-2 fw-bold text-muted">Logo Ön İzleme</div>
+                        <div class="preview-container" id="previewContainer">
+                            <div id="previewPlaceholder">
+                                <i class="fa fa-image fa-3x mb-2"></i>
+                                <span>URL Girdiğinizde<br />Burada Görünecek</span>
+                            </div>
+                            <img id="imagePreview" src="#" alt="Marka Logosunun Ön İzlemesi" />
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="reset" class="btn btn-light px-4">Temizle</button>
+                    <button type="submit" class="btn btn-primary px-5 fw-bold" style="border-radius: 8px;">
+                        <i class="fa fa-save me-2"></i>Markayı Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
+@section Scripts {
+    @* ASP.NET Core İstemci Tarafı Validation (Boş geçilmemesi için) *@
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // --- Resim Ön İzleme Mantığı ---
+        const imageUrlInput = document.getElementById('imageUrlInput');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewPlaceholder = document.getElementById('previewPlaceholder');
+        const previewContainer = document.getElementById('previewContainer');
+
+        function updateImagePreview() {
+            const url = imageUrlInput.value.trim();
+
+            if (url) {
+                // Giriş var, resmi yüklemeyi dene
+                imagePreview.src = url;
+                imagePreview.style.display = 'block'; // Resmi göster
+                previewPlaceholder.style.display = 'none'; // Placeholder'ı gizle
+                previewContainer.classList.add('has-image'); // Konteynırı güncelle
+            } else {
+                // Giriş boş, varsayılan duruma dön
+                imagePreview.style.display = 'none';
+                imagePreview.src = '#';
+                previewPlaceholder.style.display = 'flex';
+                previewContainer.classList.remove('has-image');
+            }
+        }
+
+        // Giriş alanında her değişiklik olduğunda (yazma, yapıştırma) ön izlemeyi güncelle
+        imageUrlInput.addEventListener('input', updateImagePreview);
+
+        // Resim yüklenirken hata oluşursa (geçersiz URL), placeholder'a geri dön
+        imagePreview.onerror = function() {
+             imagePreview.style.display = 'none';
+             imagePreview.src = '#';
+             previewPlaceholder.style.display = 'flex';
+             previewPlaceholder.innerHTML = '<i class="fa fa-exclamation-triangle fa-3x mb-2 text-warning"></i><span>Resim Yüklenemedi<br/>Geçersiz URL</span>';
+             previewContainer.classList.remove('has-image');
+        };
+
+        // Sayfa yüklendiğinde (eğer input dolu gelirse - örn. güncelleme) ön izlemeyi çalıştır
+        updateImagePreview();
+    </script>
+}
