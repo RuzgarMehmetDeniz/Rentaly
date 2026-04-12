@@ -15,6 +15,7 @@ namespace Rentaly.WebUI.Controllers
             _latestNewsService = latestNewsService;
         }
 
+
         public async Task<IActionResult> Index()
         {
             ViewBag.Title1 = "Ana Sayfa";
