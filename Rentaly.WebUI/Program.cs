@@ -17,6 +17,8 @@ builder.Services.AddScoped<ICarModelDal, EfCarModelDal>();
 builder.Services.AddScoped<ICustomerDal, EfCustomerDal>();
 builder.Services.AddScoped<IRentalDal, EfRentalDal>();
 builder.Services.AddScoped<IOurFeatureDal, EfOurFeatureDal>();
+builder.Services.AddScoped<IAwardDal, EfAwardDal>();
+builder.Services.AddScoped<ILatestNewDal, EfLatestNewDal>();
 
 // Business
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
@@ -26,7 +28,9 @@ builder.Services.AddScoped<IBrandService, BrandManager>();
 builder.Services.AddScoped<ICarModelService, CarModelManager>();
 builder.Services.AddScoped<ICustomerService, CustomerManager>();
 builder.Services.AddScoped<IRentalService, RentalManager>();
-builder.Services.AddScoped<IOurFeatureService, EfOurFeatureManager>();
+builder.Services.AddScoped<IOurFeatureService, OurFeatureManager>();
+builder.Services.AddScoped<IAwardService, AwardManager>();
+builder.Services.AddScoped<ILatestNewService, LatestNewManager>();
 
 builder.Services.AddDbContext<RentalyContext>();
 

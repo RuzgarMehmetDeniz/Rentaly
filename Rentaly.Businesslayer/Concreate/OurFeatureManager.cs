@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Rentaly.Businesslayer.Concreate
 {
-    public class EfOurFeatureManager : IOurFeatureService
+    public class OurFeatureManager : IOurFeatureService
     {
         private readonly IOurFeatureDal _ourFeatureDal;
 
-        public EfOurFeatureManager(IOurFeatureDal ourFeatureDal)
+        public OurFeatureManager(IOurFeatureDal ourFeatureDal)
         {
             _ourFeatureDal = ourFeatureDal;
         }

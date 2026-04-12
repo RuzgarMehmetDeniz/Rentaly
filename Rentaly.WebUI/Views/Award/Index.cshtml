@@ -1,0 +1,314 @@
+﻿@model List<Award>
+
+@{
+    ViewData["Title"] = "Ödül Listesi";
+    Layout = "~/Views/AdminLayout/Index.cshtml"; // Layout yolunu koruyoruz
+}
+
+<div class="award-management-container p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1">Ödül Listesi</h3>
+            <p class="text-muted small mb-0">Kazandığımız ödülleri görüntüleyin ve yönetin.</p>
+        </div>
+        <a href="/Award/CreateAward/" class="btn btn-primary btn-md px-4 rounded-pill shadow-sm">
+            <i class="fas fa-plus me-2"></i> Yeni Ödül
+        </a>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="stat-card card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center p-4">
+                    <div class="icon-square bg-light text-primary me-3">
+                        <i class="fas fa-award fa-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="fw-bold mb-0" id="totalAwards">@Model.Count</h2>
+                        <span class="text-muted small">Toplam Ödül</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center p-4">
+                    <div class="icon-square bg-light-success text-success me-3">
+                        <i class="fas fa-calendar-check fa-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="fw-bold mb-0" id="displayedAwards">@Model.Count</h2>
+                        <span class="text-muted small">Gösterilen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card card border-0 shadow-sm h-100">
+                <div class="card-body d-flex align-items-center p-4">
+                    <div class="icon-square bg-light-warning text-warning me-3">
+                        <i class="fas fa-history fa-lg"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold text-truncate mb-0" title="@Model.OrderByDescending(x => x.AwardId).FirstOrDefault()?.Desxription">
+                            @(Model.OrderByDescending(x => x.AwardId).FirstOrDefault()?.Desxription.Substring(0, Math.Min(15, Model.OrderByDescending(x => x.AwardId).FirstOrDefault()?.Desxription.Length ?? 0)) ?? "Yok")...
+                        </h5>
+                        <span class="text-muted small">Son Eklenen</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4 rounded-4">
+        <div class="card-body p-3">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="input-group search-group">
+                        <span class="input-group-text bg-white border-0"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="awardSearch" class="form-control border-0" placeholder="Ödül adı ara...">
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-md-end gap-2">
+                    <select id="awardSort" class="form-select border-0 shadow-sm rounded-pill w-auto">
+                        <option value="id-asc">ID — Artan</option>
+                        <option value="id-desc">ID — Azalan</option>
+                        <option value="desc-asc">Ad — A-Z</option>
+                        <option value="desc-desc">Ad — Z-A</option>
+                    </select>
+                    <button id="resetFilters" class="btn btn-outline-secondary rounded-pill shadow-sm">
+                        <i class="fas fa-sync-alt"></i> Sıfırla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle award-table mb-0" id="awardTableBody">
+                    <thead class="text-uppercase text-secondary" style="font-size: 0.75rem; letter-spacing: 1px;">
+                        <tr>
+                            <th class="ps-4 border-0">#</th>
+                            <th class="border-0">Ödül İkonu</th>
+                            <th class="border-0">Ödül Açıklaması</th>
+                            <th class="border-0 text-end pe-4">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 0.9rem;">
+                        @foreach (var item in Model)
+                        {
+                            <tr class="award-item" data-id="@item.AwardId" data-desc="@item.Desxription">
+                                <td class="ps-4 text-primary fw-bold">@item.AwardId</td>
+                                <td>
+                                    <div class="award-icon-box bg-light-primary text-primary">
+                                        <i class="@item.Icon fa-lg"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="fw-semibold text-dark mb-0">@item.Desxription</div>
+                                    <small class="text-muted">Ödül ID: @item.AwardId</small>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <div class="btn-group gap-1">
+                                        <a href="/Award/UpdateAward/@item.AwardId" class="btn btn-sm btn-outline-warning rounded-pill px-3 shadow-xs">
+                                            <i class="fas fa-edit me-1"></i> Düzenle
+                                        </a>
+                                        <a href="/Award/DeleteAward/@item.AwardId" class="btn btn-sm btn-outline-danger rounded-pill px-3 shadow-xs">
+                                            <i class="fas fa-trash me-1"></i> Sil
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* 1. ANA CSS YAPISI (image_1.png'den uyarlanmıştır) */
+    body {
+        background-color: #f8f9fc;
+        font-family: 'Poppins', sans-serif; /* Daha modern bir yazı tipi için ekleyebilirsiniz */
+    }
+
+    /* Kartlar ve Konteyner */
+    .award-management-container {
+        max-width: 1300px;
+        margin: 0 auto;
+    }
+
+    .stat-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.05) !important;
+        }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .rounded-4 {
+        border-radius: 12px !important;
+    }
+
+    /* İkon Kareleri */
+    .icon-square {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    .bg-light-success {
+        background-color: #d1f7e0;
+    }
+
+    .bg-light-warning {
+        background-color: #fdf2c5;
+    }
+
+    .bg-light-primary {
+        background-color: #cfe2f3;
+    }
+
+    /* Arama Çubuğu */
+    .search-group {
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+        .search-group input:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+    /* Tablo */
+    .award-table thead th {
+        font-weight: 700;
+        background-color: #fcfcfd;
+        color: #8c8c8c !important;
+    }
+
+    .award-item {
+        transition: background-color 0.2s;
+        border-bottom: 1px solid #f1f1f1 !important;
+    }
+
+        .award-item:hover {
+            background-color: #fafbfc !important;
+        }
+
+    .award-icon-box {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+    }
+
+    /* Butonlar ve Badge */
+    .btn-md {
+        padding: 0.6rem 1.25rem;
+    }
+
+    .btn-outline-warning {
+        color: #ff9f1c;
+        border-color: #ff9f1c;
+    }
+
+        .btn-outline-warning:hover {
+            background-color: #ff9f1c;
+            color: white;
+        }
+
+    .btn-outline-danger {
+        color: #f15c5c;
+        border-color: #f15c5c;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #f15c5c;
+            color: white;
+        }
+
+    .shadow-xs {
+        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+</style>
+
+<script>
+    // 2. JS YETENEKLERİ (İnteraktif Filtreleme)
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('awardSearch');
+        const sortSelect = document.getElementById('awardSort');
+        const tableBody = document.getElementById('awardTableBody');
+        const awardItems = Array.from(tableBody.querySelectorAll('.award-item'));
+        const displayedCount = document.getElementById('displayedAwards');
+        const resetBtn = document.getElementById('resetFilters');
+
+        // Arama Fonksiyonu
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+            let visibleCount = 0;
+
+            awardItems.forEach(item => {
+                const descText = item.getAttribute('data-desc').toLowerCase();
+                if (descText.includes(searchTerm)) {
+                    item.style.display = 'table-row';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            displayedCount.textContent = visibleCount;
+        });
+
+        // Sıralama Fonksiyonu
+        sortSelect.addEventListener('change', function () {
+            const sortVal = sortSelect.value;
+            let sortedItems;
+
+            switch (sortVal) {
+                case 'id-asc':
+                    sortedItems = awardItems.sort((a, b) => a.dataset.id - b.dataset.id);
+                    break;
+                case 'id-desc':
+                    sortedItems = awardItems.sort((a, b) => b.dataset.id - a.dataset.id);
+                    break;
+                case 'desc-asc':
+                    sortedItems = awardItems.sort((a, b) => a.dataset.desc.localeCompare(b.dataset.desc));
+                    break;
+                case 'desc-desc':
+                    sortedItems = awardItems.sort((a, b) => b.dataset.desc.localeCompare(a.dataset.desc));
+                    break;
+                default:
+                    sortedItems = awardItems;
+            }
+
+            // Tabloyu yeniden oluştur
+            tableBody.innerHTML = '';
+            sortedItems.forEach(item => tableBody.appendChild(item));
+        });
+
+        // Sıfırlama Butonu
+        resetBtn.addEventListener('click', function () {
+            searchInput.value = '';
+            sortSelect.value = 'id-asc';
+            searchInput.dispatchEvent(new Event('input'));
+            sortSelect.dispatchEvent(new Event('change'));
+        });
+    });
+</script>

@@ -1,0 +1,50 @@
+﻿@model Award
+
+@{
+    ViewData["Title"] = "Ödül Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid pt-4">
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-header bg-white border-0 py-3">
+            <h4 class="mb-0 fw-bold text-dark">📝 Ödül Düzenle</h4>
+        </div>
+        <div class="card-body p-4">
+            <form method="post">
+                <input type="hidden" asp-for="AwardId" />
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-semibold">Ödül İkonu</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">
+                                <i id="updateIconPreview" class="@Model.Icon text-warning"></i>
+                            </span>
+                            <input type="text" asp-for="Icon" id="updateIconInput" class="form-control border-start-0 shadow-none" placeholder="fas fa-award" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 mb-4">
+                        <label class="form-label fw-semibold">Ödül Açıklaması</label>
+                        <textarea asp-for="Desxription" class="form-control shadow-none" rows="3" required></textarea>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-warning px-4 rounded-pill text-white">Değişiklikleri Kaydet</button>
+                    <a href="/Award/Index/" class="btn btn-outline-secondary px-4 rounded-pill">İptal</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Güncelleme Sayfası İkon Önizleme
+    document.getElementById('updateIconInput').addEventListener('input', function () {
+        const iconClass = this.value;
+        const preview = document.getElementById('updateIconPreview');
+        preview.className = iconClass + " text-warning";
+    });
+</script>
