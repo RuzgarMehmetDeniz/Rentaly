@@ -1,0 +1,125 @@
+﻿@model LatestNew
+
+@{
+    ViewData["Title"] = "Yeni Haber Ekle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-shape bg-primary bg-opacity-10 text-primary rounded-3 me-3 p-2">
+                            <i class="fa-solid fa-plus-circle fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-0">Yeni Haber Yayınla</h5>
+                            <small class="text-muted">Sisteme yeni bir içerik ekliyorsunuz.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4">
+                    <form asp-action="CreateNews" method="post">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-semibold text-dark">Haber Başlığı</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-heading text-muted"></i></span>
+                                    <input type="text" asp-for="Title" class="form-control border-start-0 bg-light" placeholder="Haberin çarpıcı başlığını girin..." required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="form-label fw-semibold text-dark">Görsel URL</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-link text-muted"></i></span>
+                                    <input type="text" asp-for="ImageUrl" id="imageUrlInput" class="form-control border-start-0 bg-light" placeholder="https://resim-adresi.com/gorsel.jpg" required>
+                                </div>
+                                <small class="text-muted mt-1 d-block"><i class="fa-solid fa-info-circle me-1"></i>Web üzerinden bir resim bağlantısı yapıştırın.</small>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label fw-semibold text-dark">Görsel Önizleme</label>
+                                <div class="rounded-3 border overflow-hidden shadow-sm d-flex align-items-center justify-content-center" style="height: 100px; background: #f8f9fa;">
+                                    <img src="" id="imgPreview" class="w-100 h-100" style="object-fit: cover; display: none;">
+                                    <div id="previewPlaceholder" class="text-muted small text-center">
+                                        <i class="fa-solid fa-image d-block mb-1 fs-4"></i>
+                                        Resim Yok
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-semibold text-dark">Haber Özeti / İçeriği</label>
+                                <textarea asp-for="Description" class="form-control bg-light" rows="5" placeholder="Haber detaylarını buraya yazın..." required></textarea>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <hr class="opacity-5 mb-4">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <a href="/LatestNews/Index" class="btn btn-light px-4 rounded-3 border">
+                                        İptal Et
+                                    </a>
+                                    <button type="submit" class="btn btn-primary px-5 rounded-3 fw-bold shadow-sm">
+                                        <i class="fa-solid fa-paper-plane me-2"></i>Haberi Yayınla
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control:focus {
+        background-color: #fff !important;
+        border-color: #4e73df;
+        box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.1);
+    }
+
+    .input-group-text {
+        border-color: #dee2e6;
+    }
+    /* Rentaly Primary Color */
+    .btn-primary {
+        background-color: #4e73df;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #2e59d9;
+        }
+</style>
+
+@section Scripts {
+    <script>
+        // URL girişi yapıldığında önizlemeyi güncelle
+        const input = document.getElementById('imageUrlInput');
+        const preview = document.getElementById('imgPreview');
+        const placeholder = document.getElementById('previewPlaceholder');
+
+        input.addEventListener('input', function() {
+            if (this.value.trim() !== "") {
+                preview.src = this.value;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+            } else {
+                preview.style.display = 'none';
+                placeholder.style.display = 'block';
+            }
+        });
+
+        // Resim yüklenemezse (hatalı URL) placeholder'a geri dön
+        preview.onerror = function() {
+            this.style.display = 'none';
+            placeholder.style.display = 'block';
+            placeholder.innerHTML = '<i class="fa-solid fa-triangle-exclamation d-block mb-1 fs-4 text-danger"></i> Geçersiz URL';
+        };
+    </script>
+}

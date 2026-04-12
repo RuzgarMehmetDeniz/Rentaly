@@ -1,0 +1,63 @@
+﻿@model FAQ
+
+@{
+    ViewData["Title"] = "Soruyu Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-header bg-white border-bottom py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-shape bg-primary bg-opacity-10 text-primary rounded-3 me-3 p-2">
+                            <i class="fa-solid fa-pen-to-square fs-4"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-0">Soruyu Düzenle</h5>
+                            <small class="text-muted">ID: #@Model.FAQId numaralı içeriği güncelliyorsunuz.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4">
+                    <form asp-action="UpdateFAQ" method="post">
+                        @* HATA ALMAMAK İÇİN GİZLİ ID ALANI *@
+                        @Html.HiddenFor(x => x.FAQId)
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-semibold text-dark">Soru / Başlık</label>
+                                <input type="text" asp-for="Title" class="form-control bg-light border-0" required>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-semibold text-dark">Cevap / Açıklama</label>
+                                <textarea asp-for="Description" class="form-control bg-light border-0" rows="6" required></textarea>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <hr class="opacity-5 mb-4">
+                                <div class="d-flex gap-2 justify-content-end">
+                                    <a href="/FAQ/Index" class="btn btn-light px-4 rounded-3 border">Vazgeç</a>
+                                    <button type="submit" class="btn btn-primary px-5 rounded-3 text-white fw-bold shadow-sm">
+                                        Değişiklikleri Kaydet
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control:focus {
+        background-color: #fff !important;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        border: 1px solid #0d6efd !important;
+    }
+</style>

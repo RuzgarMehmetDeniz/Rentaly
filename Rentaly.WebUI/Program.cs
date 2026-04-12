@@ -19,6 +19,8 @@ builder.Services.AddScoped<IRentalDal, EfRentalDal>();
 builder.Services.AddScoped<IOurFeatureDal, EfOurFeatureDal>();
 builder.Services.AddScoped<IAwardDal, EfAwardDal>();
 builder.Services.AddScoped<ILatestNewDal, EfLatestNewDal>();
+builder.Services.AddScoped<ITestimonialDal, EfTestimonialDal>();
+builder.Services.AddScoped<IFAQDal, EfFAQDal>();
 
 // Business
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
@@ -31,6 +33,8 @@ builder.Services.AddScoped<IRentalService, RentalManager>();
 builder.Services.AddScoped<IOurFeatureService, OurFeatureManager>();
 builder.Services.AddScoped<IAwardService, AwardManager>();
 builder.Services.AddScoped<ILatestNewService, LatestNewManager>();
+builder.Services.AddScoped<ITestimonialService, TestimonialManager>();
+builder.Services.AddScoped<IFAQService, FAQManager>();
 
 builder.Services.AddDbContext<RentalyContext>();
 

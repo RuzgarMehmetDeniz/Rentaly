@@ -1,0 +1,83 @@
+﻿@model List<Testimonial>
+
+@{
+    ViewData["Title"] = "Müşteri Yorumları";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1">Müşteri Yorumları</h3>
+            <p class="text-muted small">Müşteri geri bildirimlerini buradan yönetebilirsiniz.</p>
+        </div>
+        <a href="/Testimonial/CreateTestimonial" class="btn btn-warning text-white fw-bold px-4 rounded-3 shadow-sm">
+            <i class="fa-solid fa-plus me-2"></i> Yeni Yorum Ekle
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4 py-3 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Müşteri</th>
+                            <th class="py-3 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Başlık</th>
+                            <th class="py-3 text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Yorum</th>
+                            <th class="py-3 text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center">
+                                        <img src="@item.ImageUrl" class="rounded-circle border me-3" width="45" height="45" style="object-fit: cover;" onerror="this.src='/images/no-user.png'">
+                                        <div>
+                                            <h6 class="mb-0 text-sm fw-bold">@item.Name @item.Surname</h6>
+                                            <span class="text-xs text-muted">ID: #@item.TestimonialId</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-soft-warning text-warning fw-medium px-3 py-2">@item.Title</span>
+                                </td>
+                                <td>
+                                    <p class="text-sm mb-0 text-truncate" style="max-width: 250px;">@item.Comment</p>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="/Testimonial/UpdateTestimonial/@item.TestimonialId" class="btn btn-sm btn-outline-primary rounded-3">
+                                            <i class="fa-solid fa-pen-to-square"></i> Düzenle
+                                        </a>
+                                        <a href="/Testimonial/DeleteTestimonial/@item.TestimonialId"
+                                           class="btn btn-sm btn-outline-danger rounded-3">
+                                            <i class="fa-solid fa-trash"></i> Sil
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-soft-warning {
+        background-color: rgba(255, 193, 7, 0.1);
+    }
+
+    .table thead th {
+        font-size: 0.75rem;
+        border-bottom: 1px solid #f0f2f5;
+    }
+
+    .table tbody td {
+        border-bottom: 1px solid #f0f2f5;
+    }
+</style>

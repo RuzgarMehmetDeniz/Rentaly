@@ -16,6 +16,9 @@ namespace Rentaly.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewBag.Title1 = "Ana Sayfa";
+            ViewBag.Title2 = "Ödül Yönetimi";
+            ViewBag.Title3 = "Ödüllerimizin Listesi";
             var values = await _awardService.TGetListAsync();
             return View(values);
         }
