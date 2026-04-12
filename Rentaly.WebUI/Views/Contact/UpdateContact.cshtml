@@ -1,0 +1,42 @@
+﻿@model Rentaly.EntityLayer.Entities.Contact
+
+@{
+    ViewData["Title"] = "İletişim Bilgisini Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container py-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white">
+            <h5 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-edit me-2"></i>İletişim Bilgisini Güncelle
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" asp-for="ContactId" />
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Adres</label>
+                    <input type="text" asp-for="Address" class="form-control" />
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Telefon</label>
+                        <input type="text" asp-for="Phone" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">E-posta</label>
+                        <input type="email" asp-for="Email" class="form-control" />
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="fas fa-sync-alt me-1"></i> Güncelleştirmeleri Kaydet
+                    </button>
+                    <a href="/Contact/Index/" class="btn btn-outline-secondary px-4 ms-2">Vazgeç</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

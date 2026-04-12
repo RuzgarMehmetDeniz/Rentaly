@@ -21,6 +21,7 @@ builder.Services.AddScoped<IAwardDal, EfAwardDal>();
 builder.Services.AddScoped<ILatestNewDal, EfLatestNewDal>();
 builder.Services.AddScoped<ITestimonialDal, EfTestimonialDal>();
 builder.Services.AddScoped<IFAQDal, EfFAQDal>();
+builder.Services.AddScoped<IContactDal, EfContactDal>();
 
 // Business
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IAwardService, AwardManager>();
 builder.Services.AddScoped<ILatestNewService, LatestNewManager>();
 builder.Services.AddScoped<ITestimonialService, TestimonialManager>();
 builder.Services.AddScoped<IFAQService, FAQManager>();
+builder.Services.AddScoped<IContactService, ContactManager>();
 
 builder.Services.AddDbContext<RentalyContext>();
 

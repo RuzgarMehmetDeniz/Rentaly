@@ -22,5 +22,6 @@ namespace Rentaly.DataAccessLayer.Concreate
         public DbSet<LatestNew> LatestNews { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }

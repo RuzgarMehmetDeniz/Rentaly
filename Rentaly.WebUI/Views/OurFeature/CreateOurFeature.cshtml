@@ -43,18 +43,26 @@
         justify-content: center;
         background: #f8f9fa;
     }
+
+    .feature-section {
+        background: #fcfcfc;
+        border: 1px solid #eee;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
 </style>
 
 <div class="container-fluid py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-10">
+        <div class="col-lg-11">
             <div class="card create-card shadow-sm p-4">
                 <h3 class="mb-4 text-primary font-weight-bold">Yeni Özellik Seti Oluştur</h3>
                 <form method="post">
 
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col-md-8">
-                            <label class="form-label">Ana Başlık</label>
+                            <label class="form-label">Sayfa Ana Başlığı</label>
                             <input type="text" asp-for="Title" class="form-control" placeholder="Örn: Yola çıkmanın en konforlu yolu..." required />
 
                             <label class="form-label">Kapak Görseli URL</label>
@@ -68,45 +76,77 @@
                         </div>
                     </div>
 
-                    <hr class="my-4">
+                    <h5 class="text-dark border-bottom pb-2 mb-4">Özellik Detayları</h5>
 
                     <div class="row">
-                        <div class="col-md-5">
-                            <label class="form-label">İkon 1 (FontAwesome)</label>
-                            <input type="text" class="form-control icon-input" asp-for="Icon1" placeholder="fas fa-car" />
-                            <label class="form-label">Açıklama 1</label>
-                            <textarea asp-for="Description1" class="form-control" rows="2"></textarea>
+                        <div class="col-md-6 mb-3">
+                            <div class="feature-section">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label class="form-label">Özellik 1 Başlık</label>
+                                        <input type="text" class="form-control mb-2" asp-for="Title1" placeholder="Örn: Geniş Filo" />
+                                        <label class="form-label">İkon 1</label>
+                                        <input type="text" class="form-control icon-input" asp-for="Icon1" placeholder="fas fa-car" />
+                                    </div>
+                                    <div class="col-md-2 p-0"><div class="preview-box"><i class="fas fa-question"></i></div></div>
+                                </div>
+                                <label class="form-label">Açıklama 1</label>
+                                <textarea asp-for="Description1" class="form-control" rows="2"></textarea>
+                            </div>
                         </div>
-                        <div class="col-md-1"><div class="preview-box"><i class="fas fa-question"></i></div></div>
 
-                        <div class="col-md-5">
-                            <label class="form-label">İkon 2 (FontAwesome)</label>
-                            <input type="text" class="form-control icon-input" asp-for="Icon2" placeholder="fas fa-shield-alt" />
-                            <label class="form-label">Açıklama 2</label>
-                            <textarea asp-for="Description2" class="form-control" rows="2"></textarea>
+                        <div class="col-md-6 mb-3">
+                            <div class="feature-section">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label class="form-label">Özellik 2 Başlık</label>
+                                        <input type="text" class="form-control mb-2" asp-for="Title2" placeholder="Örn: 7/24 Destek" />
+                                        <label class="form-label">İkon 2</label>
+                                        <input type="text" class="form-control icon-input" asp-for="Icon2" placeholder="fas fa-shield-alt" />
+                                    </div>
+                                    <div class="col-md-2 p-0"><div class="preview-box"><i class="fas fa-question"></i></div></div>
+                                </div>
+                                <label class="form-label">Açıklama 2</label>
+                                <textarea asp-for="Description2" class="form-control" rows="2"></textarea>
+                            </div>
                         </div>
-                        <div class="col-md-1"><div class="preview-box"><i class="fas fa-question"></i></div></div>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col-md-5">
-                            <label class="form-label">İkon 3 (FontAwesome)</label>
-                            <input type="text" class="form-control icon-input" asp-for="Icon3" placeholder="fas fa-tag" />
-                            <label class="form-label">Açıklama 3</label>
-                            <textarea asp-for="Description3" class="form-control" rows="2"></textarea>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="feature-section">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label class="form-label">Özellik 3 Başlık</label>
+                                        <input type="text" class="form-control mb-2" asp-for="Title3" placeholder="Örn: Uygun Fiyat" />
+                                        <label class="form-label">İkon 3</label>
+                                        <input type="text" class="form-control icon-input" asp-for="Icon3" placeholder="fas fa-tag" />
+                                    </div>
+                                    <div class="col-md-2 p-0"><div class="preview-box"><i class="fas fa-question"></i></div></div>
+                                </div>
+                                <label class="form-label">Açıklama 3</label>
+                                <textarea asp-for="Description3" class="form-control" rows="2"></textarea>
+                            </div>
                         </div>
-                        <div class="col-md-1"><div class="preview-box"><i class="fas fa-question"></i></div></div>
 
-                        <div class="col-md-5">
-                            <label class="form-label">İkon 4 (FontAwesome)</label>
-                            <input type="text" class="form-control icon-input" asp-for="Icon4" placeholder="fas fa-map-marker-alt" />
-                            <label class="form-label">Açıklama 4</label>
-                            <textarea asp-for="Description4" class="form-control" rows="2"></textarea>
+                        <div class="col-md-6 mb-3">
+                            <div class="feature-section">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <label class="form-label">Özellik 4 Başlık</label>
+                                        <input type="text" class="form-control mb-2" asp-for="Title4" placeholder="Örn: Hızlı Teslimat" />
+                                        <label class="form-label">İkon 4</label>
+                                        <input type="text" class="form-control icon-input" asp-for="Icon4" placeholder="fas fa-map-marker-alt" />
+                                    </div>
+                                    <div class="col-md-2 p-0"><div class="preview-box"><i class="fas fa-question"></i></div></div>
+                                </div>
+                                <label class="form-label">Açıklama 4</label>
+                                <textarea asp-for="Description4" class="form-control" rows="2"></textarea>
+                            </div>
                         </div>
-                        <div class="col-md-1"><div class="preview-box"><i class="fas fa-question"></i></div></div>
                     </div>
 
-                    <div class="mt-5 text-right">
+                    <div class="mt-4 text-right">
                         <a href="/OurFeature/Index" class="btn btn-secondary px-4 mr-2">Vazgeç</a>
                         <button type="submit" class="btn btn-success px-5 shadow-sm">Kaydet</button>
                     </div>
@@ -121,7 +161,7 @@
         // İkon Önizleme Scripti
         document.querySelectorAll('.icon-input').forEach(input => {
             input.addEventListener('input', function() {
-                const iconBox = this.parentElement.nextElementSibling.querySelector('i');
+                const iconBox = this.closest('.row').querySelector('.preview-box i');
                 iconBox.className = this.value || 'fas fa-question';
             });
         });

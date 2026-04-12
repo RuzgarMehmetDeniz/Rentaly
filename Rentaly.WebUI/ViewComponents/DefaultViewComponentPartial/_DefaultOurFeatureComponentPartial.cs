@@ -1,12 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Rentaly.DataAccessLayer.Abstract;
+using System.Threading.Tasks;
 
 namespace Rentaly.WebUI.ViewComponents.DefaultViewComponentPartial
 {
-    public class _DefaultOurFeatureComponentPartial:ViewComponent
+    public class _DefaultOurFeatureComponentPartial : ViewComponent
     {
-        public IViewComponentResult Invoke()
+        private readonly IOurFeatureDal _ourFeatureDal;
+
+        public _DefaultOurFeatureComponentPartial(IOurFeatureDal ourFeatureDal)
         {
-            return View();
+            _ourFeatureDal = ourFeatureDal;
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var values = await _ourFeatureDal.GetListAsync();
+            var firstValue = values.FirstOrDefault();
+
+            return View(firstValue);
         }
     }
 }

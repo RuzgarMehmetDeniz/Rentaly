@@ -1,0 +1,74 @@
+﻿@model List<Rentaly.EntityLayer.Entities.Contact>
+
+@{
+    ViewData["Title"] = "İletişim Bilgileri";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <h5 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-address-book me-2"></i>İletişim Bilgileri Listesi
+            </h5>
+            <a href="/Contact/CreateContact/" class="btn btn-outline-success btn-sm rounded-pill px-4">
+                <i class="fas fa-plus me-1"></i> Yeni Bilgi Ekle
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col" style="width: 50px;">#</th>
+                            <th scope="col">Adres</th>
+                            <th scope="col">Telefon</th>
+                            <th scope="col">E-posta</th>
+                            <th scope="col" class="text-center" style="width: 200px;">İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ContactId</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-map-marker-alt text-danger me-2"></i>
+                                        @item.Address
+                                    </div>
+                                </td>
+                                <td>
+                                    <i class="fas fa-phone-alt text-success me-2"></i>
+                                    @item.Phone
+                                </td>
+                                <td>
+                                    <i class="fas fa-envelope text-info me-2"></i>
+                                    @item.Email
+                                </td>
+                                <td class="text-center">
+                                    <a href="/Contact/DeleteContact/@item.ContactId"
+                                       class="btn btn-sm btn-outline-danger me-1"
+                                       onclick="return confirm('Bu iletişim bilgisini silmek istediğinize emin misiniz?')">
+                                        <i class="fas fa-trash"></i> Sil
+                                    </a>
+                                    <a href="/Contact/UpdateContact/@item.ContactId"
+                                       class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-edit"></i> Güncelle
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <div class="alert alert-warning text-center mt-3">
+                    <i class="fas fa-exclamation-triangle me-2"></i> Henüz herhangi bir iletişim bilgisi tanımlanmamış.
+                </div>
+            }
+        </div>
+    </div>
+</div>
