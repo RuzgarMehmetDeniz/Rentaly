@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2" viewBox="0 0 610 610" version="1.1">
+  <g id="layer4" transform="translate(5 -397.36)">
+    <g id="g3011">
+      <rect id="rect5840" stroke-linejoin="round" ry="1.5381" height="600" width="600" stroke="#4a0" y="402.36" x="0" stroke-width="10" fill="none"/>
+      <g id="g6263" transform="matrix(6.7471 0 0 6.7471 -4283.4 -3672.1)">
+        <path id="rect6255" fill="#4a0" transform="translate(5.802 124.9)" d="m641.79 486.5h35.357c2.9678 0 5.3571 2.3893 5.3571 5.3572v64.286c0 2.9679-2.3893 5.3571-5.3571 5.3571h-35.357c-2.9679 0-5.3571-2.3893-5.3571-5.3571v-64.286c0-2.9679 2.3893-5.3572 5.3571-5.3572z"/>
+        <path id="rect6257" fill="#fff" d="m649.21 616.05h31.761c1.8865 0 3.4053 1.5188 3.4053 3.4053v18.006c0 1.8865-1.5188 3.4053-3.4053 3.4053h-31.761c-1.8866 0-3.4053-1.5188-3.4053-3.4053v-18.006c0-1.8865 1.5188-3.4053 3.4053-3.4053z"/>
+        <path id="path6259" d="m681.07 514.9s8.368 16.997 7.3214 25.893c-1.7857 15.179 16.607 18.214 18.214 4.2857 1.314-11.388-17.228-27.92-18.214-34.643-1.96-13.4 6.61-15.9 6.61-15.9" transform="translate(5.802 124.9)" stroke="#4a0" stroke-linecap="round" stroke-width="2.4" fill="none"/>
+        <path id="path6261" fill="#4a0" d="m700.09 619.44s-0.17857-4.2857-3.5714-6.9643l2.1429-2.3214s6.6071 4.6429 7.1428 12.5c0.53572 7.8571-0.53571 8.2143-0.53571 8.2143l-6.7857-1.25s2.6786-7.8572 1.6072-10.179z"/>
+      </g>
+    </g>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>eco green fuel icon</dc:title>
+        <dc:date>2012-06-01T16:02:21</dc:date>
+        <dc:description>clip art, clipart, ecology, green fuel, icon, oil, </dc:description>
+        <dc:source>http://openclipart.org/detail/170346/eco-green-fuel-icon-by-cybergedeon-170346</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>dominiquechappard</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>ecology</rdf:li>
+            <rdf:li>green fuel</rdf:li>
+            <rdf:li>icon</rdf:li>
+            <rdf:li>oil</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

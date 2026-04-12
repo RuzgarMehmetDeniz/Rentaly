@@ -762,17 +762,17 @@
 
                         <!-- Model -->
                         <div class="form-field">
-                            <label asp-for="ModelId" class="form-label">
+                            <label asp-for="CarModelId" class="form-label">
                                 <i class="fa-solid fa-car" style="color:var(--primary);"></i>
                                 Model <span class="req">*</span>
                             </label>
-                            <select asp-for="ModelId"
+                            <select asp-for="CarModelId"
                                     asp-items="ViewBag.Models"
                                     class="form-control-custom"
                                     onchange="updatePreview()">
                                 <option value="">— Model Seçin —</option>
                             </select>
-                            <span asp-validation-for="ModelId" class="field-error">
+                            <span asp-validation-for="CarModelId" class="field-error">
                             </span>
                         </div>
 

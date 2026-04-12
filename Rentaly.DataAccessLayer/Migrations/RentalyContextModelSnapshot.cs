@@ -40,7 +40,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("AwardId");
 
-                    b.ToTable("Awards");
+                    b.ToTable("Awards", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Branch", b =>
@@ -65,7 +65,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("BranchId");
 
-                    b.ToTable("Branches");
+                    b.ToTable("Branches", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Brand", b =>
@@ -86,7 +86,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("BrandId");
 
-                    b.ToTable("Brands");
+                    b.ToTable("Brands", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Car", b =>
@@ -155,7 +155,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.CarModel", b =>
@@ -175,7 +175,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("CarModelId");
 
-                    b.ToTable("CarModels");
+                    b.ToTable("CarModels", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Category", b =>
@@ -192,7 +192,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Contact", b =>
@@ -217,7 +217,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("ContactId");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contacts", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Customer", b =>
@@ -257,7 +257,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.FAQ", b =>
@@ -278,7 +278,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("FAQId");
 
-                    b.ToTable("FAQs");
+                    b.ToTable("FAQs", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.LatestNew", b =>
@@ -306,7 +306,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("LatestNewId");
 
-                    b.ToTable("LatestNews");
+                    b.ToTable("LatestNews", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.OurFeature", b =>
@@ -375,7 +375,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("OurFeatureId");
 
-                    b.ToTable("OurFeatures");
+                    b.ToTable("OurFeatures", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Rental", b =>
@@ -413,7 +413,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("RentalId");
 
-                    b.ToTable("Rentals");
+                    b.ToTable("Rentals", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Testimonial", b =>
@@ -446,7 +446,7 @@ namespace Rentaly.DataAccessLayer.Migrations
 
                     b.HasKey("TestimonialId");
 
-                    b.ToTable("Testimonials");
+                    b.ToTable("Testimonials", (string)null);
                 });
 
             modelBuilder.Entity("Rentaly.EntityLayer.Entities.Car", b =>

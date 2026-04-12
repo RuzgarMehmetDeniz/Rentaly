@@ -11,6 +11,6 @@ namespace Rentaly.EntityLayer.Entities
         public int CarModelId { get; set; }
         public string ModelName { get; set; }
         public int BrandId { get; set; }
-
+        public List<Car> Cars { get; set; }
     }
 }

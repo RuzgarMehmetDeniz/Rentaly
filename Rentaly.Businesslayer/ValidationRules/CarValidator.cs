@@ -26,7 +26,7 @@ namespace Rentaly.Businesslayer.ValidationRules
             RuleFor(x => x.BrandId)
                 .GreaterThan(0).WithMessage("Marka seçimi yapılmalıdır");
 
-            RuleFor(x => x.ModelId)
+            RuleFor(x => x.CarModelId)
                 .GreaterThan(0).WithMessage("Model seçimi yapılmalıdır");
 
             RuleFor(x => x.CategoryId)
