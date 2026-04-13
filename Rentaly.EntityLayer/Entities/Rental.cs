@@ -17,6 +17,9 @@ namespace Rentaly.EntityLayer.Entities
         public DateTime ReturnDate { get; set; }
         public decimal TotalPrice { get; set; }
         public string Status { get; set; }
-
+        public string NameSurname { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Description { get; set; }
     }
 }

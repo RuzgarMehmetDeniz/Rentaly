@@ -1,0 +1,106 @@
+﻿@model Rentaly.EntityLayer.Entities.Rental
+
+@{
+    ViewData["Title"] = "Yeni Rezervasyon";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4 shadow-sm">
+                <div class="d-flex align-items-center justify-content-between mb-4 border-bottom pb-3">
+                    <h6 class="mb-0" style="font-weight: 700; color: #333;">
+                        <i class="fa fa-plus-circle me-2 text-primary"></i>YENİ REZERVASYON OLUŞTUR
+                    </h6>
+                    <a href="/AdminBooking/Index" class="btn btn-sm btn-outline-secondary rounded-pill px-3">
+                        <i class="fa fa-arrow-left me-1"></i>Listeye Dön
+                    </a>
+                </div>
+
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-dark">Müşteri Ad Soyad</label>
+                            <input type="text" asp-for="NameSurname" class="form-control" placeholder="Ad Soyad giriniz" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-dark">E-Posta Adresi</label>
+                            <input type="email" asp-for="Email" class="form-control" placeholder="ornek@mail.com" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold text-dark">Telefon</label>
+                            <input type="text" asp-for="Phone" class="form-control" placeholder="05xx xxx xx xx">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold text-dark">Kiralanacak Araç</label>
+                            @* Araç ID yerine Dropdown kullanıyoruz *@
+                            <select asp-for="CarId" class="form-select border-primary" asp-items="ViewBag.Cars" required>
+                                <option value="" disabled selected>--- Araç Seçiniz ---</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold text-dark">Toplam Tutar (₺)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">₺</span>
+                                <input type="text" asp-for="TotalPrice" class="form-control" placeholder="0.00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-dark">Alış Tarihi</label>
+                            <input type="date" asp-for="PickupDate" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-dark">İade Tarihi</label>
+                            <input type="date" asp-for="ReturnDate" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-bold text-dark">Rezervasyon Durumu</label>
+                            <select asp-for="Status" class="form-select border-info">
+                                <option value="Beklemede">Beklemede</option>
+                                <option value="Onaylandı">Onaylandı</option>
+                                <option value="İptal Edildi">İptal Edildi</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-dark">Açıklama / Notlar</label>
+                        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Rezervasyonla ilgili ek notlar..."></textarea>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary px-5 py-2 rounded-pill shadow">
+                            <i class="fa fa-save me-2"></i>Rezervasyonu Tamamla
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control, .form-select {
+        border-radius: 8px;
+        padding: 0.6rem 0.75rem;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #009CFF;
+            box-shadow: 0 0 0 0.2rem rgba(0, 156, 255, .15);
+        }
+
+    label {
+        font-size: 0.9rem;
+    }
+</style>

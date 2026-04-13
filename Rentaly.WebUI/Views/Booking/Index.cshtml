@@ -77,16 +77,20 @@
 								<h4 class="mb-3">Kişisel Bilgileriniz</h4>
 								<div class="row g-3">
 									<div class="col-12">
-										<input type="text" class="form-control" placeholder="Adınız Soyadınız" required>
+										<label class="fw-bold small">Ad Soyad</label>
+										<input type="text" asp-for="NameSurname" class="form-control" placeholder="Adınız Soyadınız" required>
 									</div>
 									<div class="col-12">
-										<input type="email" class="form-control" placeholder="E-posta Adresiniz" required>
+										<label class="fw-bold small">E-posta</label>
+										<input type="email" asp-for="Email" class="form-control" placeholder="E-posta Adresiniz" required>
 									</div>
 									<div class="col-12">
-										<input type="text" class="form-control" placeholder="Telefon Numaranız" required>
+										<label class="fw-bold small">Telefon</label>
+										<input type="text" asp-for="Phone" class="form-control" placeholder="Telefon Numaranız" required>
 									</div>
 									<div class="col-12">
-										<textarea class="form-control" rows="6" placeholder="Özel bir isteğiniz var mı?"></textarea>
+										<label class="fw-bold small">Notlar / Özel İstekler</label>
+										<textarea asp-for="Description" class="form-control" rows="6" placeholder="Özel bir isteğiniz var mı?"></textarea>
 									</div>
 								</div>
 							</div>

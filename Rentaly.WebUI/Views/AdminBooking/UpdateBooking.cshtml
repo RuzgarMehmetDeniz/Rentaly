@@ -1,0 +1,70 @@
+﻿@model Rentaly.EntityLayer.Entities.Rental
+
+@{
+    ViewData["Title"] = "Rezervasyon Güncelle";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light rounded p-4 shadow-sm">
+        <h6 class="mb-4 fw-bold text-dark"><i class="fa fa-edit me-2 text-warning"></i>REZERVASYON GÜNCELLE</h6>
+
+        <form method="post">
+            @Html.HiddenFor(x => x.RentalId)
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Müşteri Ad Soyad</label>
+                    <input type="text" asp-for="NameSurname" class="form-control" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Araç Seçimi</label>
+                    <select asp-for="CarId" id="carSelect" class="form-select border-warning" asp-items="ViewBag.Cars" required>
+                        <option value="">--- Araç Seçiniz ---</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Sabit Günlük Fiyat (₺)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-warning text-dark">₺</span>
+                        <input type="text" asp-for="TotalPrice" id="totalPrice" class="form-control fw-bold" readonly>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Alış Tarihi</label>
+                    <input type="date" asp-for="PickupDate" class="form-control" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">İade Tarihi</label>
+                    <input type="date" asp-for="ReturnDate" class="form-control" required>
+                </div>
+            </div>
+
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-warning px-5 rounded-pill fw-bold shadow-sm">
+                    <i class="fa fa-sync me-2"></i>Güncellemeyi Tamamla
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Controller'dan gelen ID-Fiyat eşleşmesini alıyoruz
+    const carPrices = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CarPrices));
+    const selectElement = document.getElementById('carSelect');
+    const priceInput = document.getElementById('totalPrice');
+
+    // Dropdown değiştiğinde fiyatı kutuya yaz
+    selectElement.addEventListener('change', function() {
+        const selectedId = this.value;
+        if(carPrices[selectedId]) {
+            priceInput.value = carPrices[selectedId];
+        } else {
+            priceInput.value = "0.00";
+        }
+    });
+</script>
