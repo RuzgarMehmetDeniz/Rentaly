@@ -27,7 +27,8 @@
                              class="card-img-top"
                              alt="@item.Title"
                              style="height: 200px; object-fit: cover;"
-                             onerror="this.src='/images/default-news.jpg'"> <div class="position-absolute top-0 end-0 m-2">
+                             onerror="this.src='/images/default-news.jpg'">
+                        <div class="position-absolute top-0 end-0 m-2">
                             <span class="badge bg-black bg-opacity-75 py-2 px-3 rounded-3 text-white">
                                 @item.CreatedDate.Year
                             </span>
@@ -42,10 +43,15 @@
                         </div>
 
                         <div class="d-flex flex-wrap gap-2 mb-3">
-                            <span class="badge badge-soft-blue py-2 px-2 flex-fill">
+                            <span class="badge badge-soft-blue py-2 px-2 flex-fill" title="Tarih">
                                 <i class="fa-solid fa-calendar-day me-1"></i> @item.CreatedDate.ToString("dd.MM.yyyy")
                             </span>
-                            <span class="badge badge-soft-gray py-2 px-2 flex-fill">
+
+                            <span class="badge badge-soft-success py-2 px-2 flex-fill" title="Yazar">
+                                <i class="fa-solid fa-user-pen me-1"></i> @(item.Author ?? "Bilinmiyor")
+                            </span>
+
+                            <span class="badge badge-soft-gray py-2 px-2 flex-fill" title="Haber ID">
                                 <i class="fa-solid fa-hashtag me-1"></i> ID: @item.LatestNewId
                             </span>
                         </div>
@@ -100,6 +106,14 @@
         font-weight: 500;
     }
 
+    /* Yeni Yazar Rozeti Rengi */
+    .badge-soft-success {
+        background-color: #f0fdf4;
+        color: #16a34a;
+        border: 1px solid #dcfce7;
+        font-weight: 500;
+    }
+
     .badge-soft-gray {
         background-color: #f8f9fa;
         color: #6c757d;
@@ -107,7 +121,7 @@
         font-weight: 500;
     }
 
-    /* Buton Renkleri (Paylaştığın Görsele Göre) */
+    /* Buton Renkleri */
     .btn-action-detail {
         background-color: #e8edff;
         color: #4e73df;

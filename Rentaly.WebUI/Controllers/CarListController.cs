@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Rentaly.DataAccessLayer.Concreate;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class CarListController : Controller
 {
@@ -20,6 +21,7 @@ public class CarListController : Controller
             .Include(x => x.Brand)
             .Include(x => x.CarModel)
             .Include(x => x.Category)
+            .Where(x => x.IsAvailable == true) // Sadece aktif araçları getirir
             .AsQueryable();
 
         // 2. Kategori Filtresi (vtype)
@@ -57,4 +59,19 @@ public class CarListController : Controller
         var values = query.ToList();
         return View(values);
     }
+
+    public async Task<IActionResult> CarDetail(int id)
+    {
+        // Veritabanından arabayı ve bağlı olduğu tabloları çekiyoruz
+        var car = await _context.Cars
+            .Include(x => x.Brand)
+            .Include(x => x.CarModel)
+            .Include(x => x.Category)
+            .FirstOrDefaultAsync(x => x.CarId == id);
+
+        ViewBag.Branches = await _context.Branches.ToListAsync();
+
+        return View(car);
+    }
+
 }

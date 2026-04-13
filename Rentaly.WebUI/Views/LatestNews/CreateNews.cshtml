@@ -32,6 +32,14 @@
                                 </div>
                             </div>
 
+                            <div class="col-12">
+                                <label class="form-label fw-semibold text-dark">Yazar Adı</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-user-pen text-muted"></i></span>
+                                    <input type="text" asp-for="Author" class="form-control border-start-0 bg-light" placeholder="Yazar ismini girin..." required>
+                                </div>
+                            </div>
+
                             <div class="col-md-8">
                                 <label class="form-label fw-semibold text-dark">Görsel URL</label>
                                 <div class="input-group">
@@ -86,7 +94,7 @@
     .input-group-text {
         border-color: #dee2e6;
     }
-    /* Rentaly Primary Color */
+
     .btn-primary {
         background-color: #4e73df;
         border: none;
@@ -99,7 +107,6 @@
 
 @section Scripts {
     <script>
-        // URL girişi yapıldığında önizlemeyi güncelle
         const input = document.getElementById('imageUrlInput');
         const preview = document.getElementById('imgPreview');
         const placeholder = document.getElementById('previewPlaceholder');
@@ -115,7 +122,6 @@
             }
         });
 
-        // Resim yüklenemezse (hatalı URL) placeholder'a geri dön
         preview.onerror = function() {
             this.style.display = 'none';
             placeholder.style.display = 'block';

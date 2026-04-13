@@ -169,6 +169,17 @@
                             <label class="form-label-custom">Şasi No (VIN)</label>
                             <input asp-for="VIN" class="form-control-custom" />
                         </div>
+                        <div class="col-12 mt-3">
+                            <label class="form-label-custom">
+                                <i class="fa-solid fa-align-left me-1" style="color:var(--primary);"></i> Araç Açıklaması
+                            </label>
+                            <textarea asp-for="Description"
+                                      class="form-control-custom"
+                                      rows="4"
+                                      placeholder="Aracın genel durumu, hasar bilgisi veya kiralama notlarını buraya yazınız..."
+                                      style="resize: none; padding-top: 12px; height: 120px;"></textarea>
+                            <span asp-validation-for="Description" class="text-danger" style="font-size:12px;"></span>
+                        </div>
                     </div>
                 </div>
             </div>

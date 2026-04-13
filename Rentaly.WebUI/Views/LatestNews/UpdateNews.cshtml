@@ -16,7 +16,6 @@
                         </div>
                         <div>
                             <h5 class="fw-bold mb-0">Haberi Düzenle</h5>
-                            @* HATA BURADAYDI: Id -> LatestNewId *@
                             <small class="text-muted">ID: #@Model.LatestNewId numaralı içeriği güncelliyorsunuz.</small>
                         </div>
                     </div>
@@ -24,7 +23,6 @@
 
                 <div class="card-body p-4">
                     <form asp-action="UpdateNews" method="post">
-                        @* HATA BURADAYDI: Id -> LatestNewId *@
                         @Html.HiddenFor(x => x.LatestNewId)
                         @Html.HiddenFor(x => x.CreatedDate)
 
@@ -34,6 +32,14 @@
                                 <div class="input-group">
                                     <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-heading text-muted"></i></span>
                                     <input type="text" asp-for="Title" class="form-control border-start-0 bg-light" placeholder="Başlık giriniz..." required>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label fw-semibold text-dark">Yazar</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-user-pen text-muted"></i></span>
+                                    <input type="text" asp-for="Author" class="form-control border-start-0 bg-light" placeholder="Yazar adını güncelleyin..." required>
                                 </div>
                             </div>
 

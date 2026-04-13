@@ -1,0 +1,181 @@
+﻿@model LatestNew
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+
+<body>
+    <div id="wrapper">
+        <div id="de-preloader"></div>
+
+        @await Component.InvokeAsync("_DefaultNavbarComponentPartial")
+
+        <div class="no-bottom no-top" id="content">
+            <div id="top"></div>
+
+            <section id="subheader" class="jarallax text-light">
+                <img src="/rentaly/images/background/subheader.jpg" class="jarallax-img" alt="">
+                <div class="center-y relative text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h1>En İyi Seyahat Deneyiminin Keyfini Çıkarın</h1>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section aria-label="section">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="blog-read">
+                                <img alt="" src="@Model.ImageUrl" class="img-fullwidth mb30"
+                                     style="max-height: 450px; width: 100%; object-fit: cover; border-radius: 8px;">
+
+                                <div class="post-text">
+                                    <p>
+                                        @if (Model.Description1 != null)
+                                        {
+                                            @(Model.Description1.Length > 151
+                                                                                    ? Model.Description1.Substring(0, 151) + ""
+                                                                                    : Model.Description1)
+                                                                                }
+                                    </p>
+
+                                    <p>
+                                        @if (Model.Description1 != null && Model.Description1.Length > 151)
+                                        {
+                                            var baslangic = 152;
+                                            var uzunluk = Model.Description1.Length - baslangic;
+                                            var alinacak = uzunluk > 151 ? 151 : uzunluk; // 150 karakter al (300. karaktere kadar)
+
+                                            @(Model.Description1.Substring(baslangic, alinacak) + (uzunluk > 151 ? "" : ""))
+                                        }
+                                    </p>
+
+                                    <p>
+                                        @if (Model.Description1 != null && Model.Description1.Length > 300)
+                                        {
+                                            var baslangic = 300;
+                                            var uzunluk = Model.Description1.Length - baslangic;
+                                            var alinacak = uzunluk > 300 ? 300 : uzunluk; // 150 karakter al (450. karaktere kadar)
+
+                                            @(Model.Description1.Substring(baslangic, alinacak) + (uzunluk > 300 ? "..." : ""))
+                                        }
+                                    </p>
+                                    <p>
+                                        @if (Model.Description1 != null && Model.Description1.Length > 450)
+                                        {
+                                            var baslangic = 450;
+                                            var uzunluk = Model.Description1.Length - baslangic;
+                                            var alinacak = uzunluk > 450 ? 450 : uzunluk; // 150 karakter al (450. karaktere kadar)
+
+                                            @(Model.Description1.Substring(baslangic, alinacak) + (uzunluk > 450 ? "..." : ""))
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="spacer-single"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <a href="#" id="back-to-top"></a>
+    </div>
+
+    @await Component.InvokeAsync("_DefaultFooterComponentPartial")
+    @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+</body>
+
+</html>
+
+<style>
+    /* PAGINATION STİLLERİ */
+    .pagination {
+        display: inline-flex;
+        padding-left: 0;
+        list-style: none;
+        margin-top: 30px;
+    }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+            .pagination li a {
+                padding: 8px 16px;
+                border: 1px solid #dee2e6;
+                color: #111;
+                text-decoration: none;
+                border-radius: 4px;
+                font-weight: bold;
+                transition: 0.3s all;
+            }
+
+            .pagination li.active a {
+                background-color: #1ecb15; /* Temanın yeşil tonu */
+                border-color: #1ecb15;
+                color: white;
+            }
+
+            .pagination li a:hover:not(.active) {
+                background-color: #f8f9fa;
+                border-color: #1ecb15;
+                color: #1ecb15;
+            }
+
+    /* SENİN MEVCUT GENEL STİLLERİN */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden;
+    }
+
+    header {
+        top: 0 !important;
+        margin: 0 !important;
+    }
+
+    #content {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    section {
+        padding: 80px 0 !important;
+        margin: 0 !important;
+        border: none !important;
+    }
+
+    footer {
+        margin-top: 0 !important;
+        padding-top: 60px !important;
+    }
+
+    .subfooter {
+        padding: 15px 0 !important;
+        background: #111 !important;
+    }
+
+    /* Spacerları pagination düzgün görünsün diye bu sayfada açabilirsin
+               veya pagination'ı ayrı bir satıra aldığım için kapalı tutabilirsin. */
+    .spacer-single {
+        display: none !important;
+    }
+
+    #wrapper {
+        width: 100%;
+        overflow: hidden;
+    }
+</style>

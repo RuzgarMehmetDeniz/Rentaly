@@ -924,6 +924,19 @@
                     </div>
                 </div>
                 <div class="form-section-body">
+                    <div class="form-field col-span-2" style="margin-bottom: 20px;">
+                        <label asp-for="Description" class="form-label">
+                            <i class="fa-solid fa-align-left" style="color:var(--primary);"></i>
+                            Araç Açıklaması / Notlar
+                            <span class="hint">Müşteriye görünecek özel notlar</span>
+                        </label>
+                        <textarea asp-for="Description"
+                                  class="form-control-custom"
+                                  rows="3"
+                                  placeholder="Aracın durumu, ekstra donanımları veya kiralama politikası hakkında kısa bilgi giriniz..."
+                                  style="resize: none; padding-top: 12px;"></textarea>
+                        <span asp-validation-for="Description" class="field-error"></span>
+                    </div>
                     <div class="form-grid" style="margin-bottom:22px;">
 
                         <!-- Günlük Fiyat -->

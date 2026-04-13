@@ -30,6 +30,7 @@ namespace Rentaly.EntityLayer.Entities
         public int SeatCount { get; set; }
         public int LuggageCount { get; set; }
         public string FuelType { get; set; }
+        public string Description { get; set; }
 
 
     }

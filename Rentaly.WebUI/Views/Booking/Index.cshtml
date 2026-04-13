@@ -1,0 +1,310 @@
+﻿@model Rentaly.EntityLayer.Entities.Rental
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+
+<body onload="initialize()">
+	<div id="wrapper">
+		@await Component.InvokeAsync("_DefaultNavbarComponentPartial")
+
+		<div class="no-bottom no-top" id="content">
+			<section id="subheader" class="jarallax text-light">
+				<img src="/rentaly/images/background/subheader.jpg" class="jarallax-img" alt="">
+				<div class="center-y relative text-center">
+					<div class="container">
+						<h1>Hızlı Rezervasyon</h1>
+					</div>
+				</div>
+			</section>
+
+			<section id="section-hero" class="no-top" data-bgcolor="#121212">
+				<div class="container">
+					<div class="spacer-single"></div>
+					<div id="booking_form_wrap" class="padding40 rounded-5 shadow-soft" data-bgcolor="#ffffff">
+
+						<form asp-action="CompleteBooking" asp-controller="Booking" method="post" class="form-s2 row g-4">
+
+							@* Hidden Alanlar *@
+							<input type="hidden" asp-for="CarId" value="@ViewBag.SelectedCarId" />
+							<input type="hidden" asp-for="PickupBranchId" value="@ViewBag.PickupId" />
+							<input type="hidden" asp-for="ReturnBranchId" value="@ViewBag.DropoffId" />
+							<input type="hidden" asp-for="PickupDate" value="@ViewBag.Start" />
+							<input type="hidden" asp-for="ReturnDate" value="@ViewBag.End" />
+							<input type="hidden" asp-for="TotalPrice" value="@ViewBag.TotalPrice" />
+							<input type="hidden" asp-for="CustomerId" value="1" /> @* Login varsa UserID çekilmeli *@
+
+							@* SOL SÜTUN: Araç ve Şube Bilgileri *@
+							<div class="col-lg-6">
+								<h4 class="mb-3">Araç Detayları</h4>
+
+								<div class="d-flex align-items-center p-3 mb-4 rounded-3 border">
+									<img src="@ViewBag.CarImage" alt="" style="width: 80px; margin-right: 15px;">
+									<span class="fw-bold fs-5">@ViewBag.CarName - ₺ @ViewBag.TotalPrice</span>
+								</div>
+
+								<div class="row g-3">
+									<div class="col-md-6">
+										<label class="fw-bold small">Alış Şubesi</label>
+										<input type="text" class="form-control bg-light" value="@ViewBag.PickupName" readonly>
+									</div>
+									<div class="col-md-6">
+										<label class="fw-bold small">Dönüş Şubesi</label>
+										<input type="text" class="form-control bg-light" value="@ViewBag.DropoffName" readonly>
+									</div>
+									<div class="col-md-12">
+										<label class="fw-bold small">Alış Tarihi</label>
+										<input type="text" class="form-control bg-light" value="@(((DateTime)ViewBag.Start).ToString("dd MMMM yyyy HH:mm"))" readonly>
+									</div>
+									<div class="col-md-12">
+										<label class="fw-bold small">Dönüş Tarihi</label>
+										<input type="text" class="form-control bg-light" value="@(((DateTime)ViewBag.End).ToString("dd MMMM yyyy HH:mm"))" readonly>
+									</div>
+								</div>
+
+								<div class="mt-4">
+									<button type="submit" class="btn-main rounded-2 w-100 py-3" style="background-color: #24d124; border:none; font-weight: 800;">
+										RESERVASYONU TAMAMLA
+									</button>
+								</div>
+							</div>
+
+							@* SAĞ SÜTUN: Müşteri Bilgileri *@
+							<div class="col-lg-6">
+								<h4 class="mb-3">Kişisel Bilgileriniz</h4>
+								<div class="row g-3">
+									<div class="col-12">
+										<input type="text" class="form-control" placeholder="Adınız Soyadınız" required>
+									</div>
+									<div class="col-12">
+										<input type="email" class="form-control" placeholder="E-posta Adresiniz" required>
+									</div>
+									<div class="col-12">
+										<input type="text" class="form-control" placeholder="Telefon Numaranız" required>
+									</div>
+									<div class="col-12">
+										<textarea class="form-control" rows="6" placeholder="Özel bir isteğiniz var mı?"></textarea>
+									</div>
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</section>
+		</div>
+		@await Component.InvokeAsync("_DefaultBrandComponentPartial")
+
+		@await Component.InvokeAsync("_DefaultFooterComponentPartial")
+		@await Component.InvokeAsync("_DefaultScriptComponentPartial")
+	</div>
+</body>
+</html>
+<style>
+	/* 2. DEĞİŞİKLİK: Navbar'ı en üste sabitleyip beyaz bandı kaldıran CSS */
+	header {
+		position: absolute !important;
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: 1001;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	#content {
+		padding-top: 0 !important;
+		margin-top: 0 !important;
+	}
+
+	/* 1. FİLTRE DÜZELTME */
+	.de_checkbox input[type="checkbox"] {
+		display: none !important;
+	}
+
+	.de_checkbox label::before,
+	.de_checkbox label::after {
+		display: none !important;
+		content: none !important;
+	}
+
+	.de_checkbox label {
+		padding-left: 0 !important;
+		margin-bottom: 12px !important;
+		cursor: pointer;
+		color: #555 !important;
+		font-size: 14px;
+		font-weight: 500;
+		display: block !important;
+		visibility: visible !important;
+		transition: all 0.2s ease;
+	}
+
+		.de_checkbox label:hover {
+			color: #24d124 !important;
+			padding-left: 5px !important;
+		}
+
+	/* 2. GENEL SAYFA DÜZENİ */
+	#subheader h1 {
+		text-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+	}
+
+	.filter-sidebar h4 {
+		font-size: 15px;
+		font-weight: 700;
+		color: #1e3056;
+		margin-top: 20px;
+		margin-bottom: 15px;
+		padding-bottom: 8px;
+		border-bottom: 1px solid #eee;
+		text-transform: uppercase;
+	}
+
+	/* 3. MODERN KART TASARIMI */
+	.car-card-modern {
+		background: #ffffff;
+		border-radius: 20px;
+		border: 1px solid #f0f0f0;
+		transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+	}
+
+		.car-card-modern:hover {
+			transform: translateY(-10px);
+			box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+			border-color: #24d12433;
+		}
+
+	.card-image {
+		padding: 25px;
+		background: #f9f9f9;
+		border-radius: 20px 20px 0 0;
+		height: 180px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+		.card-image img {
+			max-height: 100%;
+			object-fit: contain;
+		}
+
+	.card-body-custom {
+		padding: 20px 25px;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.brand-title {
+		font-size: 19px;
+		font-weight: 800;
+		color: #1e3056;
+		margin: 0;
+	}
+
+	.specs-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+		padding: 15px 0;
+		border-bottom: 1px solid #f1f1f1;
+		margin-bottom: 15px;
+	}
+
+	.spec-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-size: 11px;
+		font-weight: 700;
+		color: #777;
+	}
+
+		.spec-item img {
+			width: 16px;
+			margin-bottom: 4px;
+		}
+
+	/* 4. ALT KISIM VE BUTON HİZALAMA DÜZELTMESİ */
+	.card-footer-flex {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-top: auto;
+		padding-top: 5px;
+	}
+
+	.price-box {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.1;
+	}
+
+	.price-tag {
+		font-size: 11px;
+		font-weight: 700;
+		color: #888;
+		text-transform: uppercase;
+	}
+
+	.price-val {
+		font-size: 20px;
+		font-weight: 900;
+		color: #1e3056;
+	}
+
+	.btn-rent-modern {
+		background: #24d124;
+		color: #fff !important;
+		padding: 10px 22px;
+		border-radius: 12px;
+		font-weight: 800;
+		font-size: 14px;
+		text-decoration: none !important;
+		transition: 0.3s;
+		display: inline-block;
+		line-height: 1;
+	}
+
+		.btn-rent-modern:hover {
+			background: #1eb91e;
+			box-shadow: 0 5px 15px rgba(36, 209, 36, 0.3);
+		}
+
+	.model-name-badge {
+		font-size: 10px;
+		background: #f0f2f5;
+		color: #78829d;
+		padding: 3px 12px;
+		border-radius: 50px;
+		font-weight: 700;
+	}
+
+	.btn-clear-all {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #fff;
+		border: 1px solid #ff4d4d;
+		color: #ff4d4d !important;
+		padding: 10px;
+		border-radius: 10px;
+		font-weight: 700;
+		font-size: 13px;
+		transition: 0.3s;
+	}
+
+		.btn-clear-all:hover {
+			background: #ff4d4d;
+			color: #fff !important;
+		}
+</style>

@@ -1,0 +1,414 @@
+﻿@model Car
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+
+<body>
+    <div id="wrapper">
+        <div id="de-preloader"></div>
+
+        @await Component.InvokeAsync("_DefaultNavbarComponentPartial")
+
+        <div class="no-bottom no-top zebra" id="content">
+            <div id="top"></div>
+
+            <section id="subheader" class="jarallax text-light">
+                <img src="/rentaly/images/background/2.jpg" class="jarallax-img" alt="">
+                <div class="center-y relative text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h1>@Model.Brand.BrandName @Model.CarModel.ModelName</h1>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="section-car-details">
+                <div class="container">
+                    <div class="row g-5">
+                        <div class="col-lg-6">
+                            <div class="de-image-box">
+                                <img src="@Model.ImageUrl" class="img-fluid rounded shadow-sm" alt="@Model.Brand.BrandName @Model.CarModel.ModelName" style="width: 100%; height: auto; object-fit: cover;">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <h3>@Model.Brand.BrandName @Model.CarModel.ModelName</h3>
+                            <p>@Model.Description</p>
+
+                            <div class="spacer-10"></div>
+
+                            <h4>Teknik Özellikler</h4>
+                            <div class="de-spec">
+                                <div class="d-row">
+                                    <span class="d-title">Koltuk</span>
+                                    <span class="d-value">@Model.SeatCount Koltuk</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">Kapı</span>
+                                    <span class="d-value">4 Kapı</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">Bagaj</span>
+                                    <span class="d-value">@Model.LuggageCount</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">Yakıt Türü</span>
+                                    <span class="d-value">@Model.FuelType</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">Motor</span>
+                                    <span class="d-value">3000</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">Yıl</span>
+                                    <span class="d-value">@Model.Year</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">Kilometre</span>
+                                    <span class="d-value">@Model.Kilometer</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">Vites</span>
+                                    <span class="d-value">Otomatik</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">Plaka</span>
+                                    <span class="d-value">@Model.PlateNumber</span>
+                                </div>
+                                <div class="d-row">
+                                    <span class="d-title">VIN</span>
+                                    <span class="d-value">@Model.VIN</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="de-price text-center mb25" style="background: #f8f9fa; padding: 20px; border-radius: 5px; border: 1px solid #f0f0f0;">
+                                <span style="font-size: 14px; color: #777;">Günlük Ücret</span>
+                                <h3 style="margin: 0; color: #1e3056; font-size: 32px; font-weight: bold;">@Model.DailyPrice.ToString("C0")</h3>
+                            </div>
+
+                            <div class="de-box mb25" style="padding: 25px; border: 1px solid #eee; border-radius: 5px;">
+                                <form method="get" action="/Booking/Index">
+                                    <input type="hidden" name="carId" value="@Model.CarId" />
+
+                                    <div class="row">
+                                        <div class="col-lg-12 mb20">
+                                            <label style="font-weight: bold; font-size: 13px;">Teslim Alma Noktası</label>
+                                            <select name="pickupLocationId" class="form-control" required>
+                                                <option value="">Şube Seçin</option>
+                                                @foreach (var item in (List<Branch>)ViewBag.Branches)
+                                                {
+                                                    <option value="@item.BranchId">@item.BranchName</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-12 mb20">
+                                            <label style="font-weight: bold; font-size: 13px;">Teslim Etme Noktası</label>
+                                            <select name="dropoffLocationId" class="form-control" required>
+                                                <option value="">Şube Seçin</option>
+                                                @foreach (var item in (List<Branch>)ViewBag.Branches)
+                                                {
+                                                    <option value="@item.BranchId">@item.BranchName</option>
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-12 mb20">
+                                            <label style="font-weight: bold; font-size: 13px;">Teslim Alma Tarihi</label>
+                                            <input type="date" class="form-control" name="pickUpDate" required>
+                                        </div>
+
+                                        <div class="col-lg-12 mb20">
+                                            <label style="font-weight: bold; font-size: 13px;">Dönüş Tarihi</label>
+                                            <input type="date" class="form-control" name="returnDate" required>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn-main btn-fullwidth" style="background-color: #28a745; color:white; border:none; padding:12px; font-weight:bold; border-radius:5px;">
+                                        Rezervasyona Devam Et
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="de-box" style="padding: 20px; border: 1px solid #eee; border-radius: 5px;">
+                                <h4 style="font-size: 16px;">Paylaş</h4>
+                                <div class="de-color-icons">
+                                    <span style="background:#00acee; padding: 8px; color: white; border-radius: 3px; cursor: pointer; margin-right: 2px;"><i class="fa fa-twitter"></i></span>
+                                    <span style="background:#3b5998; padding: 8px; color: white; border-radius: 3px; cursor: pointer; margin-right: 2px;"><i class="fa fa-facebook"></i></span>
+                                    <span style="background:#ff4500; padding: 8px; color: white; border-radius: 3px; cursor: pointer; margin-right: 2px;"><i class="fa fa-reddit"></i></span>
+                                    <span style="background:#0077b5; padding: 8px; color: white; border-radius: 3px; cursor: pointer; margin-right: 2px;"><i class="fa fa-linkedin"></i></span>
+                                    <span style="background:#bd081c; padding: 8px; color: white; border-radius: 3px; cursor: pointer; margin-right: 2px;"><i class="fa fa-pinterest"></i></span>
+                                    <span style="background:#28a745; padding: 8px; color: white; border-radius: 3px; cursor: pointer;"><i class="fa fa-envelope"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <a href="#" id="back-to-top"></a>
+    </div>
+
+    @await Component.InvokeAsync("_DefaultFooterComponentPartial")
+    @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+
+</body>
+</html>
+<style>
+    /* 2. DEĞİŞİKLİK: Navbar'ı en üste sabitleyip beyaz bandı kaldıran CSS */
+    header {
+        position: absolute !important;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    #content {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    /* 1. FİLTRE DÜZELTME */
+    .de_checkbox input[type="checkbox"] {
+        display: none !important;
+    }
+
+    .de_checkbox label::before,
+    .de_checkbox label::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    .de_checkbox label {
+        padding-left: 0 !important;
+        margin-bottom: 12px !important;
+        cursor: pointer;
+        color: #555 !important;
+        font-size: 14px;
+        font-weight: 500;
+        display: block !important;
+        visibility: visible !important;
+        transition: all 0.2s ease;
+    }
+
+        .de_checkbox label:hover {
+            color: #24d124 !important;
+            padding-left: 5px !important;
+        }
+
+    /* 2. GENEL SAYFA DÜZENİ */
+    #subheader h1 {
+        text-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .filter-sidebar h4 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1e3056;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+        text-transform: uppercase;
+    }
+
+    /* 3. MODERN KART TASARIMI */
+    .car-card-modern {
+        background: #ffffff;
+        border-radius: 20px;
+        border: 1px solid #f0f0f0;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+        .car-card-modern:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: #24d12433;
+        }
+
+    .card-image {
+        padding: 25px;
+        background: #f9f9f9;
+        border-radius: 20px 20px 0 0;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .card-image img {
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+    .card-body-custom {
+        padding: 20px 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .brand-title {
+        font-size: 19px;
+        font-weight: 800;
+        color: #1e3056;
+        margin: 0;
+    }
+
+    .specs-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 15px 0;
+        border-bottom: 1px solid #f1f1f1;
+        margin-bottom: 15px;
+    }
+
+    .spec-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: #777;
+    }
+
+        .spec-item img {
+            width: 16px;
+            margin-bottom: 4px;
+        }
+
+    /* 4. ALT KISIM VE BUTON HİZALAMA DÜZELTMESİ */
+    .card-footer-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 5px;
+    }
+
+    .price-box {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+    }
+
+    .price-tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: #888;
+        text-transform: uppercase;
+    }
+
+    .price-val {
+        font-size: 20px;
+        font-weight: 900;
+        color: #1e3056;
+    }
+
+    .btn-rent-modern {
+        background: #24d124;
+        color: #fff !important;
+        padding: 10px 22px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 14px;
+        text-decoration: none !important;
+        transition: 0.3s;
+        display: inline-block;
+        line-height: 1;
+    }
+
+        .btn-rent-modern:hover {
+            background: #1eb91e;
+            box-shadow: 0 5px 15px rgba(36, 209, 36, 0.3);
+        }
+
+    .model-name-badge {
+        font-size: 10px;
+        background: #f0f2f5;
+        color: #78829d;
+        padding: 3px 12px;
+        border-radius: 50px;
+        font-weight: 700;
+    }
+
+    .btn-clear-all {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border: 1px solid #ff4d4d;
+        color: #ff4d4d !important;
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+        .btn-clear-all:hover {
+            background: #ff4d4d;
+            color: #fff !important;
+        }
+</style>
+<style>
+    /* Orijinal Rentaly Tasarımı İçin Ek CSS */
+    .de-spec .d-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border-bottom: 1px solid #eeeeee;
+    }
+
+    .de-spec .d-title {
+        font-weight: bold;
+        color: #1e3056;
+    }
+
+    .de-spec .d-value {
+        color: #777;
+    }
+
+    .de-price {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        border: 1px solid #eee;
+    }
+
+        .de-price h3 {
+            font-size: 32px;
+            margin: 0;
+            color: #1e3056;
+        }
+
+    /* Tarih ve Saat alanlarını yan yana getirmek için */
+    .date-time-field {
+        display: flex;
+        gap: 10px;
+    }
+
+        .date-time-field input {
+            flex: 1;
+        }
+</style>
