@@ -1,0 +1,220 @@
+﻿@model List<Car>
+@{
+	Layout = null;
+}
+
+<html lang="zxx">
+
+	@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+
+<body onload="initialize()">
+
+	<div id="wrapper">
+
+		@await Component.InvokeAsync("_DefaultNavbarComponentPartial")
+		<br /><br />
+
+		<div class="no-bottom no-top" id="content">
+
+			<div id="top"></div>
+
+			<!-- section begin -->
+			<section id="subheader" class="jarallax text-light">
+				<img src="/rentaly/images/background/2.jpg" class="jarallax-img" alt="">
+				<div class="center-y relative text-center">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<h1>Arabalar</h1>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- section close -->
+
+            <section id="section-cars">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3">
+
+                            @await Component.InvokeAsync("_CarCategoryViewComponentPartial")
+
+                            @await Component.InvokeAsync("_CarBrandViewComponentPartial")
+
+                            @await Component.InvokeAsync("_CarSeatViewComponentPartial")
+
+                            @await Component.InvokeAsync("_CarPriceViewComponentPartial")
+                        </div>
+
+                        <div class="col-lg-9">
+                            <div class="row">
+
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-xl-4 col-lg-6">
+                                        <div class="de-item mb30">
+
+                                            <div class="d-img">
+                                                <img src="@item.ImageUrl" class="img-fluid" alt="@item.Brand?.BrandName">
+                                            </div>
+
+                                            <div class="d-info">
+                                                <div class="d-text">
+
+                                                    <h4>@item.Brand?.BrandName @item.CarModel?.ModelName</h4>
+
+                                                    <div class="d-item_like">
+                                                        <i class="fa fa-heart"></i><span>0</span>
+                                                    </div>
+
+                                                    <div class="d-atr-group">
+
+                                                        <span class="d-atr">
+                                                            <img src="/rentaly/images/icons/1-green.svg" alt="">
+                                                            @item.SeatCount
+                                                        </span>
+
+                                                        <span class="d-atr">
+                                                            <img src="/rentaly/images/icons/2-green.svg" alt="">
+                                                            @item.LuggageCount
+                                                        </span>
+
+                                                        <span class="d-atr">
+                                                            <img src="/rentaly/images/icons/3-green.svg" alt="">
+                                                            @item.FuelType
+                                                        </span>
+
+                                                        <span class="d-atr">
+                                                            <img src="/rentaly/images/icons/4-green.svg" alt="">
+                                                            @item.Category?.CategoryName
+                                                        </span>
+
+                                                    </div>
+
+                                                    <div class="d-price">
+                                                        Daily rate from <span>@item.DailyPrice ₺</span>
+
+                                                        <a class="btn-main" href="#">
+                                                            Rent Now
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+		</div>
+
+		@await Component.InvokeAsync("_DefaultFooterComponentPartial")
+
+		@await Component.InvokeAsync("_DefaultScriptComponentPartial")
+
+	</div>
+
+</body>
+
+</html>
+<style>
+	/* 1. Ana Footer'ın alt boşluğunu daralt */
+	footer {
+		padding-top: 40px !important; /* Üstten biraz boşluk kalsın */
+		padding-bottom: 0px !important; /* Alttaki büyük boşluğu sıfırla */
+	}
+
+		/* 2. "Copyright" yazan en alt bandı daralt */
+		footer .subfooter {
+			padding: 10px 0 !important; /* Standart 30-40px olan boşluğu 10px'e çeker */
+			margin: 0 !important;
+		}
+
+		/* 3. Footer içindeki son elemanın (genelde row veya container)
+		   fazladan bıraktığı margin'i temizle */
+		footer .container {
+			margin-bottom: 0 !important;
+			padding-bottom: 0 !important;
+		}
+
+	/* 4. Sayfanın en altındaki siyah boşluğu tamamen yok etmek için */
+	#wrapper {
+		overflow: hidden;
+	}
+
+	footer {
+		padding-top: 40px !important; /* Üst boşluğu biraz daralttık */
+		padding-bottom: 20px !important; /* Alt boşluğu ciddi oranda azalttık */
+	}
+
+		/* Telif hakkı (Copyright) kısmının altındaki ekstra boşluğu siler */
+		footer .subfooter {
+			padding: 20px 0 !important;
+			margin: 0 !important;
+		}
+	/* Ana içerik kapsayıcısının altındaki 90px'lik zorunlu boşluğu kaldırır */
+	#content.no-bottom.no-top {
+		padding-bottom: 0 !important;
+	}
+
+	/* Footer'ın üstünde oluşabilecek otomatik margin'i sıfırlar */
+	footer {
+		margin-top: 0 !important;
+	}
+	/* Tüm sectionlar arası boşluğu zorla kapatır */
+	section, header, footer {
+		margin: 0 !important;
+		padding-top: 60px !important; /* Standart padding */
+		padding-bottom: 60px !important;
+	}
+
+	/* Yeşil alanın (Call to Action) altındaki boşluğu öldürür */
+	.v-center, .v-align-children {
+		padding-bottom: 0 !important;
+		margin-bottom: 0 !important;
+	}
+
+	/* Eğer arada boş bir div varsa onu gizler */
+	.spacer-single, .spacer-double, .spacer-60 {
+		display: none !important;
+	}
+	/* 1. Sayfanın en tepesindeki hayalet boşluğu siler */
+	html, body {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* 2. Navbar'ın (Header) üzerindeki boşluğu sıfırlar */
+	header {
+		top: 0 !important;
+		margin-top: 0 !important;
+		padding-top: 0 !important;
+		position: absolute; /* Veya fixed, temanın yapısına göre */
+		width: 100%;
+		z-index: 1001;
+	}
+
+	/* 3. Navbar'ın hemen altındaki ilk bölümün (genelde slider veya subheader)
+		   Navbar'ın altında kalmaması için gereken ayar */
+	#content {
+		padding-top: 0 !important;
+		margin-top: 0 !important;
+	}
+
+	/* 4. Senin o yeşil alan ile siyah alan arasındaki boşluk için nokta atışı: */
+	section#call-to-action,
+	.section-dark,
+	footer {
+		margin-top: 0 !important;
+		margin-bottom: 0 !important;
+		border: none !important;
+	}
+</style>

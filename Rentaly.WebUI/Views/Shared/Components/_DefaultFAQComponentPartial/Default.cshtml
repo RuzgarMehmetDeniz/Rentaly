@@ -1,61 +1,47 @@
-﻿<section id="section-faq">
-	<div class="container">
-		<div class="row">
-			<div class="col text-center">
-				<h2>Have Any Questions?</h2>
-				<div class="spacer-20"></div>
-			</div>
-		</div>
-		<div class="row g-custom-x">
-			<div class="col-md-6 wow fadeInUp">
-				<div class="accordion secondary">
-					<div class="accordion-section">
-						<div class="accordion-section-title" data-tab="#accordion-1">
-							How do I get started with Car Rental?
-						</div>
-						<div class="accordion-section-content" id="accordion-1">
-							<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-						</div>
-						<div class="accordion-section-title" data-tab="#accordion-2">
-							Can I rent a car with a debit card??
-						</div>
-						<div class="accordion-section-content" id="accordion-2">
-							<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-						</div>
-						<div class="accordion-section-title" data-tab="#accordion-3">
-							What kind of Car Rental do I need?
-						</div>
-						<div class="accordion-section-content" id="accordion-3">
-							<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-						</div>
-					</div>
-				</div>
-			</div>
+﻿@model List<FAQ>
 
-			<div class="col-md-6 wow fadeInUp">
-				<div class="accordion secondary">
-					<div class="accordion-section">
-						<div class="accordion-section-title" data-tab="#accordion-b-4">
-							What is a rental car security deposit?
-						</div>
-						<div class="accordion-section-content" id="accordion-b-4">
-							<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-						</div>
-						<div class="accordion-section-title" data-tab="#accordion-b-5">
-							Can I cancel or modify my reservation?
-						</div>
-						<div class="accordion-section-content" id="accordion-b-5">
-							<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-						</div>
-						<div class="accordion-section-title" data-tab="#accordion-b-6">
-							Is it possible to extend my rental period?
-						</div>
-						<div class="accordion-section-content" id="accordion-b-6">
-							<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<section id="section-faq">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h2>Sık Sorulan Sorular?</h2>
+                <div class="spacer-20"></div>
+            </div>
+        </div>
+        <div class="row g-custom-x">
+
+            <div class="col-md-6 wow fadeInUp">
+                <div class="accordion secondary">
+                    <div class="accordion-section">
+                        @foreach (var item in Model.Take(3))
+                        {
+                            <div class="accordion-section-title" data-tab="#accordion-@item.FAQId">
+                                @item.Title
+                            </div>
+                            <div class="accordion-section-content" id="accordion-@item.FAQId">
+                                <p>@item.Description</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 wow fadeInUp">
+                <div class="accordion secondary">
+                    <div class="accordion-section">
+                        @foreach (var item in Model.Skip(3).Take(3))
+                        {
+                            <div class="accordion-section-title" data-tab="#accordion-@item.FAQId">
+                                @item.Title
+                            </div>
+                            <div class="accordion-section-content" id="accordion-@item.FAQId">
+                                <p>@item.Description</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </section>

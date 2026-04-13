@@ -1,68 +1,133 @@
-﻿<section id="section-news">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-lg-6 offset-lg-3 text-center">
-				<h2>Latest News</h2>
-				<p>Breaking news, fresh perspectives, and in-depth coverage - stay ahead with our latest news, insights, and analysis.</p>
-				<div class="spacer-20"></div>
-			</div>
+﻿@model List<LatestNew>
 
-			<div class="col-lg-4 mb10">
-				<div class="bloglist s2 item">
-					<div class="post-content">
-						<div class="post-image">
-							<div class="date-box">
-								<div class="m">10</div>
-								<div class="d">MAR</div>
-							</div>
-							<img alt="" src="/rentaly/images/news/pic-blog-1.jpg" class="lazy">
-						</div>
-						<div class="post-text">
-							<h4><a href="news-single.html">Enjoy Best Travel Experience<span></span></a></h4>
-							<p>Dolore officia sint incididunt non excepteur ea mollit commodo ut enim reprehenderit cupidatat labore ad laborum consectetur.</p>
-							<a class="btn-main" href="#">Read More</a>
-						</div>
-					</div>
-				</div>
-			</div>
+<section id="section-news" style="padding: 60px 0;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 text-center">
+                <h2>Son Haberlerimiz</h2>
+                <p>En güncel haberlerimiz, içgörülerimiz ve analizlerimizle gelişmelerden haberdar kalın.</p>
+                <div class="spacer-20"></div>
+            </div>
+        </div>
 
-			<div class="col-lg-4 mb10">
-				<div class="bloglist s2 item">
-					<div class="post-content">
-						<div class="post-image">
-							<div class="date-box">
-								<div class="m">12</div>
-								<div class="d">MAR</div>
-							</div>
-							<img alt="" src="/rentaly/images/news/pic-blog-2.jpg" class="lazy">
-						</div>
-						<div class="post-text">
-							<h4><a href="news-single.html">The Future of Car Rent<span></span></a></h4>
-							<p>Dolore officia sint incididunt non excepteur ea mollit commodo ut enim reprehenderit cupidatat labore ad laborum consectetur.</p>
-							<a class="btn-main" href="#">Read More</a>
-						</div>
-					</div>
-				</div>
-			</div>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 mb30 d-flex">
+                    <div class="bloglist-custom-card w-100">
+                        <div class="post-content-wrapper h-100 d-flex flex-column">
 
-			<div class="col-lg-4 mb10">
-				<div class="bloglist s2 item">
-					<div class="post-content">
-						<div class="post-image">
-							<div class="date-box">
-								<div class="m">14</div>
-								<div class="d">MAR</div>
-							</div>
-							<img alt="" src="/rentaly/images/news/pic-blog-3.jpg" class="lazy">
-						</div>
-						<div class="post-text">
-							<h4><a href="news-single.html">Holiday Tips For Backpacker<span></span></a></h4>
-							<p>Dolore officia sint incididunt non excepteur ea mollit commodo ut enim reprehenderit cupidatat labore ad laborum consectetur.</p>
-							<a class="btn-main" href="#">Read More</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <div class="post-image-container">
+                                <div class="news-date-badge">
+                                    @item.CreatedDate.ToString("dd MMMM", new System.Globalization.CultureInfo("tr-TR"))
+                                </div>
+                                <img alt="@item.Title" src="@item.ImageUrl" class="news-fit-img">
+                                <div class="img-bottom-shadow"></div>
+                            </div>
+
+                            <div class="post-text-body d-flex flex-column flex-grow-1">
+                                <h4 class="news-title">
+                                    <a href="news-single.html">@item.Title</a>
+                                </h4>
+                                <p class="news-description">@item.Description</p>
+
+                                <div class="mt-auto">
+                                    <a class="btn-main" href="#">Daha Fazlasını Oku</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </section>
+
+<style>
+    /* Kartın genel çerçevesi ve alt çizgisi */
+    .bloglist-custom-card {
+        background: #fff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border-bottom: 4px solid #28a745; /* Görseldeki yeşil şerit */
+        transition: transform 0.3s ease;
+    }
+
+        .bloglist-custom-card:hover {
+            transform: translateY(-5px);
+        }
+
+    /* Resimleri tek boyuta zorlayan kısım */
+    .post-image-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9; /* Tüm resimler bu oranda kesilir */
+        overflow: hidden;
+    }
+
+    .news-fit-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Resmi bozmadan kutuya doldurur */
+        display: block;
+    }
+
+    /* Yeşil Tarih Kutusu */
+    .news-date-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background-color: #28a745;
+        color: #fff;
+        padding: 7px 15px;
+        border-radius: 6px;
+        z-index: 5;
+        font-weight: bold;
+        font-size: 14px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Metin alanları ve buton hizalama */
+    .post-text-body {
+        padding: 25px;
+    }
+
+    .news-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+        .news-title a {
+            text-decoration: none;
+            color: #222;
+        }
+
+    .news-description {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .mt-auto {
+        margin-top: auto !important;
+    }
+
+    /* Resim altındaki hafif beyaz geçiş */
+    .img-bottom-shadow {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.7));
+        pointer-events: none;
+    }
+
+    .mb30 {
+        margin-bottom: 30px;
+    }
+</style>

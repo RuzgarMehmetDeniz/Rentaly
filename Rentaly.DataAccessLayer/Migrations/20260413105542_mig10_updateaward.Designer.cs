@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rentaly.DataAccessLayer.Concreate;
 
@@ -11,9 +12,11 @@ using Rentaly.DataAccessLayer.Concreate;
 namespace Rentaly.DataAccessLayer.Migrations
 {
     [DbContext(typeof(RentalyContext))]
-    partial class RentalyContextModelSnapshot : ModelSnapshot
+    [Migration("20260413105542_mig10_updateaward")]
+    partial class mig10_updateaward
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

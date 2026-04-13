@@ -92,6 +92,7 @@
                         <tr>
                             <th class="ps-4 border-0">#</th>
                             <th class="border-0">Ödül İkonu</th>
+                            <th class="border-0">Ödül Başlığı</th> <!-- EKLENDİ -->
                             <th class="border-0">Ödül Açıklaması</th>
                             <th class="border-0 text-end pe-4">İşlemler</th>
                         </tr>
@@ -106,6 +107,12 @@
                                         <i class="@item.Icon fa-lg"></i>
                                     </div>
                                 </td>
+
+                                <!-- EKLENDİ -->
+                                <td class="fw-semibold text-dark">
+                                    @item.Title
+                                </td>
+
                                 <td>
                                     <div class="fw-semibold text-dark mb-0">@item.Desxription</div>
                                     <small class="text-muted">Ödül ID: @item.AwardId</small>
@@ -130,13 +137,12 @@
 </div>
 
 <style>
-    /* 1. ANA CSS YAPISI (image_1.png'den uyarlanmıştır) */
+    /* (CSS AYNI KALDI) */
     body {
         background-color: #f8f9fc;
-        font-family: 'Poppins', sans-serif; /* Daha modern bir yazı tipi için ekleyebilirsiniz */
+        font-family: 'Poppins', sans-serif;
     }
 
-    /* Kartlar ve Konteyner */
     .award-management-container {
         max-width: 1300px;
         margin: 0 auto;
@@ -159,7 +165,6 @@
         border-radius: 12px !important;
     }
 
-    /* İkon Kareleri */
     .icon-square {
         width: 48px;
         height: 48px;
@@ -181,7 +186,6 @@
         background-color: #cfe2f3;
     }
 
-    /* Arama Çubuğu */
     .search-group {
         border-radius: 10px;
         background-color: white;
@@ -193,7 +197,6 @@
             outline: none;
         }
 
-    /* Tablo */
     .award-table thead th {
         font-weight: 700;
         background-color: #fcfcfd;
@@ -218,7 +221,6 @@
         border-radius: 8px;
     }
 
-    /* Butonlar ve Badge */
     .btn-md {
         padding: 0.6rem 1.25rem;
     }
@@ -251,6 +253,7 @@
 <script>
     // 2. JS YETENEKLERİ (İnteraktif Filtreleme)
     document.addEventListener('DOMContentLoaded', function () {
+
         const searchInput = document.getElementById('awardSearch');
         const sortSelect = document.getElementById('awardSort');
         const tableBody = document.getElementById('awardTableBody');
@@ -260,12 +263,16 @@
 
         // Arama Fonksiyonu
         searchInput.addEventListener('input', function () {
+
             const searchTerm = searchInput.value.toLowerCase();
             let visibleCount = 0;
 
             awardItems.forEach(item => {
-                const descText = item.getAttribute('data-desc').toLowerCase();
-                if (descText.includes(searchTerm)) {
+
+                const descText = (item.getAttribute('data-desc') || '').toLowerCase();
+                const titleText = (item.getAttribute('data-title') || '').toLowerCase();
+
+                if (descText.includes(searchTerm) || titleText.includes(searchTerm)) {
                     item.style.display = 'table-row';
                     visibleCount++;
                 } else {
@@ -278,37 +285,45 @@
 
         // Sıralama Fonksiyonu
         sortSelect.addEventListener('change', function () {
+
             const sortVal = sortSelect.value;
             let sortedItems;
 
             switch (sortVal) {
+
                 case 'id-asc':
                     sortedItems = awardItems.sort((a, b) => a.dataset.id - b.dataset.id);
                     break;
+
                 case 'id-desc':
                     sortedItems = awardItems.sort((a, b) => b.dataset.id - a.dataset.id);
                     break;
+
                 case 'desc-asc':
                     sortedItems = awardItems.sort((a, b) => a.dataset.desc.localeCompare(b.dataset.desc));
                     break;
+
                 case 'desc-desc':
                     sortedItems = awardItems.sort((a, b) => b.dataset.desc.localeCompare(a.dataset.desc));
                     break;
+
                 default:
                     sortedItems = awardItems;
             }
 
-            // Tabloyu yeniden oluştur
             tableBody.innerHTML = '';
             sortedItems.forEach(item => tableBody.appendChild(item));
         });
 
         // Sıfırlama Butonu
         resetBtn.addEventListener('click', function () {
+
             searchInput.value = '';
             sortSelect.value = 'id-asc';
+
             searchInput.dispatchEvent(new Event('input'));
             sortSelect.dispatchEvent(new Event('change'));
         });
+
     });
 </script>

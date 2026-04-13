@@ -1,262 +1,300 @@
+﻿@model List<Branch>
+
 ﻿<style>
-    /* 1. SECTION AYARLARI */
-    #section-hero {
-        position: relative !important;
-        padding: 130px 0 60px 0 !important;
-        min-height: 700px;
-    }
+     /* 1. SECTION AYARLARI */
+     #section-hero {
+         position: relative !important;
+         padding: 130px 0 60px 0 !important;
+         min-height: 700px;
+     }
 
-    .jarallax-img {
-        z-index: -1 !important;
-        object-fit: cover !important;
-    }
+     .jarallax-img {
+         z-index: -1 !important;
+         object-fit: cover !important;
+     }
 
-    /* 2. KOMPAKT KART YAPISI */
-    .hero-search-form {
-        background: white !important;
-        border-radius: 12px !important;
-        padding: 20px !important;
-        box-shadow: 0px 10px 40px rgba(0,0,0,0.2) !important;
-        max-width: 1050px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 10;
-    }
+     /* 2. KOMPAKT KART YAPISI */
+     .hero-search-form {
+         background: white !important;
+         border-radius: 12px !important;
+         padding: 20px !important;
+         box-shadow: 0px 10px 40px rgba(0,0,0,0.2) !important;
+         max-width: 1050px;
+         margin: 0 auto;
+         position: relative;
+         z-index: 10;
+     }
 
-    .form-title {
-        color: #1c355e !important;
-        font-weight: 700 !important;
-        font-size: 13px !important;
-        margin-bottom: 8px !important;
-        display: block;
-    }
+     .form-title {
+         color: #1c355e !important;
+         font-weight: 700 !important;
+         font-size: 13px !important;
+         margin-bottom: 8px !important;
+         display: block;
+     }
 
-    /* 3. KARE YEŞİL KUTULAR */
-    .v-selection-group {
-        display: flex;
-        gap: 10px;
-    }
+     /* 3. KARE YEŞİL KUTULAR */
+     .v-selection-group {
+         display: flex;
+         gap: 10px;
+     }
 
-    .v-type {
-        flex: 1;
-        display: flex;
-    }
+     .v-type {
+         flex: 1;
+         display: flex;
+     }
 
-        .v-type input {
-            display: none;
-        }
+         .v-type input {
+             display: none;
+         }
 
-        .v-type label {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #26d120 !important; /* İstediğin parlak yeşil */
-            color: white;
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            border-radius: 10px;
-            cursor: pointer;
-            padding: 10px;
-            transition: 0.3s;
-            margin: 0;
-        }
+         .v-type label {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             justify-content: center;
+             background-color: #26d120 !important; /* İstediğin parlak yeşil */
+             color: white;
+             width: 100%;
+             aspect-ratio: 1 / 1;
+             border-radius: 10px;
+             cursor: pointer;
+             padding: 10px;
+             transition: 0.3s;
+             margin: 0;
+         }
 
-            .v-type label img {
-                width: 45px;
-                height: auto;
-                margin-bottom: 8px;
-                filter: brightness(0) invert(1);
-            }
+             .v-type label img {
+                 width: 45px;
+                 height: auto;
+                 margin-bottom: 8px;
+                 filter: brightness(0) invert(1);
+             }
 
-            .v-type label span {
-                font-weight: 700;
-                font-size: 12px;
-            }
+             .v-type label span {
+                 font-weight: 700;
+                 font-size: 12px;
+             }
 
-        .v-type input:checked + label {
-            background-color: #1a9e16 !important;
-            transform: scale(0.98);
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-        }
+         .v-type input:checked + label {
+             background-color: #1a9e16 !important;
+             transform: scale(0.98);
+             box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+         }
 
-    /* 4. INPUT VE BUTONLAR */
-    .custom-input {
-        border: 1px solid #ced4da !important;
-        height: 38px !important;
-        font-size: 13px !important;
-        border-radius: 5px !important;
-    }
+     /* 4. INPUT VE BUTONLAR */
+     .custom-input {
+         border: 1px solid #ced4da !important;
+         height: 38px !important;
+         font-size: 13px !important;
+         border-radius: 5px !important;
+     }
 
-    .input-group-custom {
-        display: flex;
-        width: 100%;
-    }
+     .input-group-custom {
+         display: flex;
+         width: 100%;
+     }
 
-    .date-field {
-        flex: 2;
-        border-top-right-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-    }
+     .date-field {
+         flex: 2;
+         border-top-right-radius: 0 !important;
+         border-bottom-right-radius: 0 !important;
+     }
 
-    .time-field {
-        flex: 1;
-        border-left: none !important;
-        border-top-left-radius: 0 !important;
-        border-bottom-left-radius: 0 !important;
-    }
+     .time-field {
+         flex: 1;
+         border-left: none !important;
+         border-top-left-radius: 0 !important;
+         border-bottom-left-radius: 0 !important;
+     }
 
-    .btn-search {
-        background: #26d120 !important;
-        color: white !important;
-        border: none;
-        padding: 8px 25px;
-        font-weight: 700;
-        border-radius: 6px;
-        font-size: 14px;
-    }
+     .btn-search {
+         background: #26d120 !important;
+         color: white !important;
+         border: none;
+         padding: 8px 25px;
+         font-weight: 700;
+         border-radius: 6px;
+         font-size: 14px;
+     }
 
-    /* 5. ADIMLAR ALANI (Geri Getirilen Kısım) */
-    .steps-container {
-        margin-top: 60px;
-        color: white;
-    }
+     /* 5. ADIMLAR ALANI (Geri Getirilen Kısım) */
+     .steps-container {
+         margin-top: 60px;
+         color: white;
+     }
 
-    .step-box {
-        position: relative;
-        padding-right: 15px;
-    }
+     .step-box {
+         position: relative;
+         padding-right: 15px;
+     }
 
-    .step-num {
-        background: #26d120;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 800;
-        border-radius: 5px;
-        margin-bottom: 15px;
-    }
+     .step-num {
+         background: #26d120;
+         width: 32px;
+         height: 32px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-weight: 800;
+         border-radius: 5px;
+         margin-bottom: 15px;
+     }
 
-    .step-box h4 {
-        font-size: 18px;
-        font-weight: 700;
-        color: white;
-        margin-bottom: 8px;
-    }
+     .step-box h4 {
+         font-size: 18px;
+         font-weight: 700;
+         color: white;
+         margin-bottom: 8px;
+     }
 
-    .step-box p {
-        font-size: 13px;
-        opacity: 0.8;
-        line-height: 1.5;
-    }
+     .step-box p {
+         font-size: 13px;
+         opacity: 0.8;
+         line-height: 1.5;
+     }
 </style>
 
 <section id="section-hero" class="jarallax">
     <img src="/rentaly/images/background/1.jpg" class="jarallax-img" alt="">
 
     <div class="container">
+
         <div class="row">
             <div class="col-lg-12 text-center text-light mb-4">
-                <h2 style="font-weight: 800;">Looking for a <span class="id-color">vehicle</span>?</h2>
+                <h2 style="font-weight: 800;">
+                    Bir <span class="id-color">araç</span> mı arıyorsun?
+                </h2>
             </div>
         </div>
 
         <div class="hero-search-form">
-            <form method="post">
+
+            <form method="get" action="/CarList/Index">
+
                 <div class="row g-3">
+
+                    <!-- ARAÇ TİPİ -->
                     <div class="col-lg-5">
-                        <span class="form-title">What is your vehicle type?</span>
+                        <span class="form-title">Araç Tipi Seç</span>
+
                         <div class="v-selection-group">
                             <div class="v-type">
-                                <input id="car" name="vtype" type="radio" checked><label for="car">
-                                    <img src="/rentaly/images/select-form/car.png"><span>Car</span>
+                                <input id="car" name="vtype" type="radio" value="car" checked>
+                                <label for="car">
+                                    <img src="/rentaly/images/select-form/car.png">
+                                    <span>Otomobil</span>
                                 </label>
                             </div>
+
                             <div class="v-type">
-                                <input id="van" name="vtype" type="radio"><label for="van">
-                                    <img src="/rentaly/images/select-form/van.png"><span>Van</span>
+                                <input id="van" name="vtype" type="radio" value="van">
+                                <label for="van">
+                                    <img src="/rentaly/images/select-form/van.png">
+                                    <span>Minivan</span>
                                 </label>
                             </div>
+
                             <div class="v-type">
-                                <input id="mini" name="vtype" type="radio"><label for="mini">
-                                    <img src="/rentaly/images/select-form/minibus.png"><span>Minibus</span>
+                                <input id="mini" name="vtype" type="radio" value="minibus">
+                                <label for="mini">
+                                    <img src="/rentaly/images/select-form/minibus.png">
+                                    <span>Minibüs</span>
                                 </label>
                             </div>
+
                             <div class="v-type">
-                                <input id="pres" name="vtype" type="radio"><label for="pres">
-                                    <img src="/rentaly/images/select-form/sportscar.png"><span>Prestige</span>
+                                <input id="pres" name="vtype" type="radio" value="prestige">
+                                <label for="pres">
+                                    <img src="/rentaly/images/select-form/sportscar.png">
+                                    <span>Lüks</span>
                                 </label>
                             </div>
                         </div>
                     </div>
 
+                    <!-- LOKASYON -->
                     <div class="col-lg-7">
                         <div class="row g-2">
+
+                            <!-- ALIŞ LOKASYONU -->
                             <div class="col-6">
-                                <span class="form-title">Pick Up Location</span>
-                                <input type="text" placeholder="Location" class="form-control custom-input">
+                                <span class="form-title">Alış Lokasyonu</span>
+
+                                <select name="pickUpBranchId" class="form-control custom-input">
+                                    <option value="">Lokasyon Seçiniz</option>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.BranchId">
+                                            @item.BranchName
+                                        </option>
+                                    }
+                                </select>
                             </div>
+
+                            <!-- TESLİM LOKASYONU -->
                             <div class="col-6">
-                                <span class="form-title">Drop Off Location</span>
-                                <input type="text" placeholder="Location" class="form-control custom-input">
+                                <span class="form-title">Teslim Lokasyonu</span>
+
+                                <select name="dropOffBranchId" class="form-control custom-input">
+                                    <option value="">Lokasyon Seçiniz</option>
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <option value="@item.BranchId">
+                                            @item.BranchName
+                                        </option>
+                                    }
+                                </select>
                             </div>
+
+                            <!-- ALIŞ TARİH -->
                             <div class="col-6">
-                                <span class="form-title">Pick Up Date & Time</span>
+                                <span class="form-title">Alış Tarihi</span>
+
                                 <div class="input-group-custom">
-                                    <input type="date" class="form-control custom-input date-field">
-                                    <select class="form-select custom-input time-field"><option>09:00</option></select>
+                                    <input type="date" name="pickUpDate" class="form-control custom-input date-field">
+
+                                    <select name="pickUpTime" class="form-select custom-input time-field">
+                                        <option>09:00</option>
+                                        <option>12:00</option>
+                                        <option>15:00</option>
+                                    </select>
                                 </div>
                             </div>
+
+                            <!-- TESLİM TARİH -->
                             <div class="col-6">
-                                <span class="form-title">Return Date & Time</span>
+                                <span class="form-title">Teslim Tarihi</span>
+
                                 <div class="input-group-custom">
-                                    <input type="date" class="form-control custom-input date-field">
-                                    <select class="form-select custom-input time-field"><option>09:00</option></select>
+                                    <input type="date" name="dropOffDate" class="form-control custom-input date-field">
+
+                                    <select name="dropOffTime" class="form-select custom-input time-field">
+                                        <option>09:00</option>
+                                        <option>12:00</option>
+                                        <option>15:00</option>
+                                    </select>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
+                    <!-- BUTON -->
                     <div class="col-12 text-end mt-3">
-                        <button type="submit" class="btn-search">Find a Vehicle</button>
+                        <button type="submit" class="btn-search">
+                            Araç Bul
+                        </button>
                     </div>
+
                 </div>
+
             </form>
         </div>
 
-        <div class="steps-container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="step-box">
-                        <div class="step-num">1</div>
-                        <h4>Bir araç seçin</h4>
-                        <p>Her ihtiyaca, zevke ve varış noktasına uygun olarak tasarlanmış geniş araç filomuzla benzersiz maceraların ve unutulmaz yolculukların kilidini açın..</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="step-box">
-                        <div class="step-num">2</div>
-                        <h4>Konum ve tarih seçin</h4>
-                        <p>İdeal konumunuzu ve tarihinizi seçin, biz de sizi rahatlık, esneklik ve unutulmaz deneyimlerle dolu bir yolculuğa çıkaralım..</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="step-box">
-                        <div class="step-num">3</div>
-                        <h4>Rezervasyon yapın</h4>
-                        <p>Rezervasyonunuzu kolaylıkla güvence altına alın, olasılıklar dünyasının kapılarını açın ve bir sonraki maceranıza güvenle başlayın..</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="step-box">
-                        <div class="step-num">4</div>
-                        <h4>Arkanıza yaslanın ve rahatlayın</h4>
-                        <p>Her ayrıntıyla biz ilgilendiğimiz için, zahmetsiz bir kolaylık sunuyoruz; böylece siz rahatlayabilir ve konfor dolu bir yolculuğun tadını çıkarabilirsiniz.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @await Component.InvokeAsync("DefaultStepsComponentPartial")
+
     </div>
 </section>
