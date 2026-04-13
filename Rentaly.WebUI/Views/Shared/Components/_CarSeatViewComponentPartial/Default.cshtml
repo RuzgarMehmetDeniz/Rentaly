@@ -1,25 +1,141 @@
-﻿<div class="item_filter_group">
-    <h4>Car Seats</h4>
+﻿@model List<int>
+
+@{
+    var selectedSeat = Context.Request.Query["seat"].ToString();
+}
+
+<div class="item_filter_group mb-4">
+    <h4 class="mb-3">Koltuk Sayısı</h4>
     <div class="de_form">
-        <div class="de_checkbox">
-            <input id="car_seat_1" name="car_seat_1" type="checkbox" value="car_seat_1">
-            <label for="car_seat_1">2 seats</label>
-        </div>
 
-        <div class="de_checkbox">
-            <input id="car_seat_2" name="car_seat_2" type="checkbox" value="car_seat_2">
-            <label for="car_seat_2">4 seats</label>
-        </div>
+        @* İlk 2 seçenek (3 ve 4 koltuk) her zaman görünür *@
+        @foreach (var seat in Model.Take(2))
+        {
+            <div class="de_checkbox mb-2">
+                <a asp-controller="CarList"
+                   asp-action="Index"
+                   asp-route-seat="@(selectedSeat == seat.ToString() ? "" : seat.ToString())"
+                   asp-route-vtype="@Context.Request.Query["vtype"]"
+                   asp-route-brandId="@Context.Request.Query["brandId"]"
+                   asp-route-minPrice="@Context.Request.Query["minPrice"]"
+                   asp-route-maxPrice="@Context.Request.Query["maxPrice"]"
+                   asp-route-pickUpBranchId="@Context.Request.Query["pickUpBranchId"]"
+                   class="filter-link d-flex align-items-center py-1 @(selectedSeat == seat.ToString() ? "active-filter" : "")">
 
-        <div class="de_checkbox">
-            <input id="car_seat_3" name="car_seat_3" type="checkbox" value="car_seat_3">
-            <label for="car_seat_3">6 seats</label>
-        </div>
+                    <i class="fa @(selectedSeat == seat.ToString() ? "fa-check-square" : "fa-square-o") me-2"></i>
+                    <label>@seat Koltuk</label>
+                </a>
+            </div>
+        }
 
-        <div class="de_checkbox">
-            <input id="car_seat_4" name="car_seat_4" type="checkbox" value="car_seat_4">
-            <label for="car_seat_4">6+ seats</label>
-        </div>
+        @* Diğerleri (5 ve 6 koltuk) açılır menüde *@
+        @if (Model.Count > 2)
+        {
+            <div class="collapse" id="moreSeats">
+                @foreach (var seat in Model.Skip(2))
+                {
+                    <div class="de_checkbox mb-2">
+                        <a asp-controller="CarList"
+                           asp-action="Index"
+                           asp-route-seat="@(selectedSeat == seat.ToString() ? "" : seat.ToString())"
+                           asp-route-vtype="@Context.Request.Query["vtype"]"
+                           asp-route-brandId="@Context.Request.Query["brandId"]"
+                           asp-route-minPrice="@Context.Request.Query["minPrice"]"
+                           asp-route-maxPrice="@Context.Request.Query["maxPrice"]"
+                           asp-route-pickUpBranchId="@Context.Request.Query["pickUpBranchId"]"
+                           class="filter-link d-flex align-items-center py-1 @(selectedSeat == seat.ToString() ? "active-filter" : "")">
 
+                            <i class="fa @(selectedSeat == seat.ToString() ? "fa-check-square" : "fa-square-o") me-2"></i>
+                            <label>@seat Koltuk</label>
+                        </a>
+                    </div>
+                }
+            </div>
+
+            <a class="btn-more-custom mt-2 d-inline-block text-decoration-none small fw-bold"
+               data-bs-toggle="collapse"
+               href="#moreSeats"
+               role="button"
+               aria-expanded="false">
+                <span class="show-more">Daha Fazla Gör +</span>
+                <span class="show-less d-none">Daha Az Göster -</span>
+            </a>
+        }
     </div>
 </div>
+
+<style>
+    /* 1. TÜM YEŞİL ELEMENTLERİ VE TEMANIN GİZLİ KUTULARINI ÖLDÜR */
+    /* Temanın kendi çizdiği sahte checkbox kutularını imha ediyoruz */
+    .de_checkbox input,
+    .de_checkbox input[type="checkbox"] + span,
+    .de_checkbox input[type="checkbox"]::before,
+    .de_checkbox input[type="checkbox"]::after,
+    .de_checkbox label::before,
+    .de_checkbox label::after {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        content: none !important; /* Etiketin üstündeki sahte kutuyu siler */
+    }
+
+    /* Temanın de_checkbox'a verdiği arka plan ve boşlukları temizle */
+    .de_checkbox {
+        background: none !important;
+        padding-left: 0 !important;
+    }
+
+    /* 2. İKONLARIN RENGİ (SEÇİLİ DEĞİLKEN GRİ) */
+    .filter-link i {
+        color: #888 !important;
+        font-size: 16px;
+    }
+
+    /* 3. AKTİF SEÇİM DURUMU (KURUMSAL MAVİ) */
+    .active-filter i,
+    .active-filter label,
+    .active-filter {
+        color: #007bff !important;
+        font-weight: bold !important;
+    }
+
+    /* 4. YAZI VE LİNK STİLLERİ */
+    .item_filter_group .de_form .de_checkbox label {
+        color: #444 !important;
+        font-size: 14.5px;
+        cursor: pointer;
+        margin-left: 0 !important; /* Temanın ikon boşluğunu sıfırla */
+        margin-bottom: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    .filter-link {
+        text-decoration: none !important;
+        color: #444 !important;
+    }
+
+        .filter-link:hover {
+            color: #007bff !important;
+            padding-left: 3px;
+        }
+
+    /* 5. BUTON SIFIRLAMA */
+    .btn-more-custom {
+        background: none !important;
+        background-color: transparent !important;
+        color: #007bff !important;
+        border: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+
+    [aria-expanded="true"] .show-more {
+        display: none;
+    }
+
+    [aria-expanded="true"] .show-less {
+        display: inline !important;
+    }
+</style>

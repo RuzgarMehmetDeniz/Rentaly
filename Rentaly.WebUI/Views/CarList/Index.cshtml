@@ -1,220 +1,312 @@
 ﻿@model List<Car>
 @{
-	Layout = null;
+    Layout = null;
 }
 
+<!DOCTYPE html>
 <html lang="zxx">
-
-	@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+@await Component.InvokeAsync("_DefaultHeadComponentPartial")
 
 <body onload="initialize()">
+    <div id="wrapper">
+        @await Component.InvokeAsync("_DefaultNavbarComponentPartial")
 
-	<div id="wrapper">
+        <div class="no-bottom no-top" id="content">
+            <div id="top"></div>
 
-		@await Component.InvokeAsync("_DefaultNavbarComponentPartial")
-		<br /><br />
-
-		<div class="no-bottom no-top" id="content">
-
-			<div id="top"></div>
-
-			<!-- section begin -->
-			<section id="subheader" class="jarallax text-light">
-				<img src="/rentaly/images/background/2.jpg" class="jarallax-img" alt="">
-				<div class="center-y relative text-center">
-					<div class="container">
-						<div class="row">
-							<div class="col-md-12 text-center">
-								<h1>Arabalar</h1>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- section close -->
-
-            <section id="section-cars">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3">
-
-                            @await Component.InvokeAsync("_CarCategoryViewComponentPartial")
-
-                            @await Component.InvokeAsync("_CarBrandViewComponentPartial")
-
-                            @await Component.InvokeAsync("_CarSeatViewComponentPartial")
-
-                            @await Component.InvokeAsync("_CarPriceViewComponentPartial")
-                        </div>
-
-                        <div class="col-lg-9">
-                            <div class="row">
-
-                                @foreach (var item in Model)
-                                {
-                                    <div class="col-xl-4 col-lg-6">
-                                        <div class="de-item mb30">
-
-                                            <div class="d-img">
-                                                <img src="@item.ImageUrl" class="img-fluid" alt="@item.Brand?.BrandName">
-                                            </div>
-
-                                            <div class="d-info">
-                                                <div class="d-text">
-
-                                                    <h4>@item.Brand?.BrandName @item.CarModel?.ModelName</h4>
-
-                                                    <div class="d-item_like">
-                                                        <i class="fa fa-heart"></i><span>0</span>
-                                                    </div>
-
-                                                    <div class="d-atr-group">
-
-                                                        <span class="d-atr">
-                                                            <img src="/rentaly/images/icons/1-green.svg" alt="">
-                                                            @item.SeatCount
-                                                        </span>
-
-                                                        <span class="d-atr">
-                                                            <img src="/rentaly/images/icons/2-green.svg" alt="">
-                                                            @item.LuggageCount
-                                                        </span>
-
-                                                        <span class="d-atr">
-                                                            <img src="/rentaly/images/icons/3-green.svg" alt="">
-                                                            @item.FuelType
-                                                        </span>
-
-                                                        <span class="d-atr">
-                                                            <img src="/rentaly/images/icons/4-green.svg" alt="">
-                                                            @item.Category?.CategoryName
-                                                        </span>
-
-                                                    </div>
-
-                                                    <div class="d-price">
-                                                        Daily rate from <span>@item.DailyPrice ₺</span>
-
-                                                        <a class="btn-main" href="#">
-                                                            Rent Now
-                                                        </a>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                }
-
+            @* 1. DEĞİŞİKLİK: Subheader'a margin-top: 0 ve navbar yüksekliği kadar padding-top eklendi *@
+            <section id="subheader" class="jarallax text-light" style="padding: 150px 0 100px 0; margin-top: 0;">
+                <img src="/rentaly/images/background/2.jpg" class="jarallax-img" alt="">
+                <div class="center-y relative text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h1 style="font-weight: 800; letter-spacing: 2px; margin-top: 30px;">ARAÇ FİLOMUZ</h1>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-		</div>
+            <section id="section-cars" style="padding: 60px 0; background-color: #fcfcfc;">
+                <div class="container">
+                    <div class="row">
+                        @* SOL FİLTRE PANELİ *@
+                        <div class="col-lg-3 pe-lg-4">
+                            <div class="filter-sidebar">
+                                @await Component.InvokeAsync("_CarCategoryViewComponentPartial")
+                                @await Component.InvokeAsync("_CarBrandViewComponentPartial")
+                                @await Component.InvokeAsync("_CarSeatViewComponentPartial")
+                                @await Component.InvokeAsync("_CarPriceViewComponentPartial")
 
-		@await Component.InvokeAsync("_DefaultFooterComponentPartial")
+                                <div class="mt-4 pt-3 border-top">
+                                    <a asp-controller="CarList" asp-action="Index" class="btn-clear-all">
+                                        <i class="fa fa-trash me-2"></i>Filtreleri Sıfırla
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
-		@await Component.InvokeAsync("_DefaultScriptComponentPartial")
+                        @* SAĞ ARAÇ LİSTESİ *@
+                        <div class="col-lg-9">
+                            <div class="row g-4">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-xl-4 col-lg-6 col-md-6">
+                                        <div class="car-card-modern">
+                                            <div class="card-image">
+                                                <img src="@item.ImageUrl" class="img-fluid" alt="@item.Brand?.BrandName">
+                                            </div>
 
-	</div>
+                                            <div class="card-body-custom">
+                                                <div class="card-header-flex">
+                                                    <h4 class="brand-title">@item.Brand?.BrandName</h4>
+                                                </div>
 
+                                                <div class="specs-grid">
+                                                    <div class="spec-item">
+                                                        <img src="/rentaly/images/icons/1-green.svg"> <span>@item.SeatCount Kişi</span>
+                                                    </div>
+                                                    <div class="spec-item">
+                                                        <img src="/rentaly/images/icons/2-green.svg"> <span>@item.LuggageCount Çanta</span>
+                                                    </div>
+                                                    <div class="spec-item">
+                                                        <img src="/rentaly/images/icons/3-green.svg"> <span>@item.FuelType</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-footer-flex">
+                                                    <div class="price-box">
+                                                        <span class="price-tag">Günlük</span>
+                                                        <span class="price-val">@item.DailyPrice.ToString("N0") <small>₺</small></span>
+                                                    </div>
+                                                    <a href="/Cars/CarDetail/@item.CarId" class="btn-rent-modern">
+                                                        Kirala
+                                                    </a>
+                                                </div>
+
+                                                <div class="text-center mt-3">
+                                                    <span class="model-name-badge">@item.CarModel?.ModelName</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        @await Component.InvokeAsync("_DefaultFooterComponentPartial")
+        @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+    </div>
 </body>
-
 </html>
+
 <style>
-	/* 1. Ana Footer'ın alt boşluğunu daralt */
-	footer {
-		padding-top: 40px !important; /* Üstten biraz boşluk kalsın */
-		padding-bottom: 0px !important; /* Alttaki büyük boşluğu sıfırla */
-	}
+    /* 2. DEĞİŞİKLİK: Navbar'ı en üste sabitleyip beyaz bandı kaldıran CSS */
+    header {
+        position: absolute !important;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
 
-		/* 2. "Copyright" yazan en alt bandı daralt */
-		footer .subfooter {
-			padding: 10px 0 !important; /* Standart 30-40px olan boşluğu 10px'e çeker */
-			margin: 0 !important;
-		}
+    #content {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
 
-		/* 3. Footer içindeki son elemanın (genelde row veya container)
-		   fazladan bıraktığı margin'i temizle */
-		footer .container {
-			margin-bottom: 0 !important;
-			padding-bottom: 0 !important;
-		}
+    /* 1. FİLTRE DÜZELTME */
+    .de_checkbox input[type="checkbox"] {
+        display: none !important;
+    }
 
-	/* 4. Sayfanın en altındaki siyah boşluğu tamamen yok etmek için */
-	#wrapper {
-		overflow: hidden;
-	}
+    .de_checkbox label::before,
+    .de_checkbox label::after {
+        display: none !important;
+        content: none !important;
+    }
 
-	footer {
-		padding-top: 40px !important; /* Üst boşluğu biraz daralttık */
-		padding-bottom: 20px !important; /* Alt boşluğu ciddi oranda azalttık */
-	}
+    .de_checkbox label {
+        padding-left: 0 !important;
+        margin-bottom: 12px !important;
+        cursor: pointer;
+        color: #555 !important;
+        font-size: 14px;
+        font-weight: 500;
+        display: block !important;
+        visibility: visible !important;
+        transition: all 0.2s ease;
+    }
 
-		/* Telif hakkı (Copyright) kısmının altındaki ekstra boşluğu siler */
-		footer .subfooter {
-			padding: 20px 0 !important;
-			margin: 0 !important;
-		}
-	/* Ana içerik kapsayıcısının altındaki 90px'lik zorunlu boşluğu kaldırır */
-	#content.no-bottom.no-top {
-		padding-bottom: 0 !important;
-	}
+        .de_checkbox label:hover {
+            color: #24d124 !important;
+            padding-left: 5px !important;
+        }
 
-	/* Footer'ın üstünde oluşabilecek otomatik margin'i sıfırlar */
-	footer {
-		margin-top: 0 !important;
-	}
-	/* Tüm sectionlar arası boşluğu zorla kapatır */
-	section, header, footer {
-		margin: 0 !important;
-		padding-top: 60px !important; /* Standart padding */
-		padding-bottom: 60px !important;
-	}
+    /* 2. GENEL SAYFA DÜZENİ */
+    #subheader h1 {
+        text-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+    }
 
-	/* Yeşil alanın (Call to Action) altındaki boşluğu öldürür */
-	.v-center, .v-align-children {
-		padding-bottom: 0 !important;
-		margin-bottom: 0 !important;
-	}
+    .filter-sidebar h4 {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1e3056;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #eee;
+        text-transform: uppercase;
+    }
 
-	/* Eğer arada boş bir div varsa onu gizler */
-	.spacer-single, .spacer-double, .spacer-60 {
-		display: none !important;
-	}
-	/* 1. Sayfanın en tepesindeki hayalet boşluğu siler */
-	html, body {
-		margin: 0 !important;
-		padding: 0 !important;
-	}
+    /* 3. MODERN KART TASARIMI */
+    .car-card-modern {
+        background: #ffffff;
+        border-radius: 20px;
+        border: 1px solid #f0f0f0;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
 
-	/* 2. Navbar'ın (Header) üzerindeki boşluğu sıfırlar */
-	header {
-		top: 0 !important;
-		margin-top: 0 !important;
-		padding-top: 0 !important;
-		position: absolute; /* Veya fixed, temanın yapısına göre */
-		width: 100%;
-		z-index: 1001;
-	}
+        .car-card-modern:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: #24d12433;
+        }
 
-	/* 3. Navbar'ın hemen altındaki ilk bölümün (genelde slider veya subheader)
-		   Navbar'ın altında kalmaması için gereken ayar */
-	#content {
-		padding-top: 0 !important;
-		margin-top: 0 !important;
-	}
+    .card-image {
+        padding: 25px;
+        background: #f9f9f9;
+        border-radius: 20px 20px 0 0;
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-	/* 4. Senin o yeşil alan ile siyah alan arasındaki boşluk için nokta atışı: */
-	section#call-to-action,
-	.section-dark,
-	footer {
-		margin-top: 0 !important;
-		margin-bottom: 0 !important;
-		border: none !important;
-	}
+        .card-image img {
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+    .card-body-custom {
+        padding: 20px 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .brand-title {
+        font-size: 19px;
+        font-weight: 800;
+        color: #1e3056;
+        margin: 0;
+    }
+
+    .specs-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 15px 0;
+        border-bottom: 1px solid #f1f1f1;
+        margin-bottom: 15px;
+    }
+
+    .spec-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 11px;
+        font-weight: 700;
+        color: #777;
+    }
+
+        .spec-item img {
+            width: 16px;
+            margin-bottom: 4px;
+        }
+
+    /* 4. ALT KISIM VE BUTON HİZALAMA DÜZELTMESİ */
+    .card-footer-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 5px;
+    }
+
+    .price-box {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+    }
+
+    .price-tag {
+        font-size: 11px;
+        font-weight: 700;
+        color: #888;
+        text-transform: uppercase;
+    }
+
+    .price-val {
+        font-size: 20px;
+        font-weight: 900;
+        color: #1e3056;
+    }
+
+    .btn-rent-modern {
+        background: #24d124;
+        color: #fff !important;
+        padding: 10px 22px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 14px;
+        text-decoration: none !important;
+        transition: 0.3s;
+        display: inline-block;
+        line-height: 1;
+    }
+
+        .btn-rent-modern:hover {
+            background: #1eb91e;
+            box-shadow: 0 5px 15px rgba(36, 209, 36, 0.3);
+        }
+
+    .model-name-badge {
+        font-size: 10px;
+        background: #f0f2f5;
+        color: #78829d;
+        padding: 3px 12px;
+        border-radius: 50px;
+        font-weight: 700;
+    }
+
+    .btn-clear-all {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        border: 1px solid #ff4d4d;
+        color: #ff4d4d !important;
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+        .btn-clear-all:hover {
+            background: #ff4d4d;
+            color: #fff !important;
+        }
 </style>

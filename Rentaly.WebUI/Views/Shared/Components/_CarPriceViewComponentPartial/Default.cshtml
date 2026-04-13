@@ -1,20 +1,97 @@
-﻿<div class="item_filter_group">
-    <h4>Price ($)</h4>
-    <div class="price-input">
-        <div class="field">
-            <span>Min</span>
-            <input type="number" class="input-min" value="0">
-        </div>
-        <div class="field">
-            <span>Max</span>
-            <input type="number" class="input-max" value="2000">
-        </div>
-    </div>
-    <div class="slider">
-        <div class="progress"></div>
-    </div>
-    <div class="range-input">
-        <input type="range" class="range-min" min="0" max="2000" value="0" step="1">
-        <input type="range" class="range-max" min="0" max="2000" value="2000" step="1">
+﻿@model List<Rentaly.WebUI.ViewComponents.CarViewComponentPartial.PriceRangeModel>
+
+@{
+    var selectedMin = Context.Request.Query["minPrice"].ToString();
+}
+
+<div class="item_filter_group mb-4">
+    <h4 class="mb-3">Fiyat Aralığı</h4>
+    <div class="de_form">
+        @foreach (var range in Model)
+        {
+            <div class="de_checkbox mb-2">
+                <a asp-controller="CarList"
+                   asp-action="Index"
+                   asp-route-minPrice="@(selectedMin == range.Min.ToString() ? "" : range.Min.ToString())"
+                   asp-route-maxPrice="@(selectedMin == range.Min.ToString() ? "" : range.Max.ToString())"
+                   asp-route-vtype="@Context.Request.Query["vtype"]"
+                   asp-route-brandId="@Context.Request.Query["brandId"]"
+                   asp-route-seat="@Context.Request.Query["seat"]"
+                   asp-route-pickUpBranchId="@Context.Request.Query["pickUpBranchId"]"
+                   class="filter-link d-flex align-items-center py-1 @(selectedMin == range.Min.ToString() ? "active-filter" : "")">
+
+                    <i class="fa @(selectedMin == range.Min.ToString() ? "fa-check-square" : "fa-square-o") me-2"></i>
+                    <label>@range.Text</label>
+                </a>
+            </div>
+        }
     </div>
 </div>
+
+<style>
+    /* 1. TÜM YEŞİL ELEMENTLERİ VE TEMANIN GİZLİ KUTULARINI ÖLDÜR */
+    /* Temanın kendi çizdiği sahte checkbox kutularını ve inputları tamamen yok ediyoruz */
+    .de_checkbox input,
+    .de_checkbox input[type="checkbox"] + span,
+    .de_checkbox input[type="checkbox"]::before,
+    .de_checkbox input[type="checkbox"]::after,
+    .de_checkbox label::before,
+    .de_checkbox label::after {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        content: none !important; /* Temanın label üzerine çizdiği kutuyu siler */
+    }
+
+    /* Arka plan renklerini ve temanın varsayılan paddinglerini sıfırla */
+    .de_checkbox {
+        background: none !important;
+        padding-left: 0 !important;
+    }
+
+    /* 2. İKONLARIN RENGİ (SEÇİLİ DEĞİLKEN GRİ) */
+    .filter-link i {
+        color: #888 !important;
+        font-size: 16px;
+    }
+
+    /* 3. AKTİF SEÇİM DURUMU (KURUMSAL MAVİ) */
+    .active-filter i,
+    .active-filter label,
+    .active-filter {
+        color: #007bff !important;
+        font-weight: bold !important;
+    }
+
+    /* 4. YAZI VE LİNK STİLLERİ */
+    .item_filter_group .de_form .de_checkbox label {
+        color: #444 !important;
+        font-size: 14.5px;
+        cursor: pointer;
+        margin-left: 0 !important; /* Temanın bıraktığı boşluğu kapat */
+        margin-bottom: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    .filter-link {
+        text-decoration: none !important;
+        color: #444 !important;
+    }
+
+        .filter-link:hover {
+            color: #007bff !important;
+            padding-left: 3px;
+        }
+
+    /* 5. BUTON/GÖRÜNÜM SIFIRLAMA */
+    .btn-more, .btn-more-custom {
+        background: none !important;
+        background-color: transparent !important;
+        color: #007bff !important;
+        border: none !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+</style>

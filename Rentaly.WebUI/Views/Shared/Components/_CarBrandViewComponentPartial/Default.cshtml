@@ -1,55 +1,131 @@
-﻿<div class="item_filter_group">
-    <h4>Car Body Type</h4>
+﻿@using Rentaly.EntityLayer.Entities
+@model List<Brand>
+
+@{
+    var selectedBrand = Context.Request.Query["brandId"].ToString();
+}
+
+<div class="item_filter_group mb-4">
+    <h4 class="mb-3">Markalar</h4>
     <div class="de_form">
-        <div class="de_checkbox">
-            <input id="car_body_type_1" name="car_body_type_1" type="checkbox" value="car_body_type_1">
-            <label for="car_body_type_1">Convertible</label>
-        </div>
+        @* İlk 5 Marka *@
+        @foreach (var item in Model.Take(5))
+        {
+            <div class="de_checkbox mb-2">
+                <a asp-controller="CarList"
+                   asp-action="Index"
+                   asp-route-brandId="@(selectedBrand == item.BrandId.ToString() ? "" : item.BrandId.ToString())"
+                   asp-route-vtype="@Context.Request.Query["vtype"]"
+                   asp-route-seat="@Context.Request.Query["seat"]"
+                   asp-route-minPrice="@Context.Request.Query["minPrice"]"
+                   asp-route-maxPrice="@Context.Request.Query["maxPrice"]"
+                   asp-route-pickUpBranchId="@Context.Request.Query["pickUpBranchId"]"
+                   class="filter-link d-flex align-items-center py-1 @(selectedBrand == item.BrandId.ToString() ? "active-filter" : "")">
 
-        <div class="de_checkbox">
-            <input id="car_body_type_2" name="car_body_type_2" type="checkbox" value="car_body_type_2">
-            <label for="car_body_type_2">Coupe</label>
-        </div>
+                    <i class="fa @(selectedBrand == item.BrandId.ToString() ? "fa-check-square" : "fa-square-o") me-2"></i>
+                    <label>@item.BrandName</label>
+                </a>
+            </div>
+        }
 
-        <div class="de_checkbox">
-            <input id="car_body_type_3" name="car_body_type_3" type="checkbox" value="car_body_type_3">
-            <label for="car_body_type_3">Exotic Cars</label>
-        </div>
+        @if (Model.Count > 5)
+        {
+            <div class="collapse" id="moreBrands">
+                @foreach (var item in Model.Skip(5))
+                {
+                    <div class="de_checkbox mb-2">
+                        <a asp-controller="CarList"
+                           asp-action="Index"
+                           asp-route-brandId="@(selectedBrand == item.BrandId.ToString() ? "" : item.BrandId.ToString())"
+                           asp-route-vtype="@Context.Request.Query["vtype"]"
+                           asp-route-seat="@Context.Request.Query["seat"]"
+                           asp-route-minPrice="@Context.Request.Query["minPrice"]"
+                           asp-route-maxPrice="@Context.Request.Query["maxPrice"]"
+                           asp-route-pickUpBranchId="@Context.Request.Query["pickUpBranchId"]"
+                           class="filter-link d-flex align-items-center py-1 @(selectedBrand == item.BrandId.ToString() ? "active-filter" : "")">
 
-        <div class="de_checkbox">
-            <input id="car_body_type_4" name="car_body_type_4" type="checkbox" value="car_body_type_4">
-            <label for="car_body_type_4">Hatchback</label>
-        </div>
+                            <i class="fa @(selectedBrand == item.BrandId.ToString() ? "fa-check-square" : "fa-square-o") me-2"></i>
+                            <label>@item.BrandName</label>
+                        </a>
+                    </div>
+                }
+            </div>
 
-        <div class="de_checkbox">
-            <input id="car_body_type_5" name="car_body_type_5" type="checkbox" value="car_body_type_5">
-            <label for="car_body_type_5">Minivan</label>
-        </div>
-
-        <div class="de_checkbox">
-            <input id="car_body_type_6" name="car_body_type_6" type="checkbox" value="car_body_type_6">
-            <label for="car_body_type_6">Truck</label>
-        </div>
-
-        <div class="de_checkbox">
-            <input id="car_body_type_7" name="car_body_type_7" type="checkbox" value="car_body_type_7">
-            <label for="car_body_type_7">Sedan</label>
-        </div>
-
-        <div class="de_checkbox">
-            <input id="car_body_type_8" name="car_body_type_8" type="checkbox" value="car_body_type_8">
-            <label for="car_body_type_8">Sports Car</label>
-        </div>
-
-        <div class="de_checkbox">
-            <input id="car_body_type_9" name="car_body_type_9" type="checkbox" value="car_body_type_9">
-            <label for="car_body_type_9">Station Wagon</label>
-        </div>
-
-        <div class="de_checkbox">
-            <input id="car_body_type_10" name="car_body_type_10" type="checkbox" value="car_body_type_10">
-            <label for="car_body_type_10">SUV</label>
-        </div>
-
+            <a class="btn-more-custom mt-2 d-inline-block text-decoration-none small fw-bold"
+               data-bs-toggle="collapse"
+               href="#moreBrands"
+               role="button"
+               aria-expanded="false">
+                <span class="show-more">Daha Fazla Marka +</span>
+                <span class="show-less d-none">Daha Az Göster -</span>
+            </a>
+        }
     </div>
 </div>
+
+<style>
+    /* 1. TEMANIN TÜM YEŞİL CHECKBOX YAPILARINI ÖLDÜRÜYORUZ */
+    /* Temanın kendi oluşturduğu 'span' veya 'input' bazlı kutuları tamamen gizle */
+    .de_checkbox input,
+    .de_checkbox input[type="checkbox"] + span,
+    .de_checkbox input[type="checkbox"]::before,
+    .de_checkbox input[type="checkbox"]::after {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    /* Temanın arka plan yeşilliğini temizle */
+    .de_checkbox {
+        background: none !important;
+    }
+
+    /* 2. BİZİM FONT-AWESOME İKONLARIMIZIN RENGİ */
+    .filter-link i {
+        color: #888 !important; /* Seçili değilse gri */
+        font-size: 16px;
+    }
+
+    /* 3. AKTİF SEÇİM DURUMU (MAVİ) */
+    .active-filter i,
+    .active-filter label,
+    .active-filter {
+        color: #007bff !important;
+        font-weight: bold !important;
+    }
+
+    /* 4. YAZI VE LİNK STİLLERİ */
+    .item_filter_group .de_form .de_checkbox label {
+        color: #444 !important;
+        font-size: 14.5px;
+        cursor: pointer;
+        margin-left: 0 !important; /* Temanın verdiği kaymaları sıfırla */
+    }
+
+    .filter-link {
+        text-decoration: none !important;
+        color: #444 !important;
+    }
+
+        .filter-link:hover {
+            color: #007bff !important;
+        }
+
+    /* 5. DAHA FAZLA GÖR BUTONU (SIFIRLAMA) */
+    .btn-more-custom {
+        background: none !important;
+        color: #007bff !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    [aria-expanded="true"] .show-more {
+        display: none;
+    }
+
+    [aria-expanded="true"] .show-less {
+        display: inline !important;
+    }
+</style>

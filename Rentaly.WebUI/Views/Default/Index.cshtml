@@ -1,144 +1,96 @@
 ﻿@{
-	Layout = null;
+    Layout = null;
 }
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <!DOCTYPE html>
-
 <html lang="zxx">
-
-	@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <body onload="initialize()">
+    <div id="wrapper">
+        @* Navbar *@
+        @await Component.InvokeAsync("_DefaultNavbarComponentPartial")
 
-	<div id="wrapper">
+        @* İçerik Alanı - Gereksiz BR etiketleri kaldırıldı *@
+        <div class="no-bottom no-top" id="content">
+            <div id="top"></div>
 
-		@await Component.InvokeAsync("_DefaultNavbarComponentPartial")
-		<br /><br />
+            @await Component.InvokeAsync("_DefaultHeroComponentPartial")
+            @await Component.InvokeAsync("_DefaultBrandComponentPartial")
+            @await Component.InvokeAsync("_DefaultOurFeatureComponentPartial")
+            @await Component.InvokeAsync("_DefaultStatisticComponentPartial")
+            @await Component.InvokeAsync("_DefaultCarComponentPartial")
+            @await Component.InvokeAsync("_DefaultAwardsComponentPartial")
+            @await Component.InvokeAsync("_DefaultBlogComponentPartial")
+            @await Component.InvokeAsync("_DefaultTestimonialComponentPartial")
+            @await Component.InvokeAsync("_DefaultFAQComponentPartial")
 
-		<div class="no-bottom no-top" id="content">
+            @* Yeşil Alan (Call to Action) *@
+            @await Component.InvokeAsync("_DefaultCallUsNowComponentPartial")
+        </div>
 
-			<div id="top"></div>
+        @* Alt Kısım *@
+        @await Component.InvokeAsync("_DefaultFooterComponentPartial")
+        @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+    </div>
 
-			@await Component.InvokeAsync("_DefaultHeroComponentPartial")
+    <style>
+        /* 1. GENEL SIFIRLAMA */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow-x: hidden;
+        }
 
-			@await Component.InvokeAsync("_DefaultBrandComponentPartial")
+        /* 2. NAVBAR VE TEPEDEKİ BOŞLUKLARI ÖLDÜR */
+        header {
+            top: 0 !important;
+            margin: 0 !important;
+        }
 
-			@await Component.InvokeAsync("_DefaultOurFeatureComponentPartial")
+        #content {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
 
-			@await Component.InvokeAsync("_DefaultStatisticComponentPartial")
-			
-			@await Component.InvokeAsync("_DefaultCarComponentPartial")	
+        /* 3. SECTIONLAR ARASI OTOMATİK BOŞLUKLARI KONTROL ET */
+        section {
+            padding: 80px 0 !important; /* Standart bölümler için şık bir boşluk */
+            margin: 0 !important;
+            border: none !important;
+        }
 
-			@await Component.InvokeAsync("_DefaultAwardsComponentPartial")
+            /* 4. YEŞİL ALAN (CALL TO ACTION) VE FOOTER BİRLEŞİMİ */
+            /* Bu kısım yeşil alan ile footer arasındaki o hayalet çizgiyi ve boşluğu yok eder */
+            #section-call-to-action,
+            section.call-to-action,
+            .de_light {
+                padding-bottom: 0 !important;
+                margin-bottom: 0 !important;
+            }
 
-			@await Component.InvokeAsync("_DefaultBlogComponentPartial")	
+        footer {
+            margin-top: 0 !important;
+            padding-top: 60px !important;
+            border-top: none !important;
+        }
 
-			@await Component.InvokeAsync("_DefaultTestimonialComponentPartial")	
+        /* 5. FOOTER ALTINDAKİ SİYAH BOŞLUĞU SİL */
+        .subfooter {
+            padding: 15px 0 !important;
+            background: #111 !important;
+        }
 
-			@await Component.InvokeAsync("_DefaultFAQComponentPartial")	
+        /* 6. TEMADAN GELEN ÖZEL BOŞLUKLARI (SPACER) GİZLE */
+        .spacer-single, .spacer-double, .spacer-60, .spacer-20 {
+            display: none !important;
+        }
 
-			@await Component.InvokeAsync("_DefaultCallUsNowComponentPartial")
-
-		</div>
-
-		@await Component.InvokeAsync("_DefaultFooterComponentPartial")
-
-		@await Component.InvokeAsync("_DefaultScriptComponentPartial")
-
-	</div>
-
+        /* 7. MOBİL UYUMLULUK İÇİN TAŞMALARI ÖNLE */
+        #wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+    </style>
 </body>
-
 </html>
-<style>
-	/* 1. Ana Footer'ın alt boşluğunu daralt */
-	footer {
-		padding-top: 40px !important; /* Üstten biraz boşluk kalsın */
-		padding-bottom: 0px !important; /* Alttaki büyük boşluğu sıfırla */
-	}
-
-		/* 2. "Copyright" yazan en alt bandı daralt */
-		footer .subfooter {
-			padding: 10px 0 !important; /* Standart 30-40px olan boşluğu 10px'e çeker */
-			margin: 0 !important;
-		}
-
-		/* 3. Footer içindeki son elemanın (genelde row veya container)
-	   fazladan bıraktığı margin'i temizle */
-		footer .container {
-			margin-bottom: 0 !important;
-			padding-bottom: 0 !important;
-		}
-
-	/* 4. Sayfanın en altındaki siyah boşluğu tamamen yok etmek için */
-	#wrapper {
-		overflow: hidden;
-	}
-	footer {
-		padding-top: 40px !important; /* Üst boşluğu biraz daralttık */
-		padding-bottom: 20px !important; /* Alt boşluğu ciddi oranda azalttık */
-	}
-
-		/* Telif hakkı (Copyright) kısmının altındaki ekstra boşluğu siler */
-		footer .subfooter {
-			padding: 20px 0 !important;
-			margin: 0 !important;
-		}
-	/* Ana içerik kapsayıcısının altındaki 90px'lik zorunlu boşluğu kaldırır */
-	#content.no-bottom.no-top {
-		padding-bottom: 0 !important;
-	}
-
-	/* Footer'ın üstünde oluşabilecek otomatik margin'i sıfırlar */
-	footer {
-		margin-top: 0 !important;
-	}
-	/* Tüm sectionlar arası boşluğu zorla kapatır */
-	section, header, footer {
-		margin: 0 !important;
-		padding-top: 60px !important; /* Standart padding */
-		padding-bottom: 60px !important;
-	}
-
-	/* Yeşil alanın (Call to Action) altındaki boşluğu öldürür */
-	.v-center, .v-align-children {
-		padding-bottom: 0 !important;
-		margin-bottom: 0 !important;
-	}
-
-	/* Eğer arada boş bir div varsa onu gizler */
-	.spacer-single, .spacer-double, .spacer-60 {
-		display: none !important;
-	}
-	/* 1. Sayfanın en tepesindeki hayalet boşluğu siler */
-	html, body {
-		margin: 0 !important;
-		padding: 0 !important;
-	}
-
-	/* 2. Navbar'ın (Header) üzerindeki boşluğu sıfırlar */
-	header {
-		top: 0 !important;
-		margin-top: 0 !important;
-		padding-top: 0 !important;
-		position: absolute; /* Veya fixed, temanın yapısına göre */
-		width: 100%;
-		z-index: 1001;
-	}
-
-	/* 3. Navbar'ın hemen altındaki ilk bölümün (genelde slider veya subheader)
-	   Navbar'ın altında kalmaması için gereken ayar */
-	#content {
-		padding-top: 0 !important;
-		margin-top: 0 !important;
-	}
-
-	/* 4. Senin o yeşil alan ile siyah alan arasındaki boşluk için nokta atışı: */
-	section#call-to-action,
-	.section-dark,
-	footer {
-		margin-top: 0 !important;
-		margin-bottom: 0 !important;
-		border: none !important;
-	}
-</style>

@@ -17,7 +17,10 @@ namespace Rentaly.Businesslayer.Concreate
         {
             _carDal = carDal;
         }
-
+        public List<Car> TGetCarsByCategoryId(int id)
+        {
+            return _carDal.GetCarsByCategoryId(id);
+        }
         public async Task TDeleteAsync(int id)
         {
             await _carDal.DeleteAsync(id);

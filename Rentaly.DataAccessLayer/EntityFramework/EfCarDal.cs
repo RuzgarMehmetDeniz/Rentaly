@@ -16,7 +16,14 @@ namespace Rentaly.DataAccessLayer.EntityFramework
         public EfCarDal(RentalyContext context) : base(context)
         {
         }
-
+        public List<Car> GetCarsByCategoryId(int id)
+        {
+            using var context = new RentalyContext(); // Context adını kontrol et
+            return context.Cars
+                          .Where(x => x.CategoryId == id)
+                          .Include(x => x.Category) // Kategori bilgilerini de görmek istersen
+                          .ToList();
+        }
         public async Task<List<Car>> GetAllCarWithCategoryAsync()
         {
             var context = new RentalyContext();
