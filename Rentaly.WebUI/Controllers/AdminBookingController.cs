@@ -114,7 +114,6 @@ namespace Rentaly.WebUI.Controllers
             ViewBag.Cars = new SelectList(carList, "CarId", "Display");
             ViewBag.CarPrices = carList.ToDictionary(x => x.CarId.ToString(), x => x.DailyPrice.ToString());
         }
-
         public async Task<IActionResult> SendConfirmation(int id)
         {
             var rental = await _context.Rentals.FindAsync(id);
