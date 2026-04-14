@@ -27,7 +27,7 @@ Proje, sorumlulukların ayrıştırılması ve kodun test edilebilirliği için 
 
 ## 💻 Admin Paneli & Yönetim Modülleri
 
-Sistem, tamamen dinamik bir Admin Dashboard üzerinden yönetilmektedir.
+Sistem, tamamen dinamik bir Admin Sayfası üzerinden yönetilmektedir.
 
 ### 🏎 Araç ve Filo Yönetimi
 * **Araç & Marka Yönetimi:** Tüm araç filosunun, markaların ve hiyerarşik yapıdaki modellerin tam kontrolü.
