@@ -8,7 +8,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// DAL
+// --- DAL (Data Access Layer) Servisleri ---
 builder.Services.AddScoped<ICategoryDal, EfCategoryDal>();
 builder.Services.AddScoped<ICarDal, EfCarDal>();
 builder.Services.AddScoped<IBranchDal, EfBranchDal>();
@@ -23,7 +23,7 @@ builder.Services.AddScoped<ITestimonialDal, EfTestimonialDal>();
 builder.Services.AddScoped<IFAQDal, EfFAQDal>();
 builder.Services.AddScoped<IContactDal, EfContactDal>();
 
-// Business
+// --- Business Layer Servisleri ---
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 builder.Services.AddScoped<ICarService, CarManager>();
 builder.Services.AddScoped<IBranchService, BranchManager>();
@@ -38,13 +38,14 @@ builder.Services.AddScoped<ITestimonialService, TestimonialManager>();
 builder.Services.AddScoped<IFAQService, FAQManager>();
 builder.Services.AddScoped<IContactService, ContactManager>();
 
+// Veritabaný ve Diðer Yapýlandýrmalar
 builder.Services.AddDbContext<RentalyContext>();
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// --- Middleware Yapýlandýrmasý ---
 
 if (!app.Environment.IsDevelopment())
 {
@@ -52,11 +53,18 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// 404 ve Diðer Hata Kodlarý Ýçin Yönlendirme
+// Not: Bu satýr StaticFiles'dan önce veya hemen sonra olabilir.
+app.UseStatusCodePagesWithReExecute("/ErrorPage/Index/", "?code={0}");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthorization();
 
+// Route Yapýlandýrmasý
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

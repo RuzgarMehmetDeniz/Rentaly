@@ -1,4 +1,6 @@
-﻿@model List<Car>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Car>
 @{
     Layout = null;
 }
@@ -14,7 +16,6 @@
         <div class="no-bottom no-top" id="content">
             <div id="top"></div>
 
-            @* 1. DEĞİŞİKLİK: Subheader'a margin-top: 0 ve navbar yüksekliği kadar padding-top eklendi *@
             <section id="subheader" class="jarallax text-light" style="padding: 150px 0 100px 0; margin-top: 0;">
                 <img src="/rentaly/images/background/2.jpg" class="jarallax-img" alt="">
                 <div class="center-y relative text-center">
@@ -93,6 +94,28 @@
                                     </div>
                                 }
                             </div>
+
+                            @* SAYFALAMA BUTONLARI *@
+                            <div class="row">
+                                <div class="col-md-12 text-center mt-5">
+                                    <div class="pagination-wrapper">
+                                        @Html.PagedListPager(Model, page => Url.Action("Index", new 
+                                        { 
+                                            page,
+                                            vtype = Context.Request.Query["vtype"], 
+                                            brandId = Context.Request.Query["brandId"], 
+                                            seat = Context.Request.Query["seat"],
+                                            minPrice = Context.Request.Query["minPrice"],
+                                            maxPrice = Context.Request.Query["maxPrice"]
+                                        }), 
+                                        new PagedListRenderOptions {
+                                            LiElementClasses = new string[] { "page-item" },
+                                            PageClasses = new string[] { "page-link" },
+                                            UlElementClasses = new string[] { "pagination", "justify-content-center" }
+                                        })
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,9 +125,29 @@
         @await Component.InvokeAsync("_DefaultFooterComponentPartial")
         @await Component.InvokeAsync("_DefaultScriptComponentPartial")
     </div>
+
+    @* Sayfalama için özel CSS *@
+    <style>
+        .pagination-wrapper .page-item.active .page-link {
+            background-color: #1ecb15;
+            border-color: #1ecb15;
+            color: #fff;
+        }
+        .pagination-wrapper .page-link {
+            color: #111;
+            font-weight: bold;
+            border: 1px solid #eee;
+            margin: 0 3px;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        .pagination-wrapper .page-link:hover {
+            background-color: #1ecb15;
+            color: #fff;
+        }
+    </style>
 </body>
 </html>
-
 <style>
     /* 2. DEĞİŞİKLİK: Navbar'ı en üste sabitleyip beyaz bandı kaldıran CSS */
     header {

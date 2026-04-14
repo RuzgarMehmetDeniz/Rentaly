@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+@await Component.InvokeAsync("_DefaultHeadComponentPartial")
+
+<style>
+    /* Tarayıcı ve tema varsayılanlarını sıfırlıyoruz */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    #wrapper {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    #content {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Eğer header/navbar bileşeninden gelen bir boşluk varsa onu da engeller */
+    section {
+        border: none !important;
+    }
+</style>
+
+<body class="dark-scheme">
+    <div id="wrapper">
+
+        <div id="de-preloader"></div>
+
+        <div class="no-bottom no-top" id="content">
+            <div id="top"></div>
+
+            <section id="section-hero" class="jarallax text-light vertical-center d-flex align-items-center"
+                     style="background: #222; height: 100vh; width: 100vw; padding: 0; margin: 0; overflow: hidden;" aria-label="section">
+
+                <img src="/rentaly/images/background/11.jpg" class="jarallax-img" alt="">
+
+                @* Karartma overlay'i *@
+                <div class="de-overlay"></div>
+
+                <div class="container" style="position: relative; z-index: 2;">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="wow fadeInUp" data-wow-delay=".2s">Bir şey eksik...</h1>
+                            <p class="lead wow fadeInUp" data-wow-delay=".4s">
+                                Görünüşe göre bu sayfa kayıp. Ama merak etmeyin, en iyi ekibimiz bu sorunu çözmek için çalışıyor.
+                            </p>
+                            <div class="spacer-10"></div>
+                            <a href="/Default/Index/" class="btn-main wow fadeInUp" data-wow-delay=".6s">Geri Dön</a>
+                        </div>
+
+                        <div class="col-lg-6 text-center">
+                            <h1 class="s2 wow fadeInUp" data-wow-delay=".4s" style="font-size: 160px; line-height: 160px; margin: 0;">
+                                <span class="c1">404</span>
+                            </h1>
+                            <h4 class="wow fadeInUp" data-wow-delay=".6s">Sayfa Bulunamadı</h4>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+
+</body>
+</html>
